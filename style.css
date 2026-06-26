@@ -194,6 +194,14 @@
     box-shadow:0 0 0 3px var(--green-soft)}
   .field textarea{resize:vertical;min-height:84px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  /* iOS datum-fix */
+  input[type="date"]{
+    -webkit-appearance:textfield;
+    appearance:textfield;
+    min-width:0;width:100%;
+    color:var(--ink);
+    display:block;
+  }
   .hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.4}
   .note{background:var(--green-soft);border:1px solid rgba(79,111,82,.25);border-radius:14px;
     padding:12px 14px;font-size:12.5px;color:var(--forest-deep);line-height:1.5;margin-top:16px;
@@ -282,11 +290,3 @@
     border:1px solid rgba(255,255,255,.12);background:var(--paper);
     position:relative;width:100%;height:520px;}
   .kalender-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;display:block;border:0;}
-
-.field input[type="date"]{
-  -webkit-appearance: none;
-  appearance: none;
-  min-width: 0;
-  width: 100%;
-  color: var(--ink);
-}
