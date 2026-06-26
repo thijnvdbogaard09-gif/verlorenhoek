@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sint Jozefhoeve — Groepsaccommodatie Weert</title>
+
+  <!-- ▸ Vervang de URL hieronder met je eigen GitHub Pages URL zodra je die hebt -->
+  <meta name="app-url" content="https://JOUW-NAAM.github.io/jozefhoeve">
+
+  <!-- Web App installatie (iPhone "Zet op beginscherm") -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Jozefhoeve">
+  <meta name="theme-color" content="#2c3f33">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Touch-icoon voor iPhone beginscherm (SVG inline als fallback) -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232c3f33'/%3E%3Ccircle cx='90' cy='90' r='90' fill='%232c3f33'/%3E%3Cpath d='M90 36c-18 18-27 32-27 50a27 27 0 0054 0c0-18-9-32-27-50z' fill='%237fae74'/%3E%3Cpath d='M90 58v64' stroke='%232c3f33' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3ecdd;
+    --paper:#fffdf7;
+    --paper-2:#f8f1e3;
+    --forest:#2c3f33;
+    --forest-deep:#1f2d24;
+    --green:#4f6f52;
+    --green-soft:#e4ecdf;
+    --clay:#c06b3e;
+    --clay-soft:#f3ddc9;
+    --ochre:#d6a441;
+    --ink:#2a2620;
+    --muted:#7a7163;
+    --line:rgba(42,38,32,.10);
+    --shadow:0 18px 50px -20px rgba(31,45,36,.45);
+    --r:22px;
+    --tab-h:70px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:"Plus Jakarta Sans",-apple-system,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(120% 80% at 50% -10%, #e9e0cd 0%, var(--bg) 55%),
+      var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100dvh;
+  }
+  /* faint topographic texture on desktop backdrop */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(circle at 18% 30%, rgba(79,111,82,.06) 0 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(192,107,62,.05) 0 2px, transparent 2px);
+    background-size:34px 34px, 46px 46px;
+    opacity:.6;
+  }
+
+  /* ---------- App shell / phone frame ---------- */
+  .app{
+    position:relative;z-index:1;
+    width:100%;max-width:440px;height:100dvh;max-height:100dvh;
+    background:var(--paper);
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  @media(min-width:560px){
+    .app{
+      height:min(940px,94dvh);
+      border-radius:38px;
+      box-shadow:var(--shadow), inset 0 0 0 1px rgba(255,255,255,.5);
+      border:1px solid rgba(31,45,36,.18);
+    }
+  }
+
+  /* ---------- App bar ---------- */
+  .appbar{
+    flex:0 0 auto;display:flex;align-items:center;gap:10px;
+    padding:calc(env(safe-area-inset-top) + 14px) 18px 12px;
+    background:rgba(255,253,247,.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);position:relative;z-index:5;
+  }
+  .brand-mark{width:34px;height:34px;flex:0 0 auto}
+  .brand-text{display:flex;flex-direction:column;line-height:1}
+  .brand-text b{font-family:"Fraunces",serif;font-weight:600;font-size:17px;letter-spacing:.2px;color:var(--forest)}
+  .brand-text span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  .appbar-right{margin-left:auto;display:flex;align-items:center;gap:9px}
+  .appbar-right .call{margin-left:0}
+  .flag{width:30px;height:21px;border-radius:4px;border:1px solid var(--line);overflow:hidden;cursor:pointer;
+    padding:0;background:none;opacity:.45;display:block;flex:0 0 auto;
+    transition:opacity .2s ease, transform .12s ease, box-shadow .2s ease}
+  .flag svg{width:100%;height:100%;display:block}
+  .flag.active{opacity:1;box-shadow:0 0 0 2px var(--forest)}
+  .flag:hover{opacity:.85}
+  .flag:active{transform:scale(.93)}
+  .appbar .call{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:50%;background:var(--green-soft);color:var(--forest);text-decoration:none}
+  .appbar .call svg{width:19px;height:19px}
+
+  /* ---------- Screens ---------- */
+  .screens{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+    scroll-behavior:smooth;padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom) + 16px)}
+  .screen{display:none;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+  .screen.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .stagger>*{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+  .stagger>*:nth-child(1){animation-delay:.04s}
+  .stagger>*:nth-child(2){animation-delay:.10s}
+  .stagger>*:nth-child(3){animation-delay:.16s}
+  .stagger>*:nth-child(4){animation-delay:.22s}
+  .stagger>*:nth-child(5){animation-delay:.28s}
+  .stagger>*:nth-child(6){animation-delay:.34s}
+  .stagger>*:nth-child(7){animation-delay:.40s}
+
+  .pad{padding:20px 18px}
+  .section-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);font-weight:700}
+  h2.title{font-family:"Fraunces",serif;font-weight:500;font-size:27px;line-height:1.12;color:var(--forest-deep);margin:6px 0 4px}
+  .lead{color:var(--muted);font-size:14.5px;line-height:1.6}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    padding:24px 18px calc(env(safe-area-inset-top) + 26px)}
+  .hero .scene{position:absolute;inset:0;z-index:0}
+  .hero .scene svg{width:100%;height:100%;display:block;object-fit:cover}
+  .hero .veil{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(31,45,36,.05) 0%, rgba(31,45,36,.55) 78%, rgba(31,45,36,.78) 100%)}
+  .hero .inner{position:relative;z-index:2;padding-top:120px}
+  .hero .tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;
+    letter-spacing:.06em;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+  .hero h1{font-family:"Fraunces",serif;font-weight:500;font-size:40px;line-height:1;margin:14px 0 8px;
+    text-shadow:0 2px 24px rgba(0,0,0,.35)}
+  .hero p{font-size:15px;line-height:1.55;max-width:30ch;color:rgba(255,255,255,.92)}
+  .hero .cta{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .top-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+  .btn{appearance:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;
+    padding:13px 18px;border-radius:14px;display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;transition:transform .15s ease, box-shadow .2s ease, background .2s ease}
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--clay);color:#fff;box-shadow:0 10px 22px -10px rgba(192,107,62,.9)}
+  .btn-primary:hover{background:#b25f33}
+  .btn-ghost{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4)}
+  .btn-ghost:hover{background:rgba(255,255,255,.26)}
+  .btn-block{width:100%;justify-content:center}
+  .btn-green{background:var(--green);color:#fff;box-shadow:0 10px 22px -12px rgba(79,111,82,.9)}
+  .btn-green:hover{background:#43603f}
+
+  /* ---------- Cards / grids ---------- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .feat{background:var(--paper-2);border:1px solid var(--line);border-radius:18px;padding:15px;
+    transition:transform .18s ease}
+  .feat:hover{transform:translateY(-3px)}
+  .feat .ic{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:var(--green-soft);color:var(--green);margin-bottom:10px}
+  .feat .ic svg{width:21px;height:21px}
+  .feat h4{font-size:14.5px;color:var(--forest-deep);margin-bottom:3px}
+  .feat p{font-size:12.5px;color:var(--muted);line-height:1.45}
+
+  .banner{margin:18px 0 4px;border-radius:20px;padding:18px;color:#fff;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--clay),#9a4f2c)}
+  .banner::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;
+    background:rgba(255,255,255,.12)}
+  .banner .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .banner h3{font-family:"Fraunces",serif;font-weight:500;font-size:22px;margin:5px 0 6px}
+  .banner p{font-size:13px;opacity:.92;max-width:30ch;line-height:1.5}
+
+  .quick{display:flex;gap:10px;margin-top:18px}
+  .quick a{flex:1;text-decoration:none;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:16px;padding:14px 12px;text-align:center;color:var(--forest-deep)}
+  .quick a span{display:block}
+  .quick a .ic{width:34px;height:34px;margin:0 auto 8px;border-radius:10px;background:var(--green-soft);
+    color:var(--green);display:flex;align-items:center;justify-content:center}
+  .quick a .ic svg{width:18px;height:18px}
+  .quick a .lab{font-size:12.5px;font-weight:600}
+
+  /* ---------- Accommodation cards ---------- */
+  .stay{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    margin-top:14px;box-shadow:0 10px 30px -24px rgba(31,45,36,.6)}
+  .stay .top{position:relative;height:128px;overflow:hidden}
+  .stay .top svg{width:100%;height:100%;display:block}
+  .stay .cap{position:absolute;left:12px;top:12px;background:rgba(31,45,36,.78);color:#fff;
+    font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;backdrop-filter:blur(3px);
+    display:inline-flex;align-items:center;gap:6px}
+  .stay .cap svg{width:13px;height:13px}
+  .stay .body{padding:16px}
+  .stay h3{font-family:"Fraunces",serif;font-weight:500;font-size:21px;color:var(--forest-deep)}
+  .stay .desc{font-size:13.5px;color:var(--muted);line-height:1.55;margin:5px 0 12px}
+  .stay .toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:11px 14px;
+    cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--forest)}
+  .stay .toggle .chev{transition:transform .25s ease}
+  .stay.open .toggle .chev{transform:rotate(180deg)}
+  .stay .more{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .stay.open .more{max-height:420px}
+  .stay .more ul{list-style:none;padding:14px 2px 4px}
+  .stay .more li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink);padding:7px 0}
+  .stay .more li svg{width:17px;height:17px;color:var(--green);flex:0 0 auto;margin-top:1px}
+  .stay .more .book{margin-top:10px}
+
+  /* ---------- Activity list ---------- */
+  .act{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);
+    border-radius:18px;padding:14px;margin-top:11px;transition:transform .18s ease}
+  .act:hover{transform:translateX(3px)}
+  .act .ic{width:46px;height:46px;flex:0 0 auto;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:var(--clay-soft);color:var(--clay)}
+  .act .ic svg{width:24px;height:24px}
+  .act h4{font-size:15px;color:var(--forest-deep);margin-bottom:2px}
+  .act p{font-size:13px;color:var(--muted);line-height:1.5}
+  .act .dist{font-size:11.5px;color:var(--green);font-weight:600;margin-top:4px}
+
+  /* ---------- Form ---------- */
+  .form{margin-top:8px}
+  .field{margin-top:14px}
+  .field label{display:block;font-size:12.5px;font-weight:600;color:var(--forest-deep);margin-bottom:6px}
+  .field input,.field select,.field textarea{width:100%;font-family:inherit;font-size:14.5px;color:var(--ink);
+    background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:13px 14px;outline:none;
+    transition:border .18s ease, box-shadow .18s ease}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);
+    box-shadow:0 0 0 3px var(--green-soft)}
+  .field textarea{resize:vertical;min-height:84px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+  .note{background:var(--green-soft);border:1px solid rgba(79,111,82,.25);border-radius:14px;
+    padding:12px 14px;font-size:12.5px;color:var(--forest-deep);line-height:1.5;margin-top:16px;
+    display:flex;gap:9px}
+  .note svg{width:18px;height:18px;color:var(--green);flex:0 0 auto;margin-top:1px}
+
+  .success{text-align:center;padding:26px 18px}
+  .success .ring{width:70px;height:70px;border-radius:50%;background:var(--green-soft);color:var(--green);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;animation:pop .4s cubic-bezier(.2,.8,.2,1.4) both}
+  .success .ring svg{width:34px;height:34px}
+  @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+  .success h3{font-family:"Fraunces",serif;font-weight:500;font-size:23px;color:var(--forest-deep);margin-bottom:6px}
+  .success p{font-size:14px;color:var(--muted);line-height:1.55}
+  .recap{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:14px;margin:16px 0;text-align:left}
+  .recap div{display:flex;justify-content:space-between;font-size:13px;padding:5px 0}
+  .recap div span:first-child{color:var(--muted)}
+  .recap div span:last-child{font-weight:600;color:var(--forest-deep)}
+
+  /* contact block */
+  .contact{background:var(--forest-deep);color:#fff;border-radius:var(--r);padding:20px;margin-top:18px;position:relative;overflow:hidden}
+  .contact h3{font-family:"Fraunces",serif;font-weight:500;font-size:20px;margin-bottom:14px}
+  .contact a,.contact .row{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;
+    padding:9px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .contact .row:last-child{border-bottom:none}
+  .contact .ic{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .contact .ic svg{width:17px;height:17px}
+
+  /* ---------- Tab bar ---------- */
+  .subh{font-family:"Fraunces",serif;font-weight:500;font-size:20px;color:var(--forest-deep);margin:3px 0 0}
+
+  /* plattegrond */
+  .plan{margin-top:18px}
+  .plan-img{display:block;width:100%;padding:0;border:1px solid var(--line);background:var(--paper-2);
+    border-radius:18px;overflow:hidden;cursor:pointer;position:relative;margin-top:10px}
+  .plan-img img{width:100%;display:block}
+  .plan-img .zoom{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;
+    background:rgba(31,45,36,.82);color:#fff;font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;backdrop-filter:blur(3px)}
+  .plan-img .zoom svg{width:14px;height:14px}
+  .plan-img.noimg{cursor:default;padding:26px 18px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5}
+  .plan-img.noimg img,.plan-img.noimg .zoom{display:none}
+  .plan-img.noimg::after{content:"Plattegrond is hier in te laden — vraag de indeling gerust bij ons op."}
+  .plan-label{font-size:13px;font-weight:700;color:var(--forest-deep);margin:18px 0 8px}
+  .plan-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .plan-two .plan-img{margin-top:0}
+  .zoom.mini{padding:7px;gap:0}
+
+  /* goed om te weten */
+  .info-rows{margin-top:12px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
+  .info-rows .irow{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .info-rows .irow:last-child{border-bottom:none}
+  .info-rows .irow svg{width:21px;height:21px;color:var(--green);flex:0 0 auto;margin-top:2px}
+  .info-rows .irow b{display:block;font-size:14px;color:var(--forest-deep)}
+  .info-rows .irow span{font-size:13px;color:var(--muted);line-height:1.45}
+
+  /* lightbox */
+  .lightbox{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
+    padding:22px;background:rgba(20,28,22,.93);backdrop-filter:blur(5px)}
+  .lightbox.show{display:flex;animation:fade .22s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .lightbox .close{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:16px;width:40px;height:40px;
+    border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .lightbox .close svg{width:20px;height:20px}
+
+  /* QR */
+  .qr-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;
+    display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:18px}
+  .qr-wrap{background:#fff;border-radius:14px;padding:14px;border:1px solid var(--line)}
+  .qr-wrap canvas{display:block;width:180px!important;height:180px!important}
+  .qr-url{font-size:12px;color:var(--muted);text-align:center;word-break:break-all;max-width:240px}
+
+  /* Installatiestappen */
+  .steps{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+  .step{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);
+    border-radius:16px;padding:14px}
+  .stepn{width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;
+    font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .step b{font-size:14.5px;color:var(--forest-deep);display:block;margin-bottom:3px}
+  .step p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+
+  /* GitHub-uitleg */
+  .host-card{background:var(--forest-deep);color:#fff;border-radius:20px;padding:20px;margin-top:8px}
+  .host-title{font-weight:700;font-size:14px;display:block;margin-bottom:14px}
+  .host-steps{display:flex;flex-direction:column;gap:10px}
+  .hstep{display:flex;gap:12px;align-items:flex-start}
+  .hstep span{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;
+    font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:1px}
+  .hstep p{font-size:13px;color:rgba(255,255,255,.88);line-height:1.5;margin:0}
+  .hstep b{color:#fff}
+  .hstep code{font-size:12px;background:rgba(255,255,255,.15);padding:1px 6px;border-radius:5px}
+  .host-result{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:14px;border-top:1px solid rgba(255,255,255,.14);padding-top:12px}
+  .host-result code{font-size:12px;background:rgba(255,255,255,.15);padding:2px 7px;border-radius:5px;color:#fff}
+
+  .tabbar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--tab-h) + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+    background:rgba(255,253,247,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+    display:flex;z-index:20}
+  .tab{flex:1;background:none;border:none;cursor:pointer;font-family:inherit;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    color:var(--muted);font-size:9.5px;font-weight:600;letter-spacing:.005em;transition:color .2s ease;padding:0 2px}
+  .tab span:not(.dot){white-space:nowrap}
+  .tab svg{width:21px;height:21px;transition:transform .2s ease}
+  .tab.active{color:var(--forest)}
+  .tab.active svg{transform:translateY(-2px)}
+  .tab .dot{width:5px;height:5px;border-radius:50%;background:var(--clay);opacity:0;transition:opacity .2s ease;margin-top:-1px}
+  .tab.active .dot{opacity:1}
+
+  .footer-mini{text-align:center;font-size:11px;color:var(--muted);padding:14px 18px 4px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- App bar -->
+  <header class="appbar">
+    <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="20" fill="#2c3f33"/>
+      <path d="M20 9c-4 4-6 7-6 11a6 6 0 0012 0c0-4-2-7-6-11z" fill="#7fae74"/>
+      <path d="M20 14v14" stroke="#2c3f33" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="brand-text">
+      <b>Sint Jozefhoeve</b>
+      <span>Weert · Limburg</span>
+    </div>
+    <div class="appbar-right">
+      <button class="flag active" id="flagNl" aria-label="Nederlands" title="Nederlands">
+        <svg viewBox="0 0 30 21"><rect width="30" height="7" y="0" fill="#ae1c28"/><rect width="30" height="7" y="7" fill="#ffffff"/><rect width="30" height="7" y="14" fill="#21468b"/></svg>
+      </button>
+      <button class="flag" id="flagDe" aria-label="Deutsch" title="Deutsch">
+        <svg viewBox="0 0 30 21"><rect width="30" height="7" y="0" fill="#000000"/><rect width="30" height="7" y="7" fill="#dd0000"/><rect width="30" height="7" y="14" fill="#ffce00"/></svg>
+      </button>
+      <a class="call" href="tel:+31495518591" aria-label="Bel ons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Screens -->
+  <main class="screens" id="screens">
+
+    <!-- ============ HOME ============ -->
+    <section class="screen active" id="home">
+      <div class="hero">
+        <div class="scene">
+          <svg viewBox="0 0 440 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#cfd9b8"/><stop offset="1" stop-color="#a7be8c"/>
+              </linearGradient>
+              <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#6f9162"/><stop offset="1" stop-color="#577a4c"/>
+              </linearGradient>
+              <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#436038"/><stop offset="1" stop-color="#33502b"/>
+              </linearGradient>
+            </defs>
+            <rect width="440" height="340" fill="url(#sky)"/>
+            <circle cx="338" cy="78" r="34" fill="#f4e3b5" opacity=".9"/>
+            <path d="M0 196c70-34 130-18 200 4s170 18 240-10v150H0z" fill="url(#h1)"/>
+            <path d="M0 246c80-30 150-8 230 12s150 6 210-18v100H0z" fill="url(#h2)"/>
+            <!-- barn -->
+            <g transform="translate(54,150)">
+              <path d="M0 28 32 6 64 28v44H0z" fill="#7a4a31"/>
+              <path d="M-4 30 32 3 68 30 64 26 32 6 0 26z" fill="#8a5a3b"/>
+              <rect x="24" y="46" width="16" height="26" fill="#5e3622"/>
+            </g>
+            <!-- trees -->
+            <g fill="#2f4a30">
+              <path d="M150 232c-10-8-12-18-12-26 0-12 6-22 14-30 8 8 14 18 14 30 0 8-2 18-12 26z" transform="translate(0,0)"/>
+              <rect x="151" y="226" width="4" height="14" fill="#4a3322"/>
+            </g>
+            <g fill="#356135">
+              <path d="M348 252c-12-9-15-21-15-31 0-15 8-27 17-36 9 9 17 21 17 36 0 10-3 22-15 31z"/>
+              <rect x="349" y="244" width="5" height="18" fill="#4a3322"/>
+            </g>
+          </svg>
+        </div>
+        <img class="hero-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2127_0.jpg" alt="Sint Jozefhoeve in de natuur" onerror="this.style.display='none'">
+        <div class="veil"></div>
+        <div class="inner">
+          <span class="tag">🌿 Groepsaccommodatie</span>
+          <h1>Samen weg,<br>midden in de natuur</h1>
+          <p>Een vrijliggend verblijf voor 20 tot 25 personen, omringd door bos en heide in Weert.</p>
+          <div class="cta">
+            <button class="btn btn-primary" data-go="boeken">Aanvraag doen</button>
+            <button class="btn btn-ghost" data-go="verblijf">Bekijk verblijven</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Welkom op de hoeve</span>
+          <h2 class="title">Ruimte, gastvrijheid en rust</h2>
+          <p class="lead">Op zoek naar een fijn onderkomen voor een weekendje weg, familieweekend of groepsuitje? Bij Hans en Eric van den Bogaard ben je aan het juiste adres. Jong of oud, valide of mindervalide — iedereen is welkom.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+            <h4>Twee accommodaties</h4>
+            <p>Kievitsnest (20) en Zwaluwnest (25), geheel vrijliggend.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14M12 7v6m0 0l-3 7m3-7l3 7"/></svg></div>
+            <h4>Voor iedereen</h4>
+            <p>Zorgfaciliteiten en goede toegankelijkheid op aanvraag.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><path d="M12 3v9"/></svg></div>
+            <h4>Midden in de natuur</h4>
+            <p>Direct gelegen aan bos en heide in de Groene Regio.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <h4>Van alles te doen</h4>
+            <p>Dierenpark, zwemparadijs, bowlen en meer in de buurt.</p>
+          </div>
+        </div>
+
+        <div class="banner">
+          <span class="k">Last minute</span>
+          <h3>Spontaan een weekend vrij?</h3>
+          <p>Vraag naar onze last-minute mogelijkheden — we kijken graag samen wat er kan.</p>
+        </div>
+
+        <div class="quick">
+          <a data-go="verblijf">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+            <span class="lab">Verblijven</span>
+          </a>
+          <a data-go="omgeving">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2"/></svg></span>
+            <span class="lab">Omgeving</span>
+          </a>
+          <a data-go="boeken">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <span class="lab">Aanvragen</span>
+          </a>
+        </div>
+
+        <p class="footer-mini">St. Jozefhoeve · Laurabosweg 4, 6006 VR Weert</p>
+      </div>
+    </section>
+
+    <!-- ============ VERBLIJF ============ -->
+    <section class="screen" id="verblijf">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Verblijven</span>
+          <h2 class="title">Kies jullie plek</h2>
+          <p class="lead">Twee ruime, vrijliggende groepsaccommodaties en een trekkershut — elk met een eigen sfeer. Tik op een verblijf voor meer details.</p>
+        </div>
+
+        <!-- Zwaluwnest -->
+        <article class="stay" data-stay>
+          <div class="top">
+            <img class="top-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p649/2127_0.jpg" alt="Zwaluwnest" onerror="this.style.display='none'"><svg viewBox="0 0 440 130" preserveAspectRatio="xMidYMid slice"><rect width="440" height="130" fill="#dfe6cf"/><circle cx="370" cy="34" r="22" fill="#f0dca6"/><path d="M0 86c80-22 150-6 220 8s140 4 220-16v52H0z" fill="#6f9162"/><path d="M0 104c90-16 160 0 230 12s130 0 210-14v28H0z" fill="#456038"/><g transform="translate(40,52)"><path d="M0 24 28 6 56 24v34H0z" fill="#8a5a3b"/><rect x="22" y="40" width="12" height="18" fill="#5e3622"/></g></svg>
+            <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Tot 25 personen</span>
+          </div>
+          <div class="body">
+            <h3>Zwaluwnest</h3>
+            <p class="desc">De grootste accommodatie: ruim opgezet en geknipt voor grotere families of groepen die er samen even helemaal tussenuit willen.</p>
+            <button class="toggle" data-toggle>Bekijk voorzieningen
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="more">
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Volledig uitgeruste keuken</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Ruime woon- en eetkamer</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Meerdere slaapkamers, voldoende sanitair</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Groot buitenterras en eigen parkeerplek</li>
+              </ul>
+              <button class="btn btn-green btn-block book" data-book="zwaluwnest">Aanvraag voor Zwaluwnest</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kievitsnest -->
+        <article class="stay" data-stay>
+          <div class="top">
+            <img class="top-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p665/2185_0.jpg" alt="Kievitsnest" onerror="this.style.display='none'"><svg viewBox="0 0 440 130" preserveAspectRatio="xMidYMid slice"><rect width="440" height="130" fill="#e3e7d3"/><circle cx="64" cy="32" r="20" fill="#f0dca6"/><path d="M0 90c90-20 150 0 230 12s130-2 210-18v44H0z" fill="#789a64"/><path d="M0 106c80-14 160 2 240 12s120-2 200-16v26H0z" fill="#4a6a3c"/><g transform="translate(320,50)"><path d="M0 26 26 8 52 26v32H0z" fill="#7a4a31"/><rect x="20" y="42" width="12" height="16" fill="#5e3622"/></g></svg>
+            <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Tot 20 personen</span>
+          </div>
+          <div class="body">
+            <h3>Kievitsnest</h3>
+            <p class="desc">Gezellig en compleet ingericht, met genoeg ruimte voor jong en oud. Een fijne uitvalsbasis voor een weekend in de natuur.</p>
+            <button class="toggle" data-toggle>Bekijk voorzieningen
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="more">
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Goed uitgeruste keuken</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Comfortabele slaapkamers</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Genoeg badkamers voor de hele groep</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Tuin met terras, rustig gelegen</li>
+              </ul>
+              <button class="btn btn-green btn-block book" data-book="kievitsnest">Aanvraag voor Kievitsnest</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Trekkershut -->
+        <article class="stay" data-stay>
+          <div class="top">
+            <img class="top-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p651/2197_1.jpg" alt="Trekkershut" onerror="this.style.display='none'"><svg viewBox="0 0 440 130" preserveAspectRatio="xMidYMid slice"><rect width="440" height="130" fill="#dde4cf"/><path d="M0 92c100-18 150 4 230 14s120-4 210-18v42H0z" fill="#6f9162"/><g transform="translate(170,46)"><path d="M0 30 32 6 64 30v30H0z" fill="#8a5a3b"/><path d="M-4 32 32 4 68 32" fill="none" stroke="#6e4528" stroke-width="4"/><rect x="26" y="44" width="12" height="16" fill="#5e3622"/></g></svg>
+            <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Kleine groep</span>
+          </div>
+          <div class="body">
+            <h3>Trekkershut</h3>
+            <p class="desc">Een knus, eenvoudig verblijf voor een klein gezelschap. Ideaal voor wandelaars en fietsers die de omgeving willen verkennen.</p>
+            <button class="toggle" data-toggle>Bekijk voorzieningen
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="more">
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Knus verblijf met basisvoorzieningen</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Midden in de natuur</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Perfect voor wandel- en fietstochten</li>
+              </ul>
+              <button class="btn btn-green btn-block book" data-book="trekkershut">Aanvraag voor Trekkershut</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Zorg -->
+        <article class="stay" data-stay style="border-color:rgba(79,111,82,.4)">
+          <div class="body">
+            <h3>Zorg &amp; toegankelijkheid</h3>
+            <p class="desc">Is iemand in de groep mindervalide? De St. Jozefhoeve beschikt over de juiste zorgfaciliteiten of regelt deze desgewenst. Bel of stuur een aanvraag, dan bespreken we samen de mogelijkheden.</p>
+            <button class="btn btn-green btn-block book" data-book="">Bespreek de mogelijkheden</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ FACILITEITEN ============ -->
+    <section class="screen" id="faciliteiten">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Faciliteiten</span>
+          <h2 class="title">Faciliteiten &amp; zorg</h2>
+          <p class="lead">De accommodaties zijn ruim uitgerust en geschikt voor gasten met een zorgvraag. Het Kievitsnest is bovendien geheel gelijkvloers en drempelvrij.</p>
+        </div>
+
+        <!-- Plattegronden -->
+        <div class="plan">
+          <span class="section-kicker" style="color:var(--green)">Plattegronden</span>
+          <h3 class="subh">Indeling van de verblijven</h3>
+
+          <p class="plan-label">Kievitsnest</p>
+          <button class="plan-img" data-zoom="https://www.jozefhoeve.nl/images/pages/s1/p665/large_3022_1.jpg" aria-label="Vergroot plattegrond Kievitsnest">
+            <img src="https://www.jozefhoeve.nl/images/pages/s1/p665/3022_1.jpg" alt="Plattegrond Kievitsnest" onerror="this.closest('.plan-img').classList.add('noimg')">
+            <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg> Tik om te vergroten</span>
+          </button>
+
+          <p class="plan-label">Zwaluwnest</p>
+          <div class="plan-two">
+            <button class="plan-img" data-zoom="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2165_3.jpg" aria-label="Vergroot plattegrond Zwaluwnest, deel 1">
+              <img src="https://www.jozefhoeve.nl/images/pages/s1/p649/2165_3.jpg" alt="Plattegrond Zwaluwnest" onerror="this.closest('.plan-img').classList.add('noimg')">
+              <span class="zoom mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+            </button>
+            <button class="plan-img" data-zoom="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2165_4.jpg" aria-label="Vergroot plattegrond Zwaluwnest, deel 2">
+              <img src="https://www.jozefhoeve.nl/images/pages/s1/p649/2165_4.jpg" alt="Plattegrond Zwaluwnest" onerror="this.closest('.plan-img').classList.add('noimg')">
+              <span class="zoom mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Zorgvoorzieningen -->
+        <div style="margin-top:22px">
+          <span class="section-kicker" style="color:var(--clay)">Zorgvoorzieningen</span>
+          <h3 class="subh">Goed verzorgd verblijven</h3>
+        </div>
+        <div class="grid2">
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-5h18v5M3 18v2M21 18v2M3 13V8a1 1 0 0 1 1-1h6v6"/><circle cx="6.5" cy="10" r="1.2" fill="currentColor"/></svg></div>
+            <h4>Hoog-laagbedden</h4>
+            <p>In hoogte verstelbare zorgbedden.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M8.5 6.5L12 3l3.5 3.5"/><path d="M6 21v-4h12v4M9 17v-2h6v2"/></svg></div>
+            <h4>Tilliften</h4>
+            <p>Voor veilige transfers, op aanvraag.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l1.5 8h7L17 5M8.5 13v6M15.5 13v6M6 19h12"/><path d="M11 2.5v.5M14 2.5v.5"/></svg></div>
+            <h4>Douchestoelen</h4>
+            <p>Veilig en comfortabel douchen.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><path d="M11 6v6h5l3 7M11 9h4M8 12a5 5 0 1 0 5 7"/></svg></div>
+            <h4>Rolstoeltoilet &amp; -badkamer</h4>
+            <p>Aangepast, ruim en toegankelijk sanitair.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17M5 21h14M13 12h.01"/><path d="M3 8l-1.5 1.5L3 11M21 8l1.5 1.5L21 11"/></svg></div>
+            <h4>Brede deuren</h4>
+            <p>Drempelvrije, ruime doorgangen.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20v-7h4v7M14 20v-10h4v10"/></svg></div>
+            <h4>Gelijkvloers</h4>
+            <p>Alles op de begane grond (Kievitsnest).</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C7 17 4 14 4 9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 14 17 17 12 21z"/><path d="M12 9v4M10 11h4"/></svg></div>
+            <h4>Zorg op maat</h4>
+            <p>Overige hulpmiddelen op aanvraag.</p>
+          </div>
+        </div>
+
+        <!-- Goed om te weten -->
+        <div style="margin-top:22px">
+          <span class="section-kicker" style="color:var(--clay)">Goed om te weten</span>
+        </div>
+        <div class="info-rows">
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Aankomst &amp; vertrek</b><span>Aankomst vanaf 15:00, vertrek om 10:00 (zondag 16:00)</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg><div><b>Voorzieningen</b><span>Luxe keuken, recreatiezaal, wifi en eigen parkeerplek</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7"/></svg><div><b>Te huur</b><span>Laken- en handdoekpakketten beschikbaar</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="10" r="1.6"/><circle cx="9.5" cy="6.5" r="1.6"/><circle cx="14.5" cy="6.5" r="1.6"/><circle cx="18.5" cy="10" r="1.6"/><path d="M12 11.5c-3 0-5 2.2-5 4.5S9 19.5 12 19.5s5-1.2 5-3.5-2-4.5-5-4.5z"/></svg><div><b>Huisdier</b><span>Hond welkom in overleg</span></div></div>
+        </div>
+
+        <button class="btn btn-green btn-block book" data-book="" style="margin-top:20px">Bespreek je zorgwensen</button>
+
+        <div class="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>Specifieke zorgwensen of hulpmiddelen nodig? Geef het door bij je aanvraag — dan kijken we graag wat mogelijk is.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OMGEVING ============ -->
+    <section class="screen" id="omgeving">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Activiteiten &amp; omgeving</span>
+          <h2 class="title">Genoeg te beleven</h2>
+          <p class="lead">De hoeve ligt aan bos en heide, met volop activiteiten in de buurt — ook bij minder weer hoef je je niet te vervelen.</p>
+        </div>
+
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-6 4-9 8-9s6 3 8 9"/><circle cx="12" cy="6" r="3"/></svg></div>
+          <div><h4>Kangoeroe- &amp; emoepark</h4><p>Vlak tegenover het terrein — leuk voor jong en oud.</p><div class="dist">Op loopafstand</div></div>
+        </div>
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V3l8 3-8 3"/><circle cx="12" cy="20" r="2"/></svg></div>
+          <div><h4>Golfclinic</h4><p>Voor een sportieve dag is golf om de hoek.</p><div class="dist">In de buurt</div></div>
+        </div>
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2 1.5 4 1.5S10 16 12 16s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 20c2 0 2 1.5 4 1.5S10 20 12 20s2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="14" cy="8" r="2"/></svg></div>
+          <div><h4>Overdekt zwemparadijs</h4><p>Lekker zwemmen, ook als het buiten regent.</p><div class="dist">Korte rit</div></div>
+        </div>
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-6m16 6v-6M4 14h16M8 14V8l4-3 4 3v6"/></svg></div>
+          <div><h4>Overdekte speeltuin</h4><p>Binnenpret voor de kinderen, weer of geen weer.</p><div class="dist">Korte rit</div></div>
+        </div>
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="10" cy="9" r="1.2" fill="currentColor"/><circle cx="13" cy="11" r="1.2" fill="currentColor"/></svg></div>
+          <div><h4>Bowlingbaan</h4><p>Gezellige avond met de hele groep.</p><div class="dist">In de buurt</div></div>
+        </div>
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2"/></svg></div>
+          <div><h4>Wandelen in bos &amp; heide</h4><p>Vanaf de voordeur zo de natuur in.</p><div class="dist">Direct gelegen</div></div>
+        </div>
+        <div class="act">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-8h5l3 8M10 9l2-4h3"/></svg></div>
+          <div><h4>Fietsen in de Groene Regio</h4><p>Mooie routes door het Limburgse landschap.</p><div class="dist">Vanaf de hoeve</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOEKEN ============ -->
+    <section class="screen" id="boeken">
+      <div class="pad" id="bookWrap">
+        <div class="stagger" id="bookFormView">
+          <div>
+            <span class="section-kicker">Aanvraag</span>
+            <h2 class="title">Vraag jullie verblijf aan</h2>
+            <p class="lead">Vul je gegevens en wensen in — we nemen zo snel mogelijk contact op om de mogelijkheden en beschikbaarheid door te nemen.</p>
+          </div>
+
+          <div class="form">
+            <div class="field">
+              <label for="acco">Accommodatie</label>
+              <select id="acco">
+                <option value="zwaluwnest">Zwaluwnest (25 pers.)</option>
+                <option value="kievitsnest">Kievitsnest (20 pers.)</option>
+                <option value="trekkershut">Trekkershut</option>
+                <option value="onbekend">Weet ik nog niet</option>
+              </select>
+            </div>
+            <div class="two">
+              <div class="field"><label for="from">Aankomst</label><input type="date" id="from"></div>
+              <div class="field"><label for="to">Vertrek</label><input type="date" id="to"></div>
+            </div>
+            <div class="field">
+              <label for="people">Aantal personen</label>
+              <input type="number" id="people" min="1" max="25" placeholder="bijv. 18">
+            </div>
+            <div class="field"><label for="name">Naam</label><input type="text" id="name" placeholder="Voor- en achternaam"></div>
+            <div class="two">
+              <div class="field"><label for="email">E-mail</label><input type="email" id="email" placeholder="naam@mail.nl"></div>
+              <div class="field"><label for="phone">Telefoon</label><input type="tel" id="phone" placeholder="06 ..."></div>
+            </div>
+            <div class="field"><label for="msg">Wensen of vragen</label><textarea id="msg" placeholder="Bijv. zorgwensen, aankomsttijd of bijzonderheden"></textarea></div>
+
+            <button class="btn btn-primary btn-block" id="submitBook" style="margin-top:16px">Aanvraag versturen</button>
+
+            <div class="note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <span>Dit is een aanvraag, nog geen definitieve boeking. In een latere versie koppelen we hier een echte beschikbaarheidskalender en bevestiging aan.</span>
+            </div>
+          </div>
+
+          <div class="contact">
+            <h3>Of neem direct contact op</h3>
+            <a href="tel:+31495518591"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>+31 (0)495 - 51 85 91</a>
+            <a href="mailto:info@jozefhoeve.nl"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></span>info@jozefhoeve.nl</a>
+            <a href="https://maps.google.com/?q=Laurabosweg+4+Weert" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>Laurabosweg 4, 6006 VR Weert</a>
+          </div>
+        </div>
+
+        <!-- Success view -->
+        <div class="success" id="bookSuccess" style="display:none">
+          <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <h3>Aanvraag verstuurd!</h3>
+          <p>Bedankt voor je aanvraag. We nemen zo snel mogelijk contact met je op.</p>
+          <div class="recap" id="recap"></div>
+          <button class="btn btn-green btn-block" id="resetBook">Nieuwe aanvraag</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ QR / INSTALLEREN ============ -->
+    <section class="screen" id="qr">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Installeren</span>
+          <h2 class="title">Zet op je beginscherm</h2>
+          <p class="lead">Scan de QR-code met een iPhone-camera om de app direct te openen, en volg daarna de stappen om hem vast op je beginscherm te zetten.</p>
+        </div>
+
+        <!-- QR-code kaart -->
+        <div class="qr-card">
+          <div class="qr-wrap" id="qrWrap">
+            <canvas id="qrCanvas"></canvas>
+          </div>
+          <p class="qr-url" id="qrUrlLabel"></p>
+        </div>
+
+        <!-- iPhone installatie-uitleg -->
+        <div>
+          <span class="section-kicker" style="color:var(--green)">iPhone-instructies</span>
+          <h3 class="subh" style="margin-bottom:14px">Snelkoppeling op beginscherm</h3>
+        </div>
+        <div class="steps">
+          <div class="step"><span class="stepn">1</span><div><b>Scan de QR-code</b><p>Open de Camera-app op je iPhone en houd hem boven de QR-code. Tik de melding aan die verschijnt.</p></div></div>
+          <div class="step"><span class="stepn">2</span><div><b>Tik op het Deel-icoon</b><p>Onderin Safari zie je een vakje met een pijl omhoog — tik daarop.</p></div></div>
+          <div class="step"><span class="stepn">3</span><div><b>"Zet op beginscherm"</b><p>Scroll in het menu naar beneden en kies "Zet op beginscherm". Geef het een naam en tik op "Voeg toe".</p></div></div>
+          <div class="step"><span class="stepn">4</span><div><b>Klaar!</b><p>De app staat nu op je beginscherm met een eigen icoon — en opent zonder adresbalk als een echte app.</p></div></div>
+        </div>
+
+        <!-- GitHub hostinginstructies -->
+        <div class="host-card">
+          <span class="host-title">🌐 Online zetten via GitHub Pages (gratis)</span>
+          <div class="host-steps">
+            <div class="hstep"><span>1</span><p>Maak een gratis account op <b>github.com</b></p></div>
+            <div class="hstep"><span>2</span><p>Maak een nieuw <b>repository</b> aan, naam bijv. <code>jozefhoeve</code></p></div>
+            <div class="hstep"><span>3</span><p>Upload <code>jozefhoeve-app.html</code> en hernoem het naar <code>index.html</code>, upload ook <code>manifest.json</code></p></div>
+            <div class="hstep"><span>4</span><p>Ga naar <b>Settings → Pages</b> en zet de bron op <b>main branch</b></p></div>
+            <div class="hstep"><span>5</span><p>Vervang in de HTML de regel <code>JOUW-NAAM</code> door je GitHub-gebruikersnaam — de QR-code past zich automatisch aan</p></div>
+          </div>
+          <p class="host-result">Je URL wordt dan: <code>https://jouw-naam.github.io/jozefhoeve</code></p>
+        </div>
+
+        <div class="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>De QR-code werkt alleen als de app online staat. Zolang de URL nog een placeholder is, zie je dat in de QR staan.</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Tab bar -->
+  <nav class="tabbar">
+    <button class="tab active" data-go="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      <span>Home</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="verblijf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V9l8-5 8 5v11M9 20v-5h6v5"/></svg>
+      <span>Verblijf</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="faciliteiten">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M12 6v6h4l2.5 7M12 9h3M9 12a4.5 4.5 0 1 0 4.5 6.5"/></svg>
+      <span>Faciliteiten</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="omgeving">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <span>Omgeving</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="boeken">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span>Aanvragen</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="qr">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="19" y="14" width="2" height="2"/><rect x="14" y="19" width="2" height="2"/><rect x="18" y="19" width="3" height="2"/></svg>
+      <span>QR</span><span class="dot"></span>
+    </button>
+  </nav>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="close" id="lightboxClose" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <img id="lightboxImg" src="" alt="Vergrote weergave">
+  </div>
+</div>
+
+<script>
+  const screensEl = document.getElementById('screens');
+
+  function go(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active', s.id===id));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.go===id));
+    // restart stagger animation on the active screen
+    const active = document.getElementById(id);
+    const stag = active.querySelector('.stagger');
+    if(stag){ stag.style.animation='none'; void stag.offsetWidth; stag.style.animation=''; }
+    screensEl.scrollTo({top:0, behavior:'instant' in screensEl ? 'instant' : 'auto'});
+  }
+
+  document.querySelectorAll('[data-go]').forEach(el=>{
+    el.addEventListener('click', ()=>go(el.dataset.go));
+  });
+
+  // Accordion for stays
+  document.querySelectorAll('[data-toggle]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      btn.closest('[data-stay]').classList.toggle('open');
+    });
+  });
+
+  // "Aanvraag voor X" buttons -> jump to form with accommodation preselected
+  document.querySelectorAll('[data-book]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const val = btn.dataset.book;
+      const sel = document.getElementById('acco');
+      if(val){ const m=[...sel.options].find(o=>o.value===val); if(m) sel.value=val; }
+      go('boeken');
+    });
+  });
+
+  // Form submit (in-memory demo)
+  document.getElementById('submitBook').addEventListener('click', ()=>{
+    const sel = document.getElementById('acco');
+    const acco = sel.options[sel.selectedIndex].text;
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    const people = document.getElementById('people').value;
+    const name = document.getElementById('name').value.trim();
+
+    if(!name){ document.getElementById('name').focus(); return; }
+
+    const loc = currentLang==='de' ? 'de-DE' : 'nl-NL';
+    const fmt = d => d ? new Date(d).toLocaleDateString(loc,{day:'numeric',month:'long',year:'numeric'}) : '—';
+    const L = currentLang==='de'
+      ? {acco:'Unterkunft', from:'Anreise', to:'Abreise', people:'Personen', name:'Name'}
+      : {acco:'Accommodatie', from:'Aankomst', to:'Vertrek', people:'Personen', name:'Naam'};
+    const recap = document.getElementById('recap');
+    recap.innerHTML = `
+      <div><span>${L.acco}</span><span>${acco}</span></div>
+      <div><span>${L.from}</span><span>${fmt(from)}</span></div>
+      <div><span>${L.to}</span><span>${fmt(to)}</span></div>
+      <div><span>${L.people}</span><span>${people || '—'}</span></div>
+      <div><span>${L.name}</span><span>${name}</span></div>`;
+
+    document.getElementById('bookFormView').style.display='none';
+    document.getElementById('bookSuccess').style.display='block';
+    screensEl.scrollTo({top:0});
+  });
+
+  document.getElementById('resetBook').addEventListener('click', ()=>{
+    document.getElementById('bookSuccess').style.display='none';
+    document.getElementById('bookFormView').style.display='block';
+    ['from','to','people','name','email','phone','msg'].forEach(id=>document.getElementById(id).value='');
+  });
+
+  // Lightbox (plattegrond vergroten)
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('[data-zoom]').forEach(b=>{
+    b.addEventListener('click', ()=>{ lbImg.src = b.dataset.zoom; lb.classList.add('show'); });
+  });
+  function closeLb(){ lb.classList.remove('show'); lbImg.src=''; }
+  lb.addEventListener('click', e=>{ if(e.target!==lbImg) closeLb(); });
+  document.getElementById('lightboxClose').addEventListener('click', closeLb);
+
+  /* ===== QR-code generator ===== */
+  // Lichte, dependency-vrije QR-encoder (reed-solomon + matrix)
+  (function(){
+    // Mini QR-lib: genereert een QR-code (versie 3, ECC M) op een canvas
+    // Gebaseerd op publiek domein QR-algoritme
+    function drawQR(canvas, text){
+      const QR = window._QRMaker;
+      if(!QR){ canvas.dataset.pending=text; return; }
+      QR(canvas, text);
+    }
+    window._drawQR = drawQR;
+  })();
+
+  // Laad qrcode.js van cdnjs
+  (function loadQRLib(){
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    s.onload=function(){
+      // qrcodejs maakt een div met img; wij willen canvas — genereer in hidden div
+      window._QRMaker=function(canvas,text){
+        const tmp=document.createElement('div');
+        document.body.appendChild(tmp);
+        new QRCode(tmp,{text,width:180,height:180,colorDark:'#1f2d24',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+        // kopieer naar canvas
+        const img=tmp.querySelector('img');
+        img.onload=function(){
+          const ctx=canvas.getContext('2d');
+          canvas.width=180; canvas.height=180;
+          ctx.drawImage(img,0,0,180,180);
+          document.body.removeChild(tmp);
+        };
+        img.onerror=function(){ document.body.removeChild(tmp); };
+      };
+      // teken alsnog als QR-tab al bezocht werd
+      const c=document.getElementById('qrCanvas');
+      if(c && c.dataset.pending) window._QRMaker(c, c.dataset.pending);
+    };
+    document.head.appendChild(s);
+  })();
+
+  function initQR(){
+    const urlMeta = document.querySelector('meta[name="app-url"]');
+    const url = urlMeta ? urlMeta.getAttribute('content') : location.href;
+    document.getElementById('qrUrlLabel').textContent = url;
+    const canvas = document.getElementById('qrCanvas');
+    if(window._QRMaker){ window._QRMaker(canvas, url); }
+    else { canvas.dataset.pending = url; }
+  }
+
+  // Initialiseer QR bij eerste bezoek aan het tabblad
+  const _origGo = go;
+  function go(id){
+    _origGo(id);
+    if(id==='qr') initQR();
+  }
+  // Overschrijf alle kliklisteners met de nieuwe go
+  document.querySelectorAll('[data-go]').forEach(el=>{
+    el.onclick = ()=>go(el.dataset.go);
+  });
+  const MAP = {
+    // App-balk / hero
+    "🌿 Groepsaccommodatie":"🌿 Gruppenunterkunft",
+    "Samen weg,":"Gemeinsam weg,",
+    "midden in de natuur":"mitten in der Natur",
+    "Een vrijliggend verblijf voor 20 tot 25 personen, omringd door bos en heide in Weert.":"Eine frei gelegene Unterkunft für 20 bis 25 Personen, umgeben von Wald und Heide in Weert.",
+    "Aanvraag doen":"Anfrage senden",
+    "Bekijk verblijven":"Unterkünfte ansehen",
+    // Welkom
+    "Welkom op de hoeve":"Willkommen auf dem Hof",
+    "Ruimte, gastvrijheid en rust":"Raum, Gastfreundschaft und Ruhe",
+    "Op zoek naar een fijn onderkomen voor een weekendje weg, familieweekend of groepsuitje? Bij Hans en Eric van den Bogaard ben je aan het juiste adres. Jong of oud, valide of mindervalide — iedereen is welkom.":"Auf der Suche nach einer schönen Unterkunft für ein Wochenende, ein Familienwochenende oder einen Gruppenausflug? Bei Hans und Eric van den Bogaard sind Sie an der richtigen Adresse. Jung oder alt, mit oder ohne Einschränkung — bei uns ist jeder willkommen.",
+    "Twee accommodaties":"Zwei Unterkünfte",
+    "Kievitsnest (20) en Zwaluwnest (25), geheel vrijliggend.":"Kievitsnest (20) und Zwaluwnest (25), komplett frei gelegen.",
+    "Voor iedereen":"Für jeden",
+    "Zorgfaciliteiten en goede toegankelijkheid op aanvraag.":"Pflegeeinrichtungen und gute Barrierefreiheit auf Anfrage.",
+    "Midden in de natuur":"Mitten in der Natur",
+    "Direct gelegen aan bos en heide in de Groene Regio.":"Direkt an Wald und Heide in der Groene Regio gelegen.",
+    "Van alles te doen":"Viel zu erleben",
+    "Dierenpark, zwemparadijs, bowlen en meer in de buurt.":"Tierpark, Schwimmparadies, Bowling und mehr in der Nähe.",
+    "Last minute":"Last Minute",
+    "Spontaan een weekend vrij?":"Spontan ein Wochenende frei?",
+    "Vraag naar onze last-minute mogelijkheden — we kijken graag samen wat er kan.":"Fragen Sie nach unseren Last-Minute-Angeboten — wir schauen gern gemeinsam, was möglich ist.",
+    // Quick links & tabs
+    "Verblijven":"Unterkünfte",
+    "Omgeving":"Umgebung",
+    "Aanvragen":"Anfragen",
+    "Verblijf":"Unterkunft",
+    "Faciliteiten":"Ausstattung",
+    // Verblijf
+    "Kies jullie plek":"Wählt euren Platz",
+    "Twee ruime, vrijliggende groepsaccommodaties en een trekkershut — elk met een eigen sfeer. Tik op een verblijf voor meer details.":"Zwei geräumige, frei gelegene Gruppenunterkünfte und eine Trekkinghütte — jede mit eigenem Charakter. Tippen Sie auf eine Unterkunft für mehr Details.",
+    "Tot 25 personen":"Bis 25 Personen",
+    "Tot 20 personen":"Bis 20 Personen",
+    "Kleine groep":"Kleine Gruppe",
+    "De grootste accommodatie: ruim opgezet en geknipt voor grotere families of groepen die er samen even helemaal tussenuit willen.":"Die größte Unterkunft: großzügig angelegt und ideal für größere Familien oder Gruppen, die gemeinsam richtig entspannen möchten.",
+    "Gezellig en compleet ingericht, met genoeg ruimte voor jong en oud. Een fijne uitvalsbasis voor een weekend in de natuur.":"Gemütlich und komplett eingerichtet, mit genug Platz für Jung und Alt. Ein schöner Ausgangspunkt für ein Wochenende in der Natur.",
+    "Een knus, eenvoudig verblijf voor een klein gezelschap. Ideaal voor wandelaars en fietsers die de omgeving willen verkennen.":"Eine gemütliche, einfache Unterkunft für eine kleine Gruppe. Ideal für Wanderer und Radfahrer, die die Umgebung erkunden möchten.",
+    "Bekijk voorzieningen":"Ausstattung ansehen",
+    "Volledig uitgeruste keuken":"Voll ausgestattete Küche",
+    "Ruime woon- en eetkamer":"Geräumiges Wohn- und Esszimmer",
+    "Meerdere slaapkamers, voldoende sanitair":"Mehrere Schlafzimmer, ausreichend Sanitäranlagen",
+    "Groot buitenterras en eigen parkeerplek":"Große Außenterrasse und eigener Parkplatz",
+    "Goed uitgeruste keuken":"Gut ausgestattete Küche",
+    "Comfortabele slaapkamers":"Komfortable Schlafzimmer",
+    "Genoeg badkamers voor de hele groep":"Genug Badezimmer für die ganze Gruppe",
+    "Tuin met terras, rustig gelegen":"Garten mit Terrasse, ruhig gelegen",
+    "Knus verblijf met basisvoorzieningen":"Gemütliche Unterkunft mit Grundausstattung",
+    "Perfect voor wandel- en fietstochten":"Perfekt für Wander- und Radtouren",
+    "Aanvraag voor Zwaluwnest":"Anfrage für Zwaluwnest",
+    "Aanvraag voor Kievitsnest":"Anfrage für Kievitsnest",
+    "Aanvraag voor Trekkershut":"Anfrage für Trekkershut",
+    "Zorg & toegankelijkheid":"Pflege & Barrierefreiheit",
+    "Is iemand in de groep mindervalide? De St. Jozefhoeve beschikt over de juiste zorgfaciliteiten of regelt deze desgewenst. Bel of stuur een aanvraag, dan bespreken we samen de mogelijkheden.":"Ist jemand in der Gruppe gehbehindert? Die St. Jozefhoeve verfügt über die passende Pflegeausstattung oder organisiert diese auf Wunsch. Rufen Sie an oder senden Sie eine Anfrage, dann besprechen wir gemeinsam die Möglichkeiten.",
+    "Bespreek de mogelijkheden":"Möglichkeiten besprechen",
+    // Faciliteiten
+    "Faciliteiten & zorg":"Ausstattung & Pflege",
+    "De accommodaties zijn ruim uitgerust en geschikt voor gasten met een zorgvraag. Het Kievitsnest is bovendien geheel gelijkvloers en drempelvrij.":"Die Unterkünfte sind umfangreich ausgestattet und für Gäste mit Pflegebedarf geeignet. Das Kievitsnest ist zudem komplett ebenerdig und barrierefrei.",
+    "Plattegronden":"Grundrisse",
+    "Indeling van de verblijven":"Aufteilung der Unterkünfte",
+    "Tik om te vergroten":"Zum Vergrößern tippen",
+    "Zorgvoorzieningen":"Pflegeausstattung",
+    "Goed verzorgd verblijven":"Gut versorgt übernachten",
+    "Hoog-laagbedden":"Höhenverstellbare Betten",
+    "In hoogte verstelbare zorgbedden.":"Höhenverstellbare Pflegebetten.",
+    "Tilliften":"Patientenlifter",
+    "Voor veilige transfers, op aanvraag.":"Für sichere Transfers, auf Anfrage.",
+    "Douchestoelen":"Duschstühle",
+    "Veilig en comfortabel douchen.":"Sicher und komfortabel duschen.",
+    "Rolstoeltoilet & -badkamer":"Rollstuhl-WC & -Bad",
+    "Aangepast, ruim en toegankelijk sanitair.":"Angepasste, geräumige und barrierefreie Sanitäranlagen.",
+    "Brede deuren":"Breite Türen",
+    "Drempelvrije, ruime doorgangen.":"Schwellenlose, breite Durchgänge.",
+    "Gelijkvloers":"Ebenerdig",
+    "Alles op de begane grond (Kievitsnest).":"Alles im Erdgeschoss (Kievitsnest).",
+    "Zorg op maat":"Pflege nach Maß",
+    "Overige hulpmiddelen op aanvraag.":"Weitere Hilfsmittel auf Anfrage.",
+    "Goed om te weten":"Gut zu wissen",
+    "Aankomst & vertrek":"An- & Abreise",
+    "Aankomst vanaf 15:00, vertrek om 10:00 (zondag 16:00)":"Anreise ab 15:00 Uhr, Abreise um 10:00 Uhr (sonntags 16:00 Uhr)",
+    "Voorzieningen":"Ausstattung",
+    "Luxe keuken, recreatiezaal, wifi en eigen parkeerplek":"Luxusküche, Aufenthaltsraum, WLAN und eigener Parkplatz",
+    "Te huur":"Zu mieten",
+    "Laken- en handdoekpakketten beschikbaar":"Bettwäsche- und Handtuchpakete verfügbar",
+    "Huisdier":"Haustier",
+    "Hond welkom in overleg":"Hund nach Absprache willkommen",
+    "Bespreek je zorgwensen":"Pflegewünsche besprechen",
+    "Specifieke zorgwensen of hulpmiddelen nodig? Geef het door bij je aanvraag — dan kijken we graag wat mogelijk is.":"Besondere Pflegewünsche oder Hilfsmittel nötig? Geben Sie es bei Ihrer Anfrage an — dann schauen wir gern, was möglich ist.",
+    // Omgeving
+    "Activiteiten & omgeving":"Aktivitäten & Umgebung",
+    "Genoeg te beleven":"Viel zu erleben",
+    "De hoeve ligt aan bos en heide, met volop activiteiten in de buurt — ook bij minder weer hoef je je niet te vervelen.":"Der Hof liegt an Wald und Heide, mit zahlreichen Aktivitäten in der Nähe — auch bei schlechtem Wetter wird es nicht langweilig.",
+    "Kangoeroe- & emoepark":"Känguru- & Emupark",
+    "Vlak tegenover het terrein — leuk voor jong en oud.":"Direkt gegenüber dem Gelände — schön für Jung und Alt.",
+    "Op loopafstand":"Fußläufig erreichbar",
+    "Voor een sportieve dag is golf om de hoek.":"Für einen sportlichen Tag ist Golf gleich um die Ecke.",
+    "In de buurt":"In der Nähe",
+    "Overdekt zwemparadijs":"Überdachtes Schwimmparadies",
+    "Lekker zwemmen, ook als het buiten regent.":"Schön schwimmen, auch bei Regen.",
+    "Korte rit":"Kurze Fahrt",
+    "Overdekte speeltuin":"Überdachter Spielplatz",
+    "Binnenpret voor de kinderen, weer of geen weer.":"Spielspaß drinnen für die Kinder, bei jedem Wetter.",
+    "Bowlingbaan":"Bowlingbahn",
+    "Gezellige avond met de hele groep.":"Gemütlicher Abend mit der ganzen Gruppe.",
+    "Wandelen in bos & heide":"Wandern in Wald & Heide",
+    "Vanaf de voordeur zo de natuur in.":"Von der Haustür direkt in die Natur.",
+    "Direct gelegen":"Direkt gelegen",
+    "Fietsen in de Groene Regio":"Radfahren in der Groene Regio",
+    "Mooie routes door het Limburgse landschap.":"Schöne Routen durch die Limburger Landschaft.",
+    "Vanaf de hoeve":"Ab dem Hof",
+    // Boeken
+    "Aanvraag":"Anfrage",
+    "Vraag jullie verblijf aan":"Fragt eure Unterkunft an",
+    "Vul je gegevens en wensen in — we nemen zo snel mogelijk contact op om de mogelijkheden en beschikbaarheid door te nemen.":"Geben Sie Ihre Daten und Wünsche ein — wir melden uns so schnell wie möglich, um Möglichkeiten und Verfügbarkeit zu besprechen.",
+    "Accommodatie":"Unterkunft",
+    "Zwaluwnest (25 pers.)":"Zwaluwnest (25 Pers.)",
+    "Kievitsnest (20 pers.)":"Kievitsnest (20 Pers.)",
+    "Weet ik nog niet":"Weiß ich noch nicht",
+    "Aankomst":"Anreise",
+    "Vertrek":"Abreise",
+    "Aantal personen":"Anzahl Personen",
+    "Naam":"Name",
+    "E-mail":"E-Mail",
+    "Telefoon":"Telefon",
+    "Wensen of vragen":"Wünsche oder Fragen",
+    "Aanvraag versturen":"Anfrage absenden",
+    "Dit is een aanvraag, nog geen definitieve boeking. In een latere versie koppelen we hier een echte beschikbaarheidskalender en bevestiging aan.":"Dies ist eine Anfrage, noch keine verbindliche Buchung. In einer späteren Version verknüpfen wir hier einen echten Verfügbarkeitskalender und eine Bestätigung.",
+    "Of neem direct contact op":"Oder nehmen Sie direkt Kontakt auf",
+    "Aanvraag verstuurd!":"Anfrage gesendet!",
+    "Bedankt voor je aanvraag. We nemen zo snel mogelijk contact met je op.":"Vielen Dank für Ihre Anfrage. Wir melden uns so schnell wie möglich bei Ihnen.",
+    "Nieuwe aanvraag":"Neue Anfrage",
+    // QR / Installeren
+    "Installeren":"Installieren",
+    "Zet op je beginscherm":"Zum Startbildschirm hinzufügen",
+    "Scan de QR-code met een iPhone-camera om de app direct te openen, en volg daarna de stappen om hem vast op je beginscherm te zetten.":"Scanne den QR-Code mit der iPhone-Kamera, um die App direkt zu öffnen, und folge dann den Schritten, um sie dauerhaft auf dem Startbildschirm zu speichern.",
+    "iPhone-instructies":"iPhone-Anleitung",
+    "Snelkoppeling op beginscherm":"Verknüpfung auf dem Startbildschirm",
+    "Scan de QR-code":"QR-Code scannen",
+    "Open de Camera-app op je iPhone en houd hem boven de QR-code. Tik de melding aan die verschijnt.":"Öffne die Kamera-App auf deinem iPhone und halte sie über den QR-Code. Tippe auf die Benachrichtigung, die erscheint.",
+    "Tik op het Deel-icoon":"Auf das Teilen-Symbol tippen",
+    "Onderin Safari zie je een vakje met een pijl omhoog — tik daarop.":"Unten in Safari siehst du ein Kästchen mit einem Pfeil nach oben — tippe darauf.",
+    '"Zet op beginscherm"':'"Zum Startbildschirm"',
+    'Scroll in het menu naar beneden en kies "Zet op beginscherm". Geef het een naam en tik op "Voeg toe".':'Scrolle im Menü nach unten und wähle „Zum Startbildschirm". Gib einen Namen ein und tippe auf „Hinzufügen".',
+    "De app staat nu op je beginscherm met een eigen icoon — en opent zonder adresbalk als een echte app.":"Die App ist jetzt mit einem eigenen Symbol auf dem Startbildschirm — und öffnet sich ohne Adressleiste wie eine echte App.",
+    "🌐 Online zetten via GitHub Pages (gratis)":"🌐 Online stellen via GitHub Pages (kostenlos)",
+    "De QR-code werkt alleen als de app online staat. Zolang de URL nog een placeholder is, zie je dat in de QR staan.":"Der QR-Code funktioniert nur, wenn die App online ist. Solange die URL noch ein Platzhalter ist, ist das im QR-Code zu sehen.",
+    "QR":"QR",
+    // Placeholders
+    "bijv. 18":"z. B. 18",
+    "Voor- en achternaam":"Vor- und Nachname",
+    "Bijv. zorgwensen, aankomsttijd of bijzonderheden":"z. B. Pflegewünsche, Ankunftszeit oder Besonderheiten"
+  };
+
+  // Verzamel alle vertaalbare tekstknopen + placeholders (eenmalig, in het Nederlands)
+  const i18nNodes = [];
+  (function collect(){
+    const skip = {SCRIPT:1, STYLE:1};
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(n){
+        if(skip[n.parentNode.nodeName]) return NodeFilter.FILTER_REJECT;
+        if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    let n; while((n = walker.nextNode())) i18nNodes.push({node:n, raw:n.nodeValue});
+  })();
+  const i18nPh = [];
+  document.querySelectorAll('[placeholder]').forEach(el=>i18nPh.push({el, raw:el.getAttribute('placeholder')}));
+
+  let currentLang = 'nl';
+  function setLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    i18nNodes.forEach(({node, raw})=>{
+      const key = raw.trim();
+      if(lang==='de' && MAP[key]!==undefined){
+        const lead = raw.match(/^\s*/)[0], trail = raw.match(/\s*$/)[0];
+        node.nodeValue = lead + MAP[key] + trail;
+      } else {
+        node.nodeValue = raw;
+      }
+    });
+    i18nPh.forEach(({el, raw})=>{
+      el.setAttribute('placeholder', (lang==='de' && MAP[raw]!==undefined) ? MAP[raw] : raw);
+    });
+    document.getElementById('flagNl').classList.toggle('active', lang==='nl');
+    document.getElementById('flagDe').classList.toggle('active', lang==='de');
+  }
+
+  document.getElementById('flagNl').addEventListener('click', ()=>setLang('nl'));
+  document.getElementById('flagDe').addEventListener('click', ()=>setLang('de'));
+</script>
+</body>
+</html>
