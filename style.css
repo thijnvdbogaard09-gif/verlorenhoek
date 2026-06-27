@@ -161,7 +161,7 @@
   .stay h3{font-family:"Fraunces",serif;font-weight:500;font-size:21px;color:var(--forest-deep)}
   .stay .desc{font-size:13.5px;color:var(--muted);line-height:1.55;margin:5px 0 12px}
   .stay .toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
-    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:3px 14px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:6px 14px;
     cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--forest);
     line-height:1;min-height:0}
   .stay .toggle .chev{width:18px;height:18px;flex:0 0 18px;transition:transform .25s ease}
