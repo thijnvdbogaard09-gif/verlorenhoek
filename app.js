@@ -242,10 +242,15 @@ const screensEl = document.getElementById('screens');
   // Verzamel alle vertaalbare tekstknopen + placeholders (eenmalig, in het Nederlands)
   const i18nNodes = [];
   (function collect(){
-    const skip = {SCRIPT:1, STYLE:1};
+    const skip = {SCRIPT:1, STYLE:1, SVG:1, PATH:1, CIRCLE:1, RECT:1};
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(n){
-        if(skip[n.parentNode.nodeName]) return NodeFilter.FILTER_REJECT;
+        let p = n.parentNode;
+        while(p && p !== document.body){
+          if(skip[p.nodeName.toUpperCase()]) return NodeFilter.FILTER_REJECT;
+          p = p.parentNode;
+        }
+        if(skip[n.parentNode.nodeName.toUpperCase()]) return NodeFilter.FILTER_REJECT;
         if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
@@ -270,6 +275,12 @@ const screensEl = document.getElementById('screens');
     });
     i18nPh.forEach(({el, raw})=>{
       el.setAttribute('placeholder', (lang==='de' && MAP[raw]!==undefined) ? MAP[raw] : raw);
+    });
+    // Vertaal ook option-teksten in de select
+    document.querySelectorAll('select option').forEach(opt=>{
+      const key = opt.dataset.nl || opt.textContent.trim();
+      if(!opt.dataset.nl) opt.dataset.nl = key;
+      opt.textContent = (lang==='de' && MAP[key]!==undefined) ? MAP[key] : key;
     });
     document.getElementById('flagNl').classList.toggle('active', lang==='nl');
     document.getElementById('flagDe').classList.toggle('active', lang==='de');
