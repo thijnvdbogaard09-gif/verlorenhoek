@@ -161,7 +161,7 @@
   .stay h3{font-family:"Fraunces",serif;font-weight:500;font-size:21px;color:var(--forest-deep)}
   .stay .desc{font-size:13.5px;color:var(--muted);line-height:1.55;margin:5px 0 12px}
   .stay .toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
-    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:14px 10px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:3px 14px;
     cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--forest);
     line-height:1;min-height:0}
   .stay .toggle .chev{width:18px;height:18px;flex:0 0 18px;transition:transform .25s ease}
@@ -177,6 +177,10 @@
   .act{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);
     border-radius:18px;padding:14px;margin-top:11px;transition:transform .18s ease}
   .act:hover{transform:translateX(3px)}
+  .act-link{text-decoration:none;cursor:pointer;border-color:rgba(192,107,62,.35)}
+  .act-link:hover{transform:translateX(3px);border-color:var(--clay);background:var(--paper)}
+  .act-link h4{color:var(--forest-deep)}
+  .link-hint{color:var(--clay);font-weight:700}
   .act .ic{width:46px;height:46px;flex:0 0 auto;border-radius:14px;display:flex;align-items:center;justify-content:center;
     background:var(--clay-soft);color:var(--clay)}
   .act .ic svg{width:24px;height:24px}
