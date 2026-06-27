@@ -283,6 +283,12 @@
 
   /* Beschikbaarheidskalender */
   .kalender{margin-top:4px;margin-bottom:22px}
+  .kal-switch{display:flex;gap:10px;margin-bottom:12px}
+  .kal-btn{flex:1;padding:10px 14px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.08);
+    color:rgba(255,255,255,.6);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;
+    transition:background .2s ease, color .2s ease, border-color .2s ease}
+  .kal-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+  .kal-btn:hover:not(.active){background:rgba(255,255,255,.14);color:#fff}
   .kalender-wrap{margin-top:12px;border-radius:18px;overflow:hidden;
     border:1px solid rgba(255,255,255,.12);background:var(--paper);
     position:relative;width:100%;height:520px;}
