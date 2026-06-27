@@ -161,12 +161,12 @@
   .stay h3{font-family:"Fraunces",serif;font-weight:500;font-size:21px;color:var(--forest-deep)}
   .stay .desc{font-size:13.5px;color:var(--muted);line-height:1.55;margin:5px 0 12px}
   .stay .toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
-    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:6px 14px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:3px 14px;
     cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--forest)}
   .stay .toggle .chev{transition:transform .25s ease}
   .stay.open .toggle .chev{transform:rotate(180deg)}
-  .stay .more{max-height:0;overflow:hidden;transition:max-height .35s ease}
-  .stay.open .more{max-height:420px}
+  .stay .more{max-height:0;overflow:hidden;transition:max-height .55s ease}
+  .stay.open .more{max-height:1200px}
   .stay .more ul{list-style:none;padding:14px 2px 4px}
   .stay .more li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink);padding:7px 0}
   .stay .more li svg{width:17px;height:17px;color:var(--green);flex:0 0 auto;margin-top:1px}
