@@ -90,6 +90,131 @@ const screensEl = document.getElementById('screens');
   lb.addEventListener('click', e=>{ if(e.target!==lbImg) closeLb(); });
   document.getElementById('lightboxClose').addEventListener('click', closeLb);
 
+  // Prijscalculator (Info-pagina)
+  const CALC_PRICES = {
+    zwaluwnest: {
+      laag:  {weekend:1100, langweekend:1250, midweek:1375, week:1700},
+      laag2: {weekend:1100, langweekend:1250, midweek:1475, week:1800},
+      hoog:  {weekend:1100, langweekend:1325, midweek:1575, week:1975}
+    },
+    kievitsnest: {
+      laag:  {weekend:1225, langweekend:1275, midweek:1500, week:2250},
+      laag2: {weekend:1275, langweekend:1375, midweek:1500, week:2250},
+      hoog:  {weekend:1375, langweekend:1425, midweek:1575, week:2375}
+    }
+  };
+  // Trekkershut: vaste pakketprijzen (2 pers.) per verblijfsduur, plus p.p.p.n. tarief als basis
+  const CALC_TREKKERSHUT = {weekend:140, langweekend:210, midweek:null, week:390, ppn:37.50};
+
+  const CALC_ENERGIE = {weekend:90, langweekend:90, midweek:180, week:315};
+  const CALC_SCHOONMAAK = 145;
+  const CALC_TOERISTENBELASTING = 2.50; // per persoon per nacht
+  const CALC_HOND = 25;
+  const CALC_LAKENS = 7.25; // per persoon
+  const CALC_HANDDOEKEN = 4.75; // per persoon
+
+  const calcAccoSel = document.getElementById('calcAcco');
+  const calcSeizoenWrap = document.getElementById('calcSeizoenWrap');
+
+  function calcUpdateVisibility(){
+    // Trekkershut heeft geen seizoensprijzen, dus seizoenkeuze verbergen
+    if(calcAccoSel.value === 'trekkershut'){
+      calcSeizoenWrap.style.display = 'none';
+    } else {
+      calcSeizoenWrap.style.display = '';
+    }
+  }
+  if(calcAccoSel){
+    calcAccoSel.addEventListener('change', calcUpdateVisibility);
+    calcUpdateVisibility();
+  }
+
+  const calcBerekenBtn = document.getElementById('calcBereken');
+  if(calcBerekenBtn){
+    calcBerekenBtn.addEventListener('click', ()=>{
+      const acco = document.getElementById('calcAcco').value;
+      const periode = document.getElementById('calcPeriode').value;
+      const seizoen = document.getElementById('calcSeizoen').value;
+      const personen = Math.max(1, parseInt(document.getElementById('calcPersonen').value, 10) || 1);
+      const nachten = Math.max(1, parseInt(document.getElementById('calcNachten').value, 10) || 1);
+      const hond = document.getElementById('calcHond').checked;
+      const lakens = document.getElementById('calcLakens').checked;
+      const handdoeken = document.getElementById('calcHanddoeken').checked;
+
+      const periodeLabels = {weekend:'Weekend', langweekend:'Lang weekend', midweek:'Midweek', week:'Week'};
+      const rows = [];
+      let basisprijs = 0;
+      let basisOk = true;
+
+      if(acco === 'trekkershut'){
+        if(periode === 'midweek'){
+          // Geen vast pakket voor midweek: bereken op basis van p.p.p.n. tarief
+          basisprijs = CALC_TREKKERSHUT.ppn * personen * nachten;
+          rows.push({label:`Trekkershut, ${nachten} nachten × ${personen} pers. × € ${CALC_TREKKERSHUT.ppn.toFixed(2)} p.p.p.n.`, value:basisprijs});
+        } else {
+          basisprijs = CALC_TREKKERSHUT[periode];
+          rows.push({label:`Trekkershut, ${periodeLabels[periode]} (max. 2 pers.)`, value:basisprijs});
+          if(personen > 2){
+            rows.push({label:'Let op: trekkershut is bedoeld voor max. 2 personen', value:null});
+          }
+        }
+      } else {
+        const tabel = CALC_PRICES[acco] && CALC_PRICES[acco][seizoen];
+        if(tabel){
+          basisprijs = tabel[periode];
+          rows.push({label:`${acco === 'zwaluwnest' ? 'Zwaluwnest' : 'Kievitsnest'}, ${periodeLabels[periode]}`, value:basisprijs});
+        } else {
+          basisOk = false;
+        }
+      }
+
+      let totaal = basisprijs;
+
+      // Energiekosten (niet van toepassing op trekkershut, daar zit het in het pakket)
+      if(acco !== 'trekkershut'){
+        const energie = CALC_ENERGIE[periode] || 0;
+        totaal += energie;
+        rows.push({label:'Energiekosten', value:energie});
+
+        const schoonmaak = CALC_SCHOONMAAK;
+        totaal += schoonmaak;
+        rows.push({label:'Schoonmaakkosten', value:schoonmaak});
+      }
+
+      // Toeristenbelasting: alle accommodaties, per persoon per nacht
+      const toeristenbelasting = CALC_TOERISTENBELASTING * personen * nachten;
+      totaal += toeristenbelasting;
+      rows.push({label:`Toeristenbelasting (${personen} pers. × ${nachten} nachten × € ${CALC_TOERISTENBELASTING.toFixed(2)})`, value:toeristenbelasting});
+
+      if(hond){
+        totaal += CALC_HOND;
+        rows.push({label:'Hond', value:CALC_HOND});
+      }
+      if(lakens){
+        const lakensTotaal = CALC_LAKENS * personen;
+        totaal += lakensTotaal;
+        rows.push({label:`Lakenpakket (${personen} pers. × € ${CALC_LAKENS.toFixed(2)})`, value:lakensTotaal});
+      }
+      if(handdoeken){
+        const handdoekenTotaal = CALC_HANDDOEKEN * personen;
+        totaal += handdoekenTotaal;
+        rows.push({label:`Handdoekpakket (${personen} pers. × € ${CALC_HANDDOEKEN.toFixed(2)})`, value:handdoekenTotaal});
+      }
+
+      const fmt = n => '€ ' + n.toLocaleString('nl-NL', {minimumFractionDigits: n % 1 === 0 ? 0 : 2, maximumFractionDigits:2});
+
+      const breakdownEl = document.getElementById('calcBreakdown');
+      breakdownEl.innerHTML = rows.map(r=>
+        r.value === null
+          ? `<div class="crow"><span>${r.label}</span></div>`
+          : `<div class="crow"><span>${r.label}</span><b>${fmt(r.value)}</b></div>`
+      ).join('');
+
+      document.getElementById('calcTotaal').textContent = basisOk ? fmt(totaal) : 'Onbekend';
+      document.getElementById('calcResult').style.display = 'block';
+    });
+  }
+
   /* ===================== Taal (NL / DE) ===================== */
   const MAP = {
     // App-balk / hero
@@ -293,6 +418,28 @@ const screensEl = document.getElementById('screens');
     "Energiekosten midweek":"Energiekosten Wochenmitte",
     "Energiekosten week":"Energiekosten Woche",
     "Info":"Info",
+    "Bereken je prijsindicatie":"Berechne deine Preisschätzung",
+    "Accommodatie":"Unterkunft",
+    "Zwaluwnest":"Zwaluwnest",
+    "Kievitsnest":"Kievitsnest",
+    "Trekkershut":"Trekkershut",
+    "Verblijfsduur":"Aufenthaltsdauer",
+    "Weekend":"Wochenende",
+    "Lang weekend":"Langes Wochenende",
+    "Midweek":"Wochenmitte",
+    "Week":"Woche",
+    "Seizoen":"Saison",
+    "Januari, februari, maart":"Januar, Februar, März",
+    "November, december":"November, Dezember",
+    "April t/m oktober":"April bis Oktober",
+    "Aantal personen":"Anzahl Personen",
+    "Aantal nachten":"Anzahl Nächte",
+    "Hond meenemen":"Hund mitnehmen",
+    "Lakenpakket huren (per persoon)":"Bettwäschepaket mieten (pro Person)",
+    "Handdoekpakket huren (per persoon)":"Handtuchpaket mieten (pro Person)",
+    "Bereken prijsindicatie":"Preisschätzung berechnen",
+    "Totale prijsindicatie":"Gesamte Preisschätzung",
+    "Dit is een indicatie op basis van de tarieven van 2023 en geen definitieve prijs. Schoonmaakkosten en energiekosten worden los van de verblijfsprijs in rekening gebracht en zijn hierin meegenomen.":"Dies ist eine Schätzung basierend auf den Tarifen von 2023 und kein endgültiger Preis. Reinigungs- und Energiekosten werden separat vom Aufenthaltspreis berechnet und sind hier bereits enthalten.",
     // Verblijf kaarten NL->DE
     "8 tot 18 personen":"8 bis 18 Personen",
     "Hooggelegen accommodatie voor verenigingen, families en vriendengroepen. Met stapelbedden en gewone bedden, een groot overdekt terras en een ruime buitenspeelweide.":"Erhöht gelegene Unterkunft für Vereine, Familien und Freundesgruppen. Mit Etagenbetten und normalen Betten, einer großen überdachten Terrasse und einem weitläufigen Außenspielfeld.",
