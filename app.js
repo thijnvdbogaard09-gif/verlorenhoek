@@ -66,6 +66,20 @@ const screensEl = document.getElementById('screens');
     ['from','to','people','name','email','phone','msg'].forEach(id=>document.getElementById(id).value='');
   });
 
+  // Beschikbaarheidskalender wisselen tussen Zwaluwnest en Kievitsnest
+  const KAL_SRC = {
+    zwaluwnest: 'https://dashboard.vakantieadressen.nl/widget/1748/6034dd5d0808f',
+    kievitsnest: 'https://dashboard.vakantieadressen.nl/widget/1749/6034dd5d0ee76'
+  };
+  document.querySelectorAll('[data-kal]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.dataset.kal;
+      document.querySelectorAll('[data-kal]').forEach(b=>b.classList.toggle('active', b===btn));
+      const iframe = document.getElementById('kalIframe');
+      if(iframe && KAL_SRC[key]) iframe.src = KAL_SRC[key];
+    });
+  });
+
   // Lightbox (plattegrond vergroten)
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightboxImg');
