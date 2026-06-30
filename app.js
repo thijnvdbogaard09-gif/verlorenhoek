@@ -42,10 +42,12 @@ const screensEl = document.getElementById('screens');
 
     if(!name){ document.getElementById('name').focus(); return; }
 
-    const loc = currentLang==='de' ? 'de-DE' : 'nl-NL';
+    const loc = currentLang==='de' ? 'de-DE' : currentLang==='en' ? 'en-GB' : 'nl-NL';
     const fmt = d => d ? new Date(d).toLocaleDateString(loc,{day:'numeric',month:'long',year:'numeric'}) : '—';
     const L = currentLang==='de'
       ? {acco:'Unterkunft', from:'Anreise', to:'Abreise', people:'Personen', name:'Name'}
+      : currentLang==='en'
+      ? {acco:'Accommodation', from:'Arrival', to:'Departure', people:'People', name:'Name'}
       : {acco:'Accommodatie', from:'Aankomst', to:'Vertrek', people:'Personen', name:'Naam'};
     const recap = document.getElementById('recap');
     recap.innerHTML = `
@@ -239,7 +241,7 @@ const screensEl = document.getElementById('screens');
   }
 
   /* ===================== Taal (NL / DE) ===================== */
-  const MAP = {
+  const MAP_DE = {
     // App-balk / hero
     "🌿 Groepsaccommodatie":"🌿 Gruppenunterkunft",
     "Samen weg,":"Gemeinsam weg,",
@@ -498,6 +500,257 @@ const screensEl = document.getElementById('screens');
     "Home":"Home"
   };
 
+  const MAP_EN = {
+    // App-balk / hero
+    "🌿 Groepsaccommodatie":"🌿 Group accommodation",
+    "Samen weg,":"Get away together,",
+    "midden in de natuur":"in the heart of nature",
+    "Een vrijliggend verblijf voor 18 tot 22 personen, omringd door bos en heide in Weert.":"A secluded retreat for 18 to 22 people, surrounded by forest and heathland in Weert.",
+    "Aanvraag doen":"Make a request",
+    "Bekijk verblijven":"View accommodations",
+    // Welkom
+    "Welkom op de hoeve":"Welcome to the farm",
+    "Ruimte, gastvrijheid en rust":"Space, hospitality and peace",
+    "Op zoek naar een fijn onderkomen voor een weekendje weg, familieweekend of groepsuitje? Bij Hans en Eric van den Bogaard ben je aan het juiste adres. Jong of oud, valide of mindervalide — iedereen is welkom.":"Looking for a great place to stay for a weekend away, family weekend or group outing? At Hans and Eric van den Bogaard's, you've come to the right place. Young or old, able-bodied or with a disability — everyone is welcome.",
+    "Twee accommodaties":"Two accommodations",
+    "Kievitsnest (22) en Zwaluwnest (18), geheel vrijliggend.":"Kievitsnest (22) and Zwaluwnest (18), both fully secluded.",
+    "Voor iedereen":"For everyone",
+    "Zorgfaciliteiten en goede toegankelijkheid op aanvraag.":"Care facilities and good accessibility upon request.",
+    "Midden in de natuur":"In the heart of nature",
+    "Direct gelegen aan bos en heide in de Groene Regio.":"Located directly on forest and heathland in the Groene Regio.",
+    "Van alles te doen":"Plenty to do",
+    "Dierenpark, zwemparadijs, bowlen en meer in de buurt.":"Animal park, swimming paradise, bowling and more nearby.",
+    "Last minute":"Last minute",
+    "Spontaan een weekend vrij?":"A free weekend on short notice?",
+    "Vraag naar onze last-minute mogelijkheden — we kijken graag samen wat er kan.":"Ask about our last-minute options — we're happy to look at what's possible together.",
+    // Quick links & tabs
+    "Verblijven":"Accommodations",
+    "Omgeving":"Surroundings",
+    "Aanvragen":"Request",
+    "Verblijf":"Accommodation",
+    "Faciliteiten":"Facilities",
+    // Verblijf
+    "Kies jullie plek":"Choose your place",
+    "Twee ruime, vrijliggende groepsaccommodaties en een trekkershut — elk met een eigen sfeer. Tik op een verblijf voor meer details.":"Two spacious, secluded group accommodations and a hiker's hut — each with its own character. Tap an accommodation for more details.",
+    "Tot 25 personen":"Up to 25 people",
+    "Tot 20 personen":"Up to 20 people",
+    "Kleine groep":"Small group",
+    "De grootste accommodatie: ruim opgezet en geknipt voor grotere families of groepen die er samen even helemaal tussenuit willen.":"The largest accommodation: spacious and perfect for larger families or groups looking to get away from it all together.",
+    "Gezellig en compleet ingericht, met genoeg ruimte voor jong en oud. Een fijne uitvalsbasis voor een weekend in de natuur.":"Cosy and fully furnished, with plenty of room for young and old. A great base for a weekend in nature.",
+    "Een knus, eenvoudig verblijf voor een klein gezelschap. Ideaal voor wandelaars en fietsers die de omgeving willen verkennen.":"A cosy, simple stay for a small group. Ideal for hikers and cyclists wanting to explore the surroundings.",
+    "Bekijk voorzieningen":"View amenities",
+    "Volledig uitgeruste keuken":"Fully equipped kitchen",
+    "Ruime woon- en eetkamer":"Spacious living and dining room",
+    "Meerdere slaapkamers, voldoende sanitair":"Multiple bedrooms, ample bathroom facilities",
+    "Groot buitenterras en eigen parkeerplek":"Large outdoor terrace and private parking",
+    "Goed uitgeruste keuken":"Well-equipped kitchen",
+    "Comfortabele slaapkamers":"Comfortable bedrooms",
+    "Genoeg badkamers voor de hele groep":"Enough bathrooms for the whole group",
+    "Tuin met terras, rustig gelegen":"Garden with terrace, quietly located",
+    "Knus verblijf met basisvoorzieningen":"Cosy stay with basic amenities",
+    "Perfect voor wandel- en fietstochten":"Perfect for hiking and cycling trips",
+    "Aanvraag voor Zwaluwnest":"Request for Zwaluwnest",
+    "Aanvraag voor Kievitsnest":"Request for Kievitsnest",
+    "Aanvraag voor Trekkershut":"Request for Trekkershut",
+    "Zorg & toegankelijkheid":"Care & accessibility",
+    "Is iemand in de groep mindervalide? De St.Jozefhoeve beschikt over de juiste zorgfaciliteiten of regelt deze desgewenst. Bel of stuur een aanvraag, dan bespreken we samen de mogelijkheden.":"Is someone in your group living with a disability? St.Jozefhoeve has the right care facilities, or can arrange them on request. Call or send a request, and we'll discuss the possibilities together.",
+    "Bespreek de mogelijkheden":"Discuss the possibilities",
+    // Faciliteiten
+    "Faciliteiten & zorg":"Facilities & care",
+    "De accommodaties zijn ruim uitgerust en geschikt voor gasten met een zorgvraag. Het Kievitsnest is bovendien geheel gelijkvloers en drempelvrij.":"The accommodations are well-equipped and suitable for guests with care needs. The Kievitsnest is also entirely on one level and threshold-free.",
+    "Plattegronden":"Floor plans",
+    "Indeling van de verblijven":"Layout of the accommodations",
+    "Tik om te vergroten":"Tap to enlarge",
+    "Zorgvoorzieningen":"Care facilities",
+    "Goed verzorgd verblijven":"A well looked-after stay",
+    "Hoog-laagbedden":"Height-adjustable beds",
+    "In hoogte verstelbare zorgbedden.":"Height-adjustable care beds.",
+    "Tilliften":"Patient lifts",
+    "Voor veilige transfers, op aanvraag.":"For safe transfers, on request.",
+    "Douchestoelen":"Shower chairs",
+    "Veilig en comfortabel douchen.":"Safe and comfortable showering.",
+    "Rolstoeltoilet & -badkamer":"Wheelchair-accessible toilet & bathroom",
+    "Aangepast, ruim en toegankelijk sanitair.":"Adapted, spacious and accessible facilities.",
+    "Brede deuren":"Wide doorways",
+    "Drempelvrije, ruime doorgangen.":"Threshold-free, spacious passageways.",
+    "Gelijkvloers":"Single level",
+    "Alles op de begane grond (Kievitsnest).":"Everything on the ground floor (Kievitsnest).",
+    "Zorg op maat":"Tailored care",
+    "Overige hulpmiddelen op aanvraag.":"Other aids available on request.",
+    "Goed om te weten":"Good to know",
+    "Aankomst & vertrek":"Arrival & departure",
+    "Aankomst vanaf 15:00, vertrek om 10:00 (zondag 16:00)":"Arrival from 3:00 PM, departure at 10:00 AM (Sunday 4:00 PM)",
+    "Voorzieningen":"Amenities",
+    "Luxe keuken, recreatiezaal, wifi en eigen parkeerplek":"Luxury kitchen, recreation room, wifi and private parking",
+    "Te huur":"For hire",
+    "Laken- en handdoekpakketten beschikbaar":"Bed linen and towel packages available",
+    "Huisdier":"Pets",
+    "Hond welkom in overleg":"Dogs welcome by arrangement",
+    "Bespreek je zorgwensen":"Discuss your care needs",
+    "Specifieke zorgwensen of hulpmiddelen nodig? Geef het door bij je aanvraag — dan kijken we graag wat mogelijk is.":"Specific care needs or aids required? Let us know with your request — we're happy to look at what's possible.",
+    // Omgeving
+    "Activiteiten & omgeving":"Activities & surroundings",
+    "Genoeg te beleven":"Plenty to experience",
+    "De hoeve ligt aan bos en heide, met volop activiteiten in de buurt — ook bij minder weer hoef je je niet te vervelen.":"The farm sits on forest and heathland, with plenty of activities nearby — so even in bad weather there's no need to be bored.",
+    "Voor een sportieve dag is golf om de hoek.":"For a sporty day out, golf is just around the corner.",
+    "In de buurt ·":"Nearby ·",
+    "Overdekt zwemparadijs":"Indoor swimming paradise",
+    "Lekker zwemmen, ook als het buiten regent.":"Great for swimming, even when it's raining outside.",
+    "Korte rit ·":"Short drive ·",
+    "Overdekte speeltuin":"Indoor playground",
+    "Binnenpret voor de kinderen, weer of geen weer.":"Indoor fun for the kids, rain or shine.",
+    "Bowlingbaan":"Bowling alley",
+    "Gezellige avond met de hele groep.":"A fun evening with the whole group.",
+    "Wandelen in bos & heide":"Walking in forest & heathland",
+    "Vanaf de voordeur zo de natuur in.":"Straight into nature from the front door.",
+    "Direct gelegen ·":"Right here ·",
+    "Fietsen in de Groene Regio":"Cycling in the Groene Regio",
+    "Mooie routes door het Limburgse landschap.":"Beautiful routes through the Limburg landscape.",
+    "Vanaf de hoeve ·":"From the farm ·",
+    "Golfclinic":"Golf clinic",
+    "Rederij Cascade — Tour de Thorn":"Rederij Cascade — Tour de Thorn",
+    "Rondvaart over de Maasplassen naar het witte stadje Thorn.":"Boat trip across the Maasplassen lakes to the white town of Thorn.",
+    "Eindhoven Zoo (Mierlo)":"Eindhoven Zoo (Mierlo)",
+    "Dierentuin met meer dan 60 diersoorten, dicht bij Eindhoven.":"Zoo with more than 60 animal species, close to Eindhoven.",
+    "GaiaZOO Kerkrade":"GaiaZOO Kerkrade",
+    "Wereldreis langs meer dan 100 diersoorten, met DinoDome voor de kinderen.":"A world tour past more than 100 animal species, with DinoDome for the kids.",
+    "Bakkerij De Vries":"Bakkerij De Vries",
+    "Ambachtelijke bakker in Weert, bekend om de Limburgse vlaai.":"Artisan bakery in Weert, known for its Limburg flan.",
+    "Medicura Zorgwinkel":"Medicura care store",
+    "Thuiszorgwinkel in Weert voor rolstoelen, rollators en andere hulpmiddelen.":"Home care store in Weert for wheelchairs, walkers and other aids.",
+    "Escape Room Weert":"Escape Room Weert",
+    "Spannende escape rooms voor groepen vanaf 2 tot 8 personen.":"Exciting escape rooms for groups of 2 to 8 people.",
+    "Fun Thrills Weert":"Fun Thrills Weert",
+    "Lasergamen, axe throwing en meer dan 60 activiteiten voor groepen.":"Laser tag, axe throwing and more than 60 activities for groups.",
+    "Het Hobbyschuurtje":"Het Hobbyschuurtje",
+    "Activiteitenboerderij in Haler: koe knuffelen, boerenvoetgolf en GPS-tochten.":"Activity farm in Haler: cow cuddling, farm footgolf and GPS treasure hunts.",
+    "Bowlen bij De Sluis":"Bowling at De Sluis",
+    "Twee moderne bowlingbanen, ook te combineren met een arrangement.":"Two modern bowling lanes, also combinable with a package deal.",
+    "Toverland":"Toverland",
+    "Pretpark met attracties voor jong en oud, in Sevenum.":"Amusement park with rides for young and old, in Sevenum.",
+    "Efteling":"Efteling",
+    "Sprookjesbos en pretpark, een klassieker voor een dagje uit.":"Fairytale forest and amusement park, a classic day out.",
+    "Iets verder rijden ·":"A bit further away ·",
+    "Weerterbergen":"Weerterbergen",
+    "Glowgolf, bowlen en andere activiteiten op het vakantiepark.":"Glow golf, bowling and other activities at the holiday park.",
+    "Blauwe Meertje":"Blauwe Meertje",
+    "Natuurlijke zwemplas in bos en heide.":"Natural swimming lake in forest and heathland.",
+    "Tik voor website →":"Tap for website →",
+    // Boeken
+    "Aanvraag":"Request",
+    "Vraag jullie verblijf aan":"Request your stay",
+    "Vul je gegevens en wensen in — we nemen zo snel mogelijk contact op om de mogelijkheden en beschikbaarheid door te nemen.":"Fill in your details and preferences — we'll get in touch as soon as possible to go over the options and availability.",
+    "Accommodatie":"Accommodation",
+    "Zwaluwnest (18 pers.)":"Zwaluwnest (18 pers.)",
+    "Kievitsnest (22 pers.)":"Kievitsnest (22 pers.)",
+    "Weet ik nog niet":"Don't know yet",
+    "Beschikbaarheid":"Availability",
+    "Controleer de beschikbaarheid":"Check availability",
+    "Aankomst":"Arrival",
+    "Vertrek":"Departure",
+    "Aantal personen":"Number of people",
+    "Naam":"Name",
+    "E-mail":"Email",
+    "Telefoon":"Phone",
+    "Wensen of vragen":"Comments or questions",
+    "Aanvraag versturen":"Send request",
+    "Dit is een aanvraag, nog geen definitieve boeking. In een latere versie koppelen we hier een echte beschikbaarheidskalender en bevestiging aan.":"This is a request, not yet a confirmed booking. In a later version we'll link this to a real availability calendar and confirmation.",
+    "Of neem direct contact op":"Or get in touch directly",
+    "Aanvraag verstuurd!":"Request sent!",
+    "Bedankt voor je aanvraag. We nemen zo snel mogelijk contact met je op.":"Thank you for your request. We'll get back to you as soon as possible.",
+    "Nieuwe aanvraag":"New request",
+    // Info
+    "Belangrijke informatie":"Important information",
+    "Prijzen & praktische zaken":"Prices & practical information",
+    "Een overzicht van prijzen, aankomst- en vertrektijden en bijkomende kosten, overgenomen van jozefhoeve.nl.":"An overview of prices, arrival and departure times, and additional costs, taken from jozefhoeve.nl.",
+    "Aankomst (ma. & vr.)":"Arrival (Mon. & Fri.)",
+    "15:00 uur, in overleg eventueel anders":"3:00 PM, other times possible by arrangement",
+    "Vertrek (ma. & vr.)":"Departure (Mon. & Fri.)",
+    "10:00 uur, in overleg eventueel anders":"10:00 AM, other times possible by arrangement",
+    "Vertrek (zondag)":"Departure (Sunday)",
+    "16:00 uur, in overleg eventueel anders":"4:00 PM, other times possible by arrangement",
+    "Zwaluwnest — prijzen 2023":"Zwaluwnest — 2023 prices",
+    "Kievitsnest — prijzen 2023":"Kievitsnest — 2023 prices",
+    "Trekkershut — prijzen 2023":"Trekkershut — 2023 prices",
+    "Bijkomende kosten (Zwaluwnest & Kievitsnest)":"Additional costs (Zwaluwnest & Kievitsnest)",
+    "Contact & adres":"Contact & address",
+    "Adres":"Address",
+    "Laurabosweg 4, 6006 VR Weert":"Laurabosweg 4, 6006 VR Weert",
+    "Telefoon ":"Phone ",
+    "KvK":"Chamber of Commerce",
+    "Roermond 13025630":"Roermond 13025630",
+    "Periode":"Period",
+    "Weekend":"Weekend",
+    "Lang weekend":"Long weekend",
+    "Midweek":"Midweek",
+    "Week":"Week",
+    "Jan, feb, mrt":"Jan, Feb, Mar",
+    "Nov, dec":"Nov, Dec",
+    "Apr t/m okt":"Apr to Oct",
+    "Prijs":"Price",
+    "Vanaf 2 nachten (1 pers.)":"From 2 nights (1 pers.)",
+    "Weekend vr. t/m zo. (2 pers.)":"Weekend Fri. to Sun. (2 pers.)",
+    "Lang weekend vr. t/m ma. (2 pers.)":"Long weekend Fri. to Mon. (2 pers.)",
+    "Week (2 pers.)":"Week (2 pers.)",
+    "Schoonmaakkosten":"Cleaning costs",
+    "Toeristenbelasting":"Tourist tax",
+    "Huur lakenpakket (1 pers.)":"Bed linen package rental (1 pers.)",
+    "Huur handdoekpakket":"Towel package rental",
+    "Hond":"Dog",
+    "Energiekosten weekend":"Energy costs weekend",
+    "Energiekosten midweek":"Energy costs midweek",
+    "Energiekosten week":"Energy costs week",
+    "Info":"Info",
+    "Bereken je prijsindicatie":"Calculate your price estimate",
+    "Verblijfsduur":"Length of stay",
+    "Zwaluwnest":"Zwaluwnest",
+    "Kievitsnest":"Kievitsnest",
+    "Trekkershut":"Trekkershut",
+    "Seizoen":"Season",
+    "Januari, februari, maart":"January, February, March",
+    "November, december":"November, December",
+    "April t/m oktober":"April to October",
+    "Aantal nachten":"Number of nights",
+    "Hond meenemen":"Bringing a dog",
+    "Lakenpakket huren (per persoon)":"Rent bed linen package (per person)",
+    "Handdoekpakket huren (per persoon)":"Rent towel package (per person)",
+    "Bereken prijsindicatie":"Calculate price estimate",
+    "Totale prijsindicatie":"Total price estimate",
+    // Verblijf kaarten NL->EN
+    "8 tot 18 personen":"8 to 18 people",
+    "Hooggelegen accommodatie voor verenigingen, families en vriendengroepen. Met stapelbedden en gewone bedden, een groot overdekt terras en een ruime buitenspeelweide.":"Elevated accommodation for clubs, families and groups of friends. With bunk beds and regular beds, a large covered terrace and a spacious outdoor play area.",
+    "Grote luxe keuken (oven, vaatwasser, 6-pits fornuis, koelcel)":"Large luxury kitchen (oven, dishwasher, 6-burner stove, cold room)",
+    "Eet- en recreatiezaal met tv, dvd-speler, poolbiljart en dartbord":"Dining and recreation room with TV, DVD player, pool table and dartboard",
+    "Wifi aanwezig":"Wifi available",
+    "Stapelbedden en gewone bedden":"Bunk beds and regular beds",
+    "Groot overdekt terras met bbq-plek en vuurschaal":"Large covered terrace with BBQ spot and fire bowl",
+    "Groot speelveld met doelen, trampoline en volleybalnet":"Large playing field with goals, trampoline and volleyball net",
+    "Kindvriendelijk — veel mogelijkheden binnen en buiten":"Child-friendly — plenty of options indoors and out",
+    "Ruimtelijk en bosrijk gelegen met veel privé":"Spacious and wooded setting with plenty of privacy",
+    "Gratis parkeergelegenheid":"Free parking",
+    "Tot 22 personen":"Up to 22 people",
+    "Geheel gelijkvloers en rolstoeltoegankelijk. Perfect voor families met kinderen en groepen met een zorgvraag. 10 slaapkamers, waarvan 5 met eigen sanitair.":"Entirely on one level and wheelchair-accessible. Perfect for families with children and groups with care needs. 10 bedrooms, 5 of which have en-suite facilities.",
+    "Grote luxe keuken (oven, vaatwasser, 4-pits fornuis, koelcel)":"Large luxury kitchen (oven, dishwasher, 4-burner stove, cold room)",
+    "Eet- en recreatiezaal met tv, dvd-speler en wifi":"Dining and recreation room with TV, DVD player and wifi",
+    "Eigen kinderspeelkamer met keukentje, poolbiljart en dartbord":"Dedicated children's playroom with kitchenette, pool table and dartboard",
+    "10 slaapkamers (eenpersoonsbedden), 5 met eigen sanitair":"10 bedrooms (single beds), 5 with en-suite facilities",
+    "Geheel gelijkvloers en rolstoeltoegankelijk":"Entirely on one level and wheelchair-accessible",
+    "Groot overdekt terras met vuurschaal":"Large covered terrace with fire bowl",
+    "Groot speelveld met schommel, wipwap, trampoline en volleybalnet":"Large playing field with swing, see-saw, trampoline and volleyball net",
+    "Speelmogelijkheden voor kinderen (skelters)":"Play options for children (go-karts)",
+    "Groot wandelpad om het recreatieveld":"Large walking path around the recreational field",
+    "Diverse rustige zitplekken in de tuin":"Various quiet seating spots in the garden",
+    // Placeholders
+    "bijv. 18":"e.g. 18",
+    "Voor- en achternaam":"First and last name",
+    "Bijv. zorgwensen, aankomsttijd of bijzonderheden":"E.g. care needs, arrival time or other details",
+    "DD-MM-JJJJ":"DD-MM-YYYY",
+    "naam@mail.nl":"name@mail.com",
+    "06 ...":"06 ...",
+    // Tabbalk
+    "Home":"Home"
+  };
+
   // Verzamel alle vertaalbare tekstknopen + placeholders (eenmalig, in het Nederlands)
   const i18nNodes = [];
   (function collect(){
@@ -519,13 +772,16 @@ const screensEl = document.getElementById('screens');
   const i18nPh = [];
   document.querySelectorAll('[placeholder]').forEach(el=>i18nPh.push({el, raw:el.getAttribute('placeholder')}));
 
+  const MAPS = {de: MAP_DE, en: MAP_EN};
+
   let currentLang = 'nl';
   function setLang(lang){
     currentLang = lang;
     document.documentElement.lang = lang;
+    const MAP = MAPS[lang];
     i18nNodes.forEach(({node, raw})=>{
       const key = raw.trim();
-      if(lang==='de' && MAP[key]!==undefined){
+      if(MAP && MAP[key]!==undefined){
         const lead = raw.match(/^\s*/)[0], trail = raw.match(/\s*$/)[0];
         node.nodeValue = lead + MAP[key] + trail;
       } else {
@@ -533,17 +789,19 @@ const screensEl = document.getElementById('screens');
       }
     });
     i18nPh.forEach(({el, raw})=>{
-      el.setAttribute('placeholder', (lang==='de' && MAP[raw]!==undefined) ? MAP[raw] : raw);
+      el.setAttribute('placeholder', (MAP && MAP[raw]!==undefined) ? MAP[raw] : raw);
     });
     // Vertaal ook option-teksten in de select
     document.querySelectorAll('select option').forEach(opt=>{
       const key = opt.dataset.nl || opt.textContent.trim();
       if(!opt.dataset.nl) opt.dataset.nl = key;
-      opt.textContent = (lang==='de' && MAP[key]!==undefined) ? MAP[key] : key;
+      opt.textContent = (MAP && MAP[key]!==undefined) ? MAP[key] : key;
     });
     document.getElementById('flagNl').classList.toggle('active', lang==='nl');
     document.getElementById('flagDe').classList.toggle('active', lang==='de');
+    document.getElementById('flagEn').classList.toggle('active', lang==='en');
   }
 
   document.getElementById('flagNl').addEventListener('click', ()=>setLang('nl'));
   document.getElementById('flagDe').addEventListener('click', ()=>setLang('de'));
+  document.getElementById('flagEn').addEventListener('click', ()=>setLang('en'));
