@@ -59,7 +59,7 @@
   .flag{width:30px;height:21px;border-radius:4px;border:1px solid rgba(255,255,255,.2);overflow:hidden;cursor:pointer;
     padding:0;background:none;opacity:.45;display:block;flex:0 0 auto;
     transition:opacity .2s ease, transform .12s ease, box-shadow .2s ease}
-  .flag svg{width:100%;height:100%;display:block}
+  .flag svg,.stay .top svg{width:100%;height:100%;display:block}
   .flag.active{opacity:1;box-shadow:0 0 0 2px #fff}
   .flag:hover{opacity:.85}
   .flag:active{transform:scale(.93)}
@@ -152,7 +152,7 @@
   .stay{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
     margin-top:14px;box-shadow:0 10px 30px -24px rgba(31,45,36,.6)}
   .stay .top{position:relative;height:128px;overflow:hidden}
-  .stay .top svg{width:100%;height:100%;display:block}
+
   .stay .cap{position:absolute;left:12px;top:12px;background:rgba(31,45,36,.78);color:#fff;
     font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;backdrop-filter:blur(3px);
     display:inline-flex;align-items:center;gap:6px}
@@ -198,7 +198,7 @@
   .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);
     box-shadow:0 0 0 3px var(--green-soft)}
   .field textarea{resize:vertical;min-height:84px}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .two,.plan-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.4}
   .note{background:var(--green-soft);border:1px solid rgba(79,111,82,.25);border-radius:14px;
     padding:12px 14px;font-size:12.5px;color:var(--forest-deep);line-height:1.5;margin-top:16px;
@@ -242,7 +242,6 @@
   .plan-img.noimg img,.plan-img.noimg .zoom{display:none}
   .plan-img.noimg::after{content:"Plattegrond is hier in te laden — vraag de indeling gerust bij ons op."}
   .plan-label{font-size:13px;font-weight:700;color:#fff;margin:18px 0 8px}
-  .plan-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .plan-two .plan-img{margin-top:0}
   .zoom.mini{padding:7px;gap:0}
 
@@ -260,11 +259,11 @@
     padding:9px 10px;border-bottom:1px solid var(--line)}
   .price-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--muted)}
   .price-table tr:last-child td{border-bottom:none}
-  .price-table td:first-child{color:var(--forest-deep);font-weight:600}
+  .price-table td:first-child,.calc-breakdown .crow b{color:var(--forest-deep);font-weight:600}
   .price-note{display:flex;gap:10px;align-items:flex-start;background:var(--clay-soft);
     border:1px solid rgba(192,107,62,.3);border-radius:14px;padding:13px 14px;margin-top:14px;font-size:13px;color:#6b4327}
   .price-note svg{width:18px;height:18px;color:var(--clay);flex:0 0 auto;margin-top:1px}
-  .stay-label{font-size:13px;font-weight:700;color:var(--forest-deep);margin:22px 0 8px;display:block}
+
 
   .calc-box{background:var(--paper-2);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:10px}
   .calc-box .field{margin-bottom:12px}
@@ -278,7 +277,6 @@
   .calc-total b{font-size:24px;color:var(--clay)}
   .calc-breakdown{display:flex;flex-direction:column;gap:6px}
   .calc-breakdown .crow{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
-  .calc-breakdown .crow b{color:var(--forest-deep);font-weight:600}
 
   /* lightbox */
   .lightbox{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
