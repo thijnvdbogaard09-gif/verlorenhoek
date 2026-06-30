@@ -157,11 +157,11 @@ const screensEl = document.getElementById('screens');
   const calcBerekenBtn = document.getElementById('calcBereken');
   if(calcBerekenBtn){
     calcBerekenBtn.addEventListener('click', ()=>{
-      const acco = document.getElementById('calcAcco').value;
-      const periode = document.getElementById('calcPeriode').value;
+      const acco = calcAccoSel.value;
+      const periode = calcPeriodeSel.value;
       const seizoen = document.getElementById('calcSeizoen').value;
-      const personen = Math.max(1, parseInt(document.getElementById('calcPersonen').value, 10) || 1);
-      const nachten = Math.max(1, parseInt(document.getElementById('calcNachten').value, 10) || 1);
+      const personen = Math.max(1, parseInt(calcPersonenInput.value, 10) || 1);
+      const nachten = Math.max(1, parseInt(calcNachtenInput.value, 10) || 1);
       const hond = document.getElementById('calcHond').checked;
       const lakens = document.getElementById('calcLakens').checked;
       const handdoeken = document.getElementById('calcHanddoeken').checked;
@@ -797,11 +797,7 @@ const screensEl = document.getElementById('screens');
       if(!opt.dataset.nl) opt.dataset.nl = key;
       opt.textContent = (MAP && MAP[key]!==undefined) ? MAP[key] : key;
     });
-    document.getElementById('flagNl').classList.toggle('active', lang==='nl');
-    document.getElementById('flagDe').classList.toggle('active', lang==='de');
-    document.getElementById('flagEn').classList.toggle('active', lang==='en');
+    ['nl','de','en'].forEach(l=>document.getElementById('flag'+l[0].toUpperCase()+l[1]).classList.toggle('active', lang===l));
   }
 
-  document.getElementById('flagNl').addEventListener('click', ()=>setLang('nl'));
-  document.getElementById('flagDe').addEventListener('click', ()=>setLang('de'));
-  document.getElementById('flagEn').addEventListener('click', ()=>setLang('en'));
+  ['nl','de','en'].forEach(l=>document.getElementById('flag'+l[0].toUpperCase()+l[1]).addEventListener('click', ()=>setLang(l)));
