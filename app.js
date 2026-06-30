@@ -115,17 +115,40 @@ const screensEl = document.getElementById('screens');
 
   const calcAccoSel = document.getElementById('calcAcco');
   const calcSeizoenWrap = document.getElementById('calcSeizoenWrap');
+  const calcPersonenInput = document.getElementById('calcPersonen');
+  const calcPeriodeSel = document.getElementById('calcPeriode');
+  const calcNachtenWrap = document.getElementById('calcNachtenWrap');
+  const calcNachtenInput = document.getElementById('calcNachten');
+
+  const CALC_MAX_PERSONEN = {zwaluwnest:18, kievitsnest:22, trekkershut:2};
+  // Vaste nachten per periode (alleen "week" heeft een variabel, zelf in te vullen aantal nachten)
+  const CALC_VASTE_NACHTEN = {weekend:2, langweekend:3, midweek:5};
 
   function calcUpdateVisibility(){
+    const acco = calcAccoSel.value;
+
     // Trekkershut heeft geen seizoensprijzen, dus seizoenkeuze verbergen
-    if(calcAccoSel.value === 'trekkershut'){
-      calcSeizoenWrap.style.display = 'none';
+    calcSeizoenWrap.style.display = (acco === 'trekkershut') ? 'none' : '';
+
+    // Maximaal aantal personen aanpassen op gekozen accommodatie
+    const maxP = CALC_MAX_PERSONEN[acco] || 25;
+    calcPersonenInput.max = maxP;
+    if(parseInt(calcPersonenInput.value, 10) > maxP) calcPersonenInput.value = maxP;
+
+    // Aantal nachten alleen relevant (en invulbaar) bij "week"; anders ligt het vast
+    const periode = calcPeriodeSel.value;
+    if(periode === 'week'){
+      calcNachtenWrap.style.display = '';
+      calcNachtenInput.disabled = false;
     } else {
-      calcSeizoenWrap.style.display = '';
+      calcNachtenWrap.style.display = 'none';
+      calcNachtenInput.disabled = true;
+      calcNachtenInput.value = CALC_VASTE_NACHTEN[periode] || 7;
     }
   }
   if(calcAccoSel){
     calcAccoSel.addEventListener('change', calcUpdateVisibility);
+    calcPeriodeSel.addEventListener('change', calcUpdateVisibility);
     calcUpdateVisibility();
   }
 
