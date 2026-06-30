@@ -266,6 +266,20 @@
   .price-note svg{width:18px;height:18px;color:var(--clay);flex:0 0 auto;margin-top:1px}
   .stay-label{font-size:13px;font-weight:700;color:var(--forest-deep);margin:22px 0 8px;display:block}
 
+  .calc-box{background:var(--paper-2);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:10px}
+  .calc-box .field{margin-bottom:12px}
+  .calc-box .field:last-of-type{margin-bottom:0}
+  .calc-checks{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .calc-check{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--forest-deep);cursor:pointer}
+  .calc-check input{width:17px;height:17px;accent-color:var(--green);cursor:pointer}
+  .calc-result{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+  .calc-total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+  .calc-total span{font-size:13px;color:var(--muted);font-weight:600}
+  .calc-total b{font-size:24px;color:var(--clay)}
+  .calc-breakdown{display:flex;flex-direction:column;gap:6px}
+  .calc-breakdown .crow{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+  .calc-breakdown .crow b{color:var(--forest-deep);font-weight:600}
+
   /* lightbox */
   .lightbox{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
     padding:22px;background:rgba(20,28,22,.93);backdrop-filter:blur(5px)}
