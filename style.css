@@ -254,6 +254,18 @@
   .info-rows .irow b{display:block;font-size:14px;color:var(--forest-deep)}
   .info-rows .irow span{font-size:13px;color:var(--muted);line-height:1.45}
 
+  .price-table{margin-top:10px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--paper)}
+  .price-table table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .price-table th{background:var(--paper-2);color:var(--forest-deep);font-weight:700;text-align:left;
+    padding:9px 10px;border-bottom:1px solid var(--line)}
+  .price-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--muted)}
+  .price-table tr:last-child td{border-bottom:none}
+  .price-table td:first-child{color:var(--forest-deep);font-weight:600}
+  .price-note{display:flex;gap:10px;align-items:flex-start;background:var(--clay-soft);
+    border:1px solid rgba(192,107,62,.3);border-radius:14px;padding:13px 14px;margin-top:14px;font-size:13px;color:#6b4327}
+  .price-note svg{width:18px;height:18px;color:var(--clay);flex:0 0 auto;margin-top:1px}
+  .stay-label{font-size:13px;font-weight:700;color:var(--forest-deep);margin:22px 0 8px;display:block}
+
   /* lightbox */
   .lightbox{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
     padding:22px;background:rgba(20,28,22,.93);backdrop-filter:blur(5px)}
