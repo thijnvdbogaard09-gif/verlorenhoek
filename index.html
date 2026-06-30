@@ -519,6 +519,56 @@
           <span>Deze prijzen zijn overgenomen van de officiële website en dateren van <b>2023</b> — de meest recente tarieven die daar gepubliceerd staan. Vraag bij je aanvraag altijd naar de actuele prijs, of bel <a href="tel:+31495518591" style="color:inherit;text-decoration:underline">+31 (0)495 - 51 85 91</a>. Laatst gecontroleerd: juni 2026.</span>
         </div>
 
+        <!-- Prijscalculator -->
+        <span class="stay-label">Bereken je prijsindicatie</span>
+        <div class="calc-box">
+          <div class="field">
+            <label for="calcAcco">Accommodatie</label>
+            <select id="calcAcco">
+              <option value="zwaluwnest">Zwaluwnest</option>
+              <option value="kievitsnest">Kievitsnest</option>
+              <option value="trekkershut">Trekkershut</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="calcPeriode">Verblijfsduur</label>
+            <select id="calcPeriode">
+              <option value="weekend">Weekend</option>
+              <option value="langweekend">Lang weekend</option>
+              <option value="midweek">Midweek</option>
+              <option value="week">Week</option>
+            </select>
+          </div>
+          <div class="field" id="calcSeizoenWrap">
+            <label for="calcSeizoen">Seizoen</label>
+            <select id="calcSeizoen">
+              <option value="laag">Januari, februari, maart</option>
+              <option value="laag2">November, december</option>
+              <option value="hoog">April t/m oktober</option>
+            </select>
+          </div>
+          <div class="two">
+            <div class="field"><label for="calcPersonen">Aantal personen</label><input type="number" id="calcPersonen" min="1" max="25" value="10"></div>
+            <div class="field"><label for="calcNachten">Aantal nachten</label><input type="number" id="calcNachten" min="1" max="14" value="2"></div>
+          </div>
+          <div class="calc-checks">
+            <label class="calc-check"><input type="checkbox" id="calcHond"> Hond meenemen</label>
+            <label class="calc-check"><input type="checkbox" id="calcLakens"> Lakenpakket huren (per persoon)</label>
+            <label class="calc-check"><input type="checkbox" id="calcHanddoeken"> Handdoekpakket huren (per persoon)</label>
+          </div>
+          <button class="btn btn-primary btn-block" id="calcBereken" style="margin-top:14px">Bereken prijsindicatie</button>
+
+          <div class="calc-result" id="calcResult" style="display:none">
+            <div class="calc-total"><span>Totale prijsindicatie</span><b id="calcTotaal">€ 0</b></div>
+            <div class="calc-breakdown" id="calcBreakdown"></div>
+          </div>
+
+          <div class="price-note" style="margin-top:14px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <span>Dit is een indicatie op basis van de tarieven van 2023 en geen definitieve prijs. Schoonmaakkosten en energiekosten worden los van de verblijfsprijs in rekening gebracht en zijn hierin meegenomen.</span>
+          </div>
+        </div>
+
         <!-- Aankomst & vertrek -->
         <div class="info-rows" style="margin-top:18px">
           <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Aankomst (ma. &amp; vr.)</b><span>15:00 uur, in overleg eventueel anders</span></div></div>
