@@ -1,618 +1,652 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>St.Jozefhoeve — Groepsaccommodatie Weert</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="website.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>St.Jozefhoeve — Groepsaccommodatie Weert</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
+<svg aria-hidden="true" style="display:none"><defs><symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></symbol><symbol id="ic-loc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2.5"/></symbol><symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="ic-zoom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></symbol><symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol><symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol></defs></svg>
+<div class="app">
 
-<!-- SVG defs -->
-<svg aria-hidden="true" style="display:none"><defs>
-  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></symbol>
-  <symbol id="ic-loc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
-  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
-  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
-  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></symbol>
-</defs></svg>
-
-<div class="site">
-
-  <!-- ======= SIDEBAR ======= -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <svg class="leaf" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 36C20 36 8 26 8 18a12 12 0 0 1 24 0c0 8-12 18-12 18z" fill="#4f6f52"/>
-        <path d="M20 9c-4 4-6 7-6 11a6 6 0 0 0 12 0c0-4-2-7-6-11z" fill="#7fae74"/>
-        <path d="M20 14v14" stroke="#2c3f33" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <div class="brand-name">St.Jozefhoeve</div>
-      <div class="brand-sub">Weert · Limburg</div>
+  <!-- App bar -->
+  <header class="appbar">
+    <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="20" fill="#2c3f33"/>
+      <path d="M20 9c-4 4-6 7-6 11a6 6 0 0012 0c0-4-2-7-6-11z" fill="#7fae74"/>
+      <path d="M20 14v14" stroke="#2c3f33" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="brand-text">
+      <b>St.Jozefhoeve</b>
+      <span>Weert · Limburg</span>
     </div>
-
-    <nav class="sidebar-nav">
-      <button class="nav-link active" data-sec="home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-        Home
-      </button>
-      <button class="nav-link" data-sec="verblijven">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V9l8-5 8 5v11M9 20v-5h6v5"/></svg>
-        Verblijven
-      </button>
-      <button class="nav-link" data-sec="faciliteiten">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        Faciliteiten
-      </button>
-      <button class="nav-link" data-sec="omgeving">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        Omgeving
-      </button>
-      <button class="nav-link" data-sec="aanvraag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        Aanvragen
-      </button>
-      <button class="nav-link" data-sec="info">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>
-        Info
-      </button>
-    </nav>
-
-    <div class="sidebar-lang">
+    <div class="appbar-right">
       <button class="flag active" id="flagNl" aria-label="Nederlands" title="Nederlands">
-        <svg viewBox="0 0 30 21"><rect width="30" height="7" y="0" fill="#ae1c28"/><rect width="30" height="7" y="7" fill="#fff"/><rect width="30" height="7" y="14" fill="#21468b"/></svg>
+        <svg viewBox="0 0 30 21"><rect width="30" height="7" y="0" fill="#ae1c28"/><rect width="30" height="7" y="7" fill="#ffffff"/><rect width="30" height="7" y="14" fill="#21468b"/></svg>
       </button>
       <button class="flag" id="flagDe" aria-label="Deutsch" title="Deutsch">
-        <svg viewBox="0 0 30 21"><rect width="30" height="7" y="0" fill="#000"/><rect width="30" height="7" y="7" fill="#dd0000"/><rect width="30" height="7" y="14" fill="#ffce00"/></svg>
+        <svg viewBox="0 0 30 21"><rect width="30" height="7" y="0" fill="#000000"/><rect width="30" height="7" y="7" fill="#dd0000"/><rect width="30" height="7" y="14" fill="#ffce00"/></svg>
       </button>
       <button class="flag" id="flagEn" aria-label="English" title="English">
         <svg viewBox="0 0 30 21"><rect width="30" height="21" fill="#012169"/><path d="M0 0L30 21M30 0L0 21" stroke="#fff" stroke-width="3.5"/><path d="M0 0L30 21M30 0L0 21" stroke="#c8102e" stroke-width="1.5"/><path d="M15 0V21M0 10.5H30" stroke="#fff" stroke-width="6"/><path d="M15 0V21M0 10.5H30" stroke="#c8102e" stroke-width="3.5"/></svg>
       </button>
-    </div>
-
-    <div class="sidebar-contact">
-      <a href="tel:+31495518591">
+      <a class="call" href="tel:+31495518591" aria-label="Bel ons">
         <svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg>
-        +31 (0)495 - 51 85 91
-      </a>
-      <a href="mailto:info@jozefhoeve.nl">
-        <svg viewBox="0 0 24 24"><use href="#ic-mail"/></svg>
-        info@jozefhoeve.nl
-      </a>
-      <a href="https://maps.google.com/?q=Laurabosweg+4+Weert" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg>
-        Laurabosweg 4, Weert
       </a>
     </div>
-  </aside>
+  </header>
 
-  <!-- ======= MAIN ======= -->
-  <main class="main">
+  <!-- Screens -->
+  <main class="screens" id="screens">
 
-    <!-- ==== HOME ==== -->
-    <section class="section active" id="sec-home">
+    <!-- ============ HOME ============ -->
+    <section class="screen active" id="home">
       <div class="hero">
-        <img class="hero-img" src="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2127_0.jpg" alt="St.Jozefhoeve" onerror="this.style.display='none'">
-        <div class="hero-body">
-          <div class="hero-card">
-            <span class="hero-kicker">🌿 Groepsaccommodatie · Weert, Limburg</span>
-            <h1 class="hero-title">Samen weg,<br>midden in de natuur</h1>
-            <p class="hero-sub">Een vrijliggend verblijf voor 18 tot 22 personen, omringd door bos en heide in Weert.</p>
-            <div class="hero-actions">
-              <button class="btn btn-clay" data-sec="aanvraag">Aanvraag doen</button>
-              <button class="btn btn-ghost" data-sec="verblijven">Bekijk verblijven</button>
-            </div>
-          </div>
+        <div class="scene">
+          <svg viewBox="0 0 440 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#cfd9b8"/><stop offset="1" stop-color="#a7be8c"/>
+              </linearGradient>
+              <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#6f9162"/><stop offset="1" stop-color="#577a4c"/>
+              </linearGradient>
+              <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#436038"/><stop offset="1" stop-color="#33502b"/>
+              </linearGradient>
+            </defs>
+            <rect width="440" height="340" fill="url(#sky)"/>
+            <circle cx="338" cy="78" r="34" fill="#f4e3b5" opacity=".9"/>
+            <path d="M0 196c70-34 130-18 200 4s170 18 240-10v150H0z" fill="url(#h1)"/>
+            <path d="M0 246c80-30 150-8 230 12s150 6 210-18v100H0z" fill="url(#h2)"/>
+            <!-- barn -->
+            <g transform="translate(54,150)">
+              <path d="M0 28 32 6 64 28v44H0z" fill="#7a4a31"/>
+              <path d="M-4 30 32 3 68 30 64 26 32 6 0 26z" fill="#8a5a3b"/>
+              <rect x="24" y="46" width="16" height="26" fill="#5e3622"/>
+            </g>
+            <!-- trees -->
+            <g fill="#2f4a30">
+              <path d="M150 232c-10-8-12-18-12-26 0-12 6-22 14-30 8 8 14 18 14 30 0 8-2 18-12 26z" transform="translate(0,0)"/>
+              <rect x="151" y="226" width="4" height="14" fill="#4a3322"/>
+            </g>
+            <g fill="#356135">
+              <path d="M348 252c-12-9-15-21-15-31 0-15 8-27 17-36 9 9 17 21 17 36 0 10-3 22-15 31z"/>
+              <rect x="349" y="244" width="5" height="18" fill="#4a3322"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hero-slideshow">
+          <img class="hero-photo active" src="afbeeldingen/2120_0.jpg" alt="St.Jozefhoeve in de natuur">
+          <img class="hero-photo" src="afbeeldingen/2120_1.jpg" alt="St.Jozefhoeve in de natuur">
+          <img class="hero-photo" src="afbeeldingen/2120_2.jpg" alt="St.Jozefhoeve in de natuur">
+          <img class="hero-photo" src="afbeeldingen/2120_3.jpg" alt="St.Jozefhoeve in de natuur">
+        </div>
+        <div class="veil"></div>
+        <div class="inner">
+		<!--<span class="tag">🌿 Groepsaccommodatie</span>-->
+          <h1>Samen weg,<br>midden in de natuur</h1>
+          <p>Een vrijliggend verblijf voor 18 tot 22 personen, omringd door bos en heide in Weert.</p>
         </div>
       </div>
 
-      <div class="content">
-        <span class="s-kicker">Welkom op de hoeve</span>
-        <h2 class="s-title">Ruimte, gastvrijheid en rust</h2>
-        <p class="s-lead">Op zoek naar een fijn onderkomen voor een weekendje weg, familieweekend of groepsuitje? Bij Hans en Eric van den Bogaard ben je aan het juiste adres. Jong of oud, valide of mindervalide — iedereen is welkom.</p>
-
-        <div class="welcome-grid">
-          <div class="w-tile">
-            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V9l8-5 8 5v11M9 20v-5h6v5"/></svg></div>
-            <h4>Twee accommodaties</h4>
-            <p>Kievitsnest (22) en Zwaluwnest (18), geheel vrijliggend.</p>
-          </div>
-          <div class="w-tile">
-            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <h4>Voor iedereen</h4>
-            <p>Zorgfaciliteiten en goede toegankelijkheid op aanvraag.</p>
-          </div>
-          <div class="w-tile">
-            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-            <h4>Midden in de natuur</h4>
-            <p>Direct gelegen aan bos en heide in de Groene Regio.</p>
-          </div>
-          <div class="w-tile">
-            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-            <h4>Van alles te doen</h4>
-            <p>Dierenpark, zwemparadijs, bowlen en meer in de buurt.</p>
-          </div>
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Welkom op de hoeve</span>
+          <h2 class="title">Ruimte, gastvrijheid en rust</h2>
+          <p class="lead">Een weekendje weg, familieweekend of groepsuitje — bij Hans en Eric van den Bogaard is iedereen welkom, jong of oud.</p>
         </div>
 
-        <div class="lastminute-bar">
-          <div>
-            <h4>Last minute</h4>
-            <p>Spontaan een weekend vrij? Vraag naar onze last-minute mogelijkheden — we kijken graag samen wat er kan.</p>
-          </div>
-          <a href="mailto:info@jozefhoeve.nl" class="btn btn-clay" style="white-space:nowrap">Aanvraag doen</a>
+        <div class="menugrid">
+          <button class="menu-card" data-go="verblijf">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V9l8-5 8 5v11M9 20v-5h6v5"/></svg></span>
+            <span class="lab">Verblijf</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="menu-card" data-go="faciliteiten">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M12 6v6h4l2.5 7M12 9h3M9 12a4.5 4.5 0 1 0 4.5 6.5"/></svg></span>
+            <span class="lab">Faciliteiten</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="menu-card" data-go="omgeving">
+            <span class="ic"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg></span>
+            <span class="lab">Omgeving</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="menu-card" data-go="info">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg></span>
+            <span class="lab">Info</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="menu-card accent wide" data-go="boeken">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <span class="lab">Aanvragen</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
         </div>
+
+        <div class="banner" data-go="boeken">
+          <span class="k">Last minute</span>
+          <h3>Spontaan een weekend vrij?</h3>
+          <p>Vraag naar onze last-minute mogelijkheden — we kijken graag samen wat er kan.</p>
+        </div>
+
+        <p class="footer-mini">St.Jozefhoeve · Laurabosweg 4, 6006 VR Weert</p>
       </div>
     </section>
 
-    <!-- ==== VERBLIJVEN ==== -->
-    <section class="section" id="sec-verblijven">
-      <div class="content">
-        <span class="s-kicker">Verblijf</span>
-        <h2 class="s-title">Kies jullie plek</h2>
-        <p class="s-lead">Twee ruime, vrijliggende groepsaccommodaties en een trekkershut — elk met een eigen sfeer. Klik op een verblijf voor meer details.</p>
+    <!-- ============ VERBLIJF ============ -->
+    <section class="screen" id="verblijf">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Verblijven</span>
+          <h2 class="title">Kies jullie plek</h2>
+          <p class="lead">Twee ruime, vrijliggende groepsaccommodaties en een trekkershut — elk met een eigen sfeer. Tik op een verblijf voor meer details.</p>
+        </div>
 
-        <div class="stay-grid">
-          <!-- Zwaluwnest -->
-          <div class="stay-card" data-stay="zwaluwnest">
-            <img class="card-img" src="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2127_0.jpg" alt="Zwaluwnest" onerror="this.style.display='none'">
-            <div class="card-body">
-              <div class="cap">8 tot 18 personen</div>
-              <h3>Zwaluwnest</h3>
-              <p>Hooggelegen accommodatie voor verenigingen, families en vriendengroepen. Met stapelbedden en gewone bedden, een groot overdekt terras en een ruime buitenspeelweide.</p>
-              <div class="feats">
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Grote luxe keuken (oven, vaatwasser, 6-pits fornuis, koelcel)</div>
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Eet- en recreatiezaal met tv, dvd-speler, poolbiljart en dartbord</div>
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Groot overdekt terras met bbq-plek en vuurschaal</div>
-              </div>
-              <button class="btn btn-outline btn-sm" data-toggle="zwaluwnest">Bekijk voorzieningen</button>
+        <!-- Zwaluwnest -->
+        <article class="stay" data-stay>
+          <div class="top">
+            <img class="top-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p649/2127_0.jpg" alt="Zwaluwnest" onerror="this.style.display='none'"><svg viewBox="0 0 440 130" preserveAspectRatio="xMidYMid slice"><rect width="440" height="130" fill="#dfe6cf"/><circle cx="370" cy="34" r="22" fill="#f0dca6"/><path d="M0 86c80-22 150-6 220 8s140 4 220-16v52H0z" fill="#6f9162"/><path d="M0 104c90-16 160 0 230 12s130 0 210-14v28H0z" fill="#456038"/><g transform="translate(40,52)"><path d="M0 24 28 6 56 24v34H0z" fill="#8a5a3b"/><rect x="22" y="40" width="12" height="18" fill="#5e3622"/></g></svg>
+            <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> 8 tot 18 personen</span>
+          </div>
+          <div class="body">
+            <h3>Zwaluwnest</h3>
+            <p class="desc">Hooggelegen accommodatie voor verenigingen, families en vriendengroepen. Met stapelbedden en gewone bedden, een groot overdekt terras en een ruime buitenspeelweide.</p>
+            <button class="toggle" data-toggle>Bekijk voorzieningen
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="more">
+              <ul>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Grote luxe keuken (oven, vaatwasser, 6-pits fornuis, koelcel)</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Eet- en recreatiezaal met tv, dvd-speler, poolbiljart en dartbord</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Wifi aanwezig</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Stapelbedden en gewone bedden</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Groot overdekt terras met bbq-plek en vuurschaal</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Groot speelveld met doelen, trampoline en volleybalnet</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Kindvriendelijk — veel mogelijkheden binnen en buiten</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Ruimtelijk en bosrijk gelegen met veel privé</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Gratis parkeergelegenheid</span></li>
+              </ul>
+              <button class="btn btn-green btn-block book" data-book="zwaluwnest">Aanvraag voor Zwaluwnest</button>
             </div>
           </div>
+        </article>
 
-          <!-- Kievitsnest -->
-          <div class="stay-card" data-stay="kievitsnest">
-            <img class="card-img" src="https://www.jozefhoeve.nl/images/pages/s1/p665/large_2189_1.jpg" alt="Kievitsnest" onerror="this.style.display='none'">
-            <div class="card-body">
-              <div class="cap">Tot 22 personen</div>
-              <h3>Kievitsnest</h3>
-              <p>Geheel gelijkvloers en rolstoeltoegankelijk. Perfect voor families met kinderen en groepen met een zorgvraag. 10 slaapkamers, waarvan 5 met eigen sanitair.</p>
-              <div class="feats">
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Grote luxe keuken (oven, vaatwasser, 4-pits fornuis, koelcel)</div>
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Eigen kinderspeelkamer met keukentje, poolbiljart en dartbord</div>
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Geheel gelijkvloers en rolstoeltoegankelijk</div>
-              </div>
-              <button class="btn btn-outline btn-sm" data-toggle="kievitsnest">Bekijk voorzieningen</button>
+        <!-- Kievitsnest -->
+        <article class="stay" data-stay>
+          <div class="top">
+            <img class="top-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p665/2185_0.jpg" alt="Kievitsnest" onerror="this.style.display='none'"><svg viewBox="0 0 440 130" preserveAspectRatio="xMidYMid slice"><rect width="440" height="130" fill="#e3e7d3"/><circle cx="64" cy="32" r="20" fill="#f0dca6"/><path d="M0 90c90-20 150 0 230 12s130-2 210-18v44H0z" fill="#789a64"/><path d="M0 106c80-14 160 2 240 12s120-2 200-16v26H0z" fill="#4a6a3c"/><g transform="translate(320,50)"><path d="M0 26 26 8 52 26v32H0z" fill="#7a4a31"/><rect x="20" y="42" width="12" height="16" fill="#5e3622"/></g></svg>
+            <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Tot 22 personen</span>
+          </div>
+          <div class="body">
+            <h3>Kievitsnest</h3>
+            <p class="desc">Geheel gelijkvloers en rolstoeltoegankelijk. Perfect voor families met kinderen en groepen met een zorgvraag. 10 slaapkamers, waarvan 5 met eigen sanitair.</p>
+            <button class="toggle" data-toggle>Bekijk voorzieningen
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="more">
+              <ul>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Grote luxe keuken (oven, vaatwasser, 4-pits fornuis, koelcel)</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Eet- en recreatiezaal met tv, dvd-speler en wifi</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Eigen kinderspeelkamer met keukentje, poolbiljart en dartbord</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>10 slaapkamers (eenpersoonsbedden), 5 met eigen sanitair</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Geheel gelijkvloers en rolstoeltoegankelijk</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Groot overdekt terras met vuurschaal</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Groot speelveld met schommel, wipwap, trampoline en volleybalnet</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Speelmogelijkheden voor kinderen (skelters)</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Groot wandelpad om het recreatieveld</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Diverse rustige zitplekken in de tuin</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Ruimtelijk en bosrijk gelegen met veel privé</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Gratis parkeergelegenheid</span></li>
+              </ul>
+              <button class="btn btn-green btn-block book" data-book="kievitsnest">Aanvraag voor Kievitsnest</button>
             </div>
           </div>
+        </article>
 
-          <!-- Trekkershut -->
-          <div class="stay-card" data-stay="trekkershut">
-            <div class="card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
-            <div class="card-body">
-              <div class="cap">Kleine groep</div>
-              <h3>Trekkershut</h3>
-              <p>Een knus, eenvoudig verblijf voor een klein gezelschap. Ideaal voor wandelaars en fietsers die de omgeving willen verkennen.</p>
-              <div class="feats">
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Knus verblijf met basisvoorzieningen</div>
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Midden in de natuur</div>
-                <div class="feat-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Perfect voor wandel- en fietstochten</div>
-              </div>
-              <button class="btn btn-outline btn-sm" data-toggle="trekkershut">Bekijk voorzieningen</button>
+        <!-- Trekkershut -->
+        <article class="stay" data-stay>
+          <div class="top">
+            <img class="top-photo" src="https://www.jozefhoeve.nl/images/pages/s1/p651/2197_1.jpg" alt="Trekkershut" onerror="this.style.display='none'"><svg viewBox="0 0 440 130" preserveAspectRatio="xMidYMid slice"><rect width="440" height="130" fill="#dde4cf"/><path d="M0 92c100-18 150 4 230 14s120-4 210-18v42H0z" fill="#6f9162"/><g transform="translate(170,46)"><path d="M0 30 32 6 64 30v30H0z" fill="#8a5a3b"/><path d="M-4 32 32 4 68 32" fill="none" stroke="#6e4528" stroke-width="4"/><rect x="26" y="44" width="12" height="16" fill="#5e3622"/></g></svg>
+            <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Kleine groep</span>
+          </div>
+          <div class="body">
+            <h3>Trekkershut</h3>
+            <p class="desc">Een knus, eenvoudig verblijf voor een klein gezelschap. Ideaal voor wandelaars en fietsers die de omgeving willen verkennen.</p>
+            <button class="toggle" data-toggle>Bekijk voorzieningen
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="more">
+              <ul>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Knus verblijf met basisvoorzieningen</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Midden in de natuur</span></li>
+                <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span>Perfect voor wandel- en fietstochten</span></li>
+              </ul>
+              <button class="btn btn-green btn-block book" data-book="trekkershut">Aanvraag voor Trekkershut</button>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- Uitklappanels -->
-        <div class="feats-panel" id="panel-zwaluwnest">
-          <h4>Zwaluwnest — alle voorzieningen</h4>
-          <div class="fp-grid">
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Wifi aanwezig</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Stapelbedden en gewone bedden</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Groot speelveld met doelen, trampoline en volleybalnet</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Kindvriendelijk — veel mogelijkheden binnen en buiten</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Ruimtelijk en bosrijk gelegen met veel privé</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Gratis parkeergelegenheid</div>
-          </div>
-          <div class="fp-actions">
-            <button class="btn btn-clay" data-sec="aanvraag" data-acco="zwaluwnest">Aanvraag voor Zwaluwnest</button>
-            <button class="btn btn-outline btn-sm" data-close="zwaluwnest">Sluiten</button>
-          </div>
-        </div>
-
-        <div class="feats-panel" id="panel-kievitsnest">
-          <h4>Kievitsnest — alle voorzieningen</h4>
-          <div class="fp-grid">
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Eet- en recreatiezaal met tv, dvd-speler en wifi</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>10 slaapkamers (eenpersoonsbedden), 5 met eigen sanitair</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Groot overdekt terras met vuurschaal</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Groot speelveld met schommel, wipwap, trampoline en volleybalnet</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Speelmogelijkheden voor kinderen (skelters)</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Groot wandelpad om het recreatieveld</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Diverse rustige zitplekken in de tuin</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Gratis parkeergelegenheid</div>
-          </div>
-          <div class="fp-actions">
-            <button class="btn btn-clay" data-sec="aanvraag" data-acco="kievitsnest">Aanvraag voor Kievitsnest</button>
-            <button class="btn btn-outline btn-sm" data-close="kievitsnest">Sluiten</button>
-          </div>
-        </div>
-
-        <div class="feats-panel" id="panel-trekkershut">
-          <h4>Trekkershut — alle voorzieningen</h4>
-          <div class="fp-grid">
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>2 eenpersoonsbedden</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Eigen keukentje met magnetron, koffiezetapparaat en waterkoker</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Verwarming, toilet en warme douche</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Eigen terrasje</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Aan fietsknooppuntenroute gelegen</div>
-            <div class="fp-row"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>LAW-wandelpaden Grenslandpad en Pelgrimspad</div>
-          </div>
-          <div class="fp-actions">
-            <button class="btn btn-clay" data-sec="aanvraag" data-acco="trekkershut">Aanvraag voor Trekkershut</button>
-            <button class="btn btn-outline btn-sm" data-close="trekkershut">Sluiten</button>
-          </div>
-        </div>
-
-        <div class="care-banner">
-          <div>
+        <!-- Zorg -->
+        <article class="stay" data-stay style="border-color:rgba(79,111,82,.4)">
+          <div class="body">
             <h3>Zorg &amp; toegankelijkheid</h3>
-            <p>Is iemand in de groep mindervalide? De St.Jozefhoeve beschikt over de juiste zorgfaciliteiten of regelt deze desgewenst. Bel of stuur een aanvraag, dan bespreken we samen de mogelijkheden.</p>
+            <p class="desc">Is iemand in de groep mindervalide? De St.Jozefhoeve beschikt over de juiste zorgfaciliteiten of regelt deze desgewenst. Bel of stuur een aanvraag, dan bespreken we samen de mogelijkheden.</p>
+            <button class="btn btn-green btn-block book" data-book="">Bespreek de mogelijkheden</button>
           </div>
-          <button class="btn btn-ghost" data-sec="faciliteiten">Bespreek de mogelijkheden</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ FACILITEITEN ============ -->
+    <section class="screen" id="faciliteiten">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Faciliteiten</span>
+          <h2 class="title">Faciliteiten &amp; zorg</h2>
+          <p class="lead">De accommodaties zijn ruim uitgerust en geschikt voor gasten met een zorgvraag. Het Kievitsnest is bovendien geheel gelijkvloers en drempelvrij.</p>
+        </div>
+
+        <!-- Plattegronden -->
+        <div class="plan">
+          <span class="section-kicker" style="color:var(--green)">Plattegronden</span>
+          <h3 class="subh">Indeling van de verblijven</h3>
+
+          <p class="plan-label">Kievitsnest</p>
+          <button class="plan-img" data-zoom="https://www.jozefhoeve.nl/images/pages/s1/p665/large_3022_1.jpg" aria-label="Vergroot plattegrond Kievitsnest">
+            <img src="https://www.jozefhoeve.nl/images/pages/s1/p665/3022_1.jpg" alt="Plattegrond Kievitsnest" onerror="this.closest('.plan-img').classList.add('noimg')">
+            <span class="zoom"><svg viewBox="0 0 24 24"><use href="#ic-zoom"/></svg> Tik om te vergroten</span>
+          </button>
+
+          <p class="plan-label">Zwaluwnest</p>
+          <div class="plan-two">
+            <button class="plan-img" data-zoom="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2165_3.jpg" aria-label="Vergroot plattegrond Zwaluwnest, deel 1">
+              <img src="https://www.jozefhoeve.nl/images/pages/s1/p649/2165_3.jpg" alt="Plattegrond Zwaluwnest" onerror="this.closest('.plan-img').classList.add('noimg')">
+              <span class="zoom mini"><svg viewBox="0 0 24 24"><use href="#ic-zoom"/></svg></span>
+            </button>
+            <button class="plan-img" data-zoom="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2165_4.jpg" aria-label="Vergroot plattegrond Zwaluwnest, deel 2">
+              <img src="https://www.jozefhoeve.nl/images/pages/s1/p649/2165_4.jpg" alt="Plattegrond Zwaluwnest" onerror="this.closest('.plan-img').classList.add('noimg')">
+              <span class="zoom mini"><svg viewBox="0 0 24 24"><use href="#ic-zoom"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Zorgvoorzieningen -->
+        <div style="margin-top:22px">
+          <span class="section-kicker" style="color:var(--clay)">Zorgvoorzieningen</span>
+          <h3 class="subh">Goed verzorgd verblijven</h3>
+        </div>
+        <div class="grid2">
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-5h18v5M3 18v2M21 18v2M3 13V8a1 1 0 0 1 1-1h6v6"/><circle cx="6.5" cy="10" r="1.2" fill="currentColor"/></svg></div>
+            <h4>Hoog-laagbedden</h4>
+            <p>In hoogte verstelbare zorgbedden.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M8.5 6.5L12 3l3.5 3.5"/><path d="M6 21v-4h12v4M9 17v-2h6v2"/></svg></div>
+            <h4>Tilliften</h4>
+            <p>Voor veilige transfers, op aanvraag.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l1.5 8h7L17 5M8.5 13v6M15.5 13v6M6 19h12"/><path d="M11 2.5v.5M14 2.5v.5"/></svg></div>
+            <h4>Douchestoelen</h4>
+            <p>Veilig en comfortabel douchen.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><path d="M11 6v6h5l3 7M11 9h4M8 12a5 5 0 1 0 5 7"/></svg></div>
+            <h4>Rolstoeltoilet &amp; -badkamer</h4>
+            <p>Aangepast, ruim en toegankelijk sanitair.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17M5 21h14M13 12h.01"/><path d="M3 8l-1.5 1.5L3 11M21 8l1.5 1.5L21 11"/></svg></div>
+            <h4>Brede deuren</h4>
+            <p>Drempelvrije, ruime doorgangen.</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20v-7h4v7M14 20v-10h4v10"/></svg></div>
+            <h4>Gelijkvloers</h4>
+            <p>Alles op de begane grond (Kievitsnest).</p>
+          </div>
+          <a class="feat" href="https://medicura.nl/thuiszorgwinkels/thuiszorgwinkel-weert" target="_blank" rel="noopener">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.5 3-5.5A4.5 4.5 0 0 0 17.5 4c-1.5 0-3 1-3.5 2-0.5-1-2-2-3.5-2A4.5 4.5 0 0 0 6 8.5C6 13 12 17 12 17s2.5-1.6 4.5-3.7"/><path d="M5 16l-2 5h6"/></svg></div>
+            <h4>Medicura Zorgwinkel</h4>
+            <p>Hier kunnen alle zorgmiddelen worden verstrekt.</p>
+          </a>
+        </div>
+
+        <!-- Goed om te weten -->
+        <div style="margin-top:22px">
+          <span class="section-kicker" style="color:var(--clay)">Goed om te weten</span>
+        </div>
+        <div class="info-rows">
+          <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Aankomst &amp; vertrek</b><span>Aankomst vanaf 15:00, vertrek om 10:00 (zondag 16:00)</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg><div><b>Voorzieningen</b><span>Luxe keuken, recreatiezaal, wifi en eigen parkeerplek</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7"/></svg><div><b>Te huur</b><span>Laken- en handdoekpakketten beschikbaar</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="10" r="1.6"/><circle cx="9.5" cy="6.5" r="1.6"/><circle cx="14.5" cy="6.5" r="1.6"/><circle cx="18.5" cy="10" r="1.6"/><path d="M12 11.5c-3 0-5 2.2-5 4.5S9 19.5 12 19.5s5-1.2 5-3.5-2-4.5-5-4.5z"/></svg><div><b>Huisdier</b><span>Hond welkom in overleg</span></div></div>
+        </div>
+
+        <button class="btn btn-green btn-block book" data-book="" style="margin-top:20px">Bespreek je zorgwensen</button>
+
+        <div class="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>Specifieke zorgwensen of hulpmiddelen nodig? Geef het door bij je aanvraag — dan kijken we graag wat mogelijk is.</span>
         </div>
       </div>
     </section>
 
-    <!-- ==== FACILITEITEN ==== -->
-    <section class="section" id="sec-faciliteiten">
-      <div class="content">
-        <span class="s-kicker">Faciliteiten &amp; zorg</span>
-        <h2 class="s-title">Goed uitgerust, voor iedereen</h2>
-        <p class="s-lead">De accommodaties zijn ruim uitgerust en geschikt voor gasten met een zorgvraag. Het Kievitsnest is bovendien geheel gelijkvloers en drempelvrij.</p>
+    <!-- ============ OMGEVING ============ -->
+    <section class="screen" id="omgeving">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Activiteiten &amp; omgeving</span>
+          <h2 class="title">Genoeg te beleven</h2>
+          <p class="lead">De hoeve ligt aan bos en heide, met volop activiteiten in de buurt — ook bij minder weer hoef je je niet te vervelen.</p>
+        </div>
 
-        <div class="fac-layout">
+        <a class="act act-link" href="https://www.blauwemeertjeweert.nl/" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2 1.5 4 1.5S10 16 12 16s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 20c2 0 2 1.5 4 1.5S10 20 12 20s2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="14" cy="8" r="2"/></svg></div>
+          <div><h4>Blauwe Meertje</h4><p>Natuurlijke zwemplas in bos en heide.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.domeinlaurabos.com/crossmoor-golf/golfclinic/" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V3l8 3-8 3"/><circle cx="12" cy="20" r="2"/></svg></div>
+          <div><h4>Golfclinic</h4><p>Voor een sportieve dag is golf om de hoek.</p><div class="dist">In de buurt · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.zwembadweert.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2 1.5 4 1.5S10 16 12 16s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 20c2 0 2 1.5 4 1.5S10 20 12 20s2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="14" cy="8" r="2"/></svg></div>
+          <div><h4>Overdekt zwemparadijs</h4><p>Lekker zwemmen, ook als het buiten regent.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://kids-plaza.nl/binnenspeeltuin/weert/" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-6m16 6v-6M4 14h16M8 14V8l4-3 4 3v6"/></svg></div>
+          <div><h4>Overdekte speeltuin</h4><p>Binnenpret voor de kinderen, weer of geen weer.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://kempenbroek.eu/nl/homepagina-nl/" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-3 8-7 8-12a8 8 0 0 0-16 0c0 5 3 9 8 12z"/><circle cx="12" cy="10" r="2"/></svg></div>
+          <div><h4>Wandelen in bos &amp; heide</h4><p>Vanaf de voordeur zo de natuur in.</p><div class="dist">Direct gelegen · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://kempenbroek.eu/nl/homepagina-nl/" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-8h5l3 8M10 9l2-4h3"/></svg></div>
+          <div><h4>Fietsen in de Groene Regio</h4><p>Mooie routes door het Limburgse landschap.</p><div class="dist">Vanaf de hoeve · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.rederijcascade.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c2 0 2-1.5 4-1.5S8 21 10 21s2-1.5 4-1.5S16 21 18 21s2-1.5 4-1.5"/><path d="M5 18l1-8h12l1 8"/><path d="M12 10V4M9 6h6"/></svg></div>
+          <div><h4>Rederij Cascade — Tour de Thorn</h4><p>Rondvaart over de Maasplassen naar het witte stadje Thorn.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.eindhovenzoo.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-6 4-9 8-9s6 3 8 9"/><circle cx="12" cy="6" r="3"/></svg></div>
+          <div><h4>Eindhoven Zoo (Mierlo)</h4><p>Dierentuin met meer dan 60 diersoorten, dicht bij Eindhoven.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.gaiazoo.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg></div>
+          <div><h4>GaiaZOO Kerkrade</h4><p>Wereldreis langs meer dan 100 diersoorten, met DinoDome voor de kinderen.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.bakkervries.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 21v-7h6v7"/></svg></div>
+          <div><h4>Bakkerij De Vries</h4><p>Ambachtelijke bakker in Weert, bekend om de Limburgse vlaai.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://escaperoom-weert.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div><h4>Escape Room Weert</h4><p>Spannende escape rooms voor groepen vanaf 2 tot 8 personen.</p><div class="dist">In de buurt · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://fun-thrills.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></div>
+          <div><h4>Fun Thrills Weert</h4><p>Lasergamen, axe throwing en meer dan 60 activiteiten voor groepen.</p><div class="dist">In de buurt · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.hethobbyschuurtje.nl" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24"><use href="#ic-home"/></svg></div>
+          <div><h4>Het Hobbyschuurtje</h4><p>Activiteitenboerderij in Haler: koe knuffelen, boerenvoetgolf en GPS-tochten.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.desluis.nl/arrangementen/bowlen" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="10" cy="9" r="1.2" fill="currentColor"/><circle cx="13" cy="11" r="1.2" fill="currentColor"/></svg></div>
+          <div><h4>Bowlen bij De Sluis</h4><p>Twee moderne bowlingbanen, ook te combineren met een arrangement.</p><div class="dist">In de buurt · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.toverland.com" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-7 7 7v11M9 21v-6h6v6"/></svg></div>
+          <div><h4>Toverland</h4><p>Pretpark met attracties voor jong en oud, in Sevenum.</p><div class="dist">Korte rit · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.efteling.com" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 14.8 7.1 17.2l.9-5.5-4-3.9 5.5-.8z"/></svg></div>
+          <div><h4>Efteling</h4><p>Sprookjesbos en pretpark, een klassieker voor een dagje uit.</p><div class="dist">Iets verder rijden · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+        <a class="act act-link" href="https://www.roompot.nl/parken/weerterbergen#filter:eyJzIjoiMyJ9" target="_blank" rel="noopener">
+          <div class="ic"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg></div>
+          <div><h4>Weerterbergen</h4><p>Glowgolf, bowlen en andere activiteiten op het vakantiepark.</p><div class="dist">Direct gelegen · <span class="link-hint">Tik voor website →</span></div></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ BOEKEN ============ -->
+    <section class="screen" id="boeken">
+      <div class="pad" id="bookWrap">
+        <div class="stagger" id="bookFormView">
           <div>
-            <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin-bottom:16px;color:var(--forest-deep)">Plattegronden</h3>
-            <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Indeling van de verblijven</p>
-            <div class="plans-row">
-              <div class="plan-card" data-lb="https://www.jozefhoeve.nl/images/pages/s1/p665/large_3022_1.jpg">
-                <img src="https://www.jozefhoeve.nl/images/pages/s1/p665/3022_1.jpg" alt="Plattegrond Kievitsnest" onerror="this.parentElement.style.display='none'">
-                <div class="plan-label">Kievitsnest</div>
-              </div>
-              <div class="plan-card" data-lb="https://www.jozefhoeve.nl/images/pages/s1/p649/large_2165_4.jpg">
-                <img src="https://www.jozefhoeve.nl/images/pages/s1/p649/2165_4.jpg" alt="Plattegrond Zwaluwnest" onerror="this.parentElement.style.display='none'">
-                <div class="plan-label">Zwaluwnest</div>
-              </div>
+            <span class="section-kicker">Aanvraag</span>
+            <h2 class="title">Vraag jullie verblijf aan</h2>
+            <p class="lead">Vul je gegevens en wensen in — we nemen zo snel mogelijk contact op om de mogelijkheden en beschikbaarheid door te nemen.</p>
+          </div>
+
+          <div class="kalender">
+            <span class="section-kicker">Beschikbaarheid</span>
+            <h3 class="subh" style="margin-bottom:12px">Controleer de beschikbaarheid</h3>
+            <div class="kal-switch">
+              <button class="kal-btn active" data-kal="zwaluwnest">Zwaluwnest</button>
+              <button class="kal-btn" data-kal="kievitsnest">Kievitsnest</button>
             </div>
-
-            <span class="s-kicker" style="margin-top:8px">Zorgvoorzieningen</span>
-            <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin-bottom:6px;color:var(--forest-deep)">Goed verzorgd verblijven</h3>
-            <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Specifieke zorgwensen of hulpmiddelen nodig? Geef het door bij je aanvraag — dan kijken we graag wat mogelijk is.</p>
-
-            <div class="care-grid">
-              <div class="care-item"><h5>Hoog-laagbedden</h5><p>In hoogte verstelbare zorgbedden.</p></div>
-              <div class="care-item"><h5>Tilliften</h5><p>Voor veilige transfers, op aanvraag.</p></div>
-              <div class="care-item"><h5>Douchestoelen</h5><p>Veilig en comfortabel douchen.</p></div>
-              <div class="care-item"><h5>Rolstoeltoilet &amp; -badkamer</h5><p>Aangepast, ruim en toegankelijk sanitair.</p></div>
-              <div class="care-item"><h5>Brede deuren</h5><p>Drempelvrije, ruime doorgangen.</p></div>
-              <div class="care-item"><h5>Gelijkvloers</h5><p>Alles op de begane grond (Kievitsnest).</p></div>
-              <div class="care-item"><h5>Zorg op maat</h5><p>Overige hulpmiddelen op aanvraag.</p></div>
+            <div class="kalender-wrap">
+              <iframe id="kalIframe" src="https://dashboard.vakantieadressen.nl/widget/1748/6034dd5d0808f" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
             </div>
           </div>
 
-          <div>
-            <span class="s-kicker">Goed om te weten</span>
-            <div class="info-rows" style="margin-bottom:20px">
-              <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Aankomst &amp; vertrek</b><span>Aankomst vanaf 15:00, vertrek om 10:00 (zondag 16:00)</span></div></div>
-              <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v4H3z"/><path d="M3 7l9 6 9-6"/></svg><div><b>Voorzieningen</b><span>Luxe keuken, recreatiezaal, wifi en eigen parkeerplek</span></div></div>
-              <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div><b>Te huur</b><span>Laken- en handdoekpakketten beschikbaar</span></div></div>
-              <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-6 4-9 8-9s6 3 8 9"/><circle cx="12" cy="6" r="3"/></svg><div><b>Huisdier</b><span>Hond welkom in overleg</span></div></div>
+          <div class="form">
+            <div class="field">
+              <label for="acco">Accommodatie</label>
+              <select id="acco">
+                <option value="zwaluwnest">Zwaluwnest (18 pers.)</option>
+                <option value="kievitsnest">Kievitsnest (22 pers.)</option>
+                <option value="trekkershut">Trekkershut</option>
+                <option value="onbekend">Weet ik nog niet</option>
+              </select>
             </div>
+            <div class="field"><label for="from">Aankomst</label><input type="text" id="from" placeholder="DD-MM-JJJJ"></div>
+            <div class="field"><label for="to">Vertrek</label><input type="text" id="to" placeholder="DD-MM-JJJJ"></div>
+            <div class="field">
+              <label for="people">Aantal personen</label>
+              <input type="number" id="people" min="1" max="25" placeholder="bijv. 18">
+            </div>
+            <div class="field"><label for="name">Naam</label><input type="text" id="name" placeholder="Voor- en achternaam"></div>
+            <div class="two">
+              <div class="field"><label for="email">E-mail</label><input type="email" id="email" placeholder="naam@mail.nl"></div>
+              <div class="field"><label for="phone">Telefoon</label><input type="tel" id="phone" placeholder="06 ..."></div>
+            </div>
+            <div class="field"><label for="msg">Wensen of vragen</label><textarea id="msg" placeholder="Bijv. zorgwensen, aankomsttijd of bijzonderheden"></textarea></div>
 
-            <button class="btn btn-clay btn-block" data-sec="aanvraag">Bespreek je zorgwensen</button>
+            <button class="btn btn-primary btn-block" id="submitBook" style="margin-top:16px">Aanvraag versturen</button>
           </div>
+
+          <div class="contact">
+            <h3>Of neem direct contact op</h3>
+            <a href="tel:+31495518591"><span class="ic"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg></span>+31 (0)495 - 51 85 91</a>
+            <a href="mailto:info@jozefhoeve.nl"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></span>info@jozefhoeve.nl</a>
+            <a href="https://maps.google.com/?q=Laurabosweg+4+Weert" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg></span>Laurabosweg 4, 6006 VR Weert</a>
+          </div>
+        </div>
+
+        <!-- Success view -->
+        <div class="success" id="bookSuccess" style="display:none">
+          <div class="ring"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg></div>
+          <h3>Aanvraag verstuurd!</h3>
+          <p>Bedankt voor je aanvraag. We nemen zo snel mogelijk contact met je op.</p>
+          <div class="recap" id="recap"></div>
+          <button class="btn btn-green btn-block" id="resetBook">Nieuwe aanvraag</button>
         </div>
       </div>
     </section>
 
-    <!-- ==== OMGEVING ==== -->
-    <section class="section" id="sec-omgeving">
-      <div class="content">
-        <span class="s-kicker">Activiteiten &amp; omgeving</span>
-        <h2 class="s-title">Genoeg te beleven</h2>
-        <p class="s-lead">De hoeve ligt aan bos en heide, met volop activiteiten in de buurt — ook bij minder weer hoef je je niet te vervelen.</p>
-
-        <div class="act-grid">
-          <a class="act-card link-card" href="https://www.domeinlaurabos.com/crossmoor-golf/golfclinic/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V3l8 3-8 3"/><circle cx="12" cy="20" r="2"/></svg></div>
-            <div><h4>Golfclinic</h4><p>Voor een sportieve dag is golf om de hoek.</p><div class="dist">In de buurt ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.aquacentrumweert.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2 1.5 4 1.5S10 16 12 16s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 20c2 0 2 1.5 4 1.5S10 20 12 20s2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="14" cy="8" r="2"/></svg></div>
-            <div><h4>Overdekt zwemparadijs</h4><p>Lekker zwemmen, ook als het buiten regent.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.speelparadijsweert.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/></svg></div>
-            <div><h4>Overdekte speeltuin</h4><p>Binnenpret voor de kinderen, weer of geen weer.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.desluis.nl/arrangementen/bowlen" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="9.5" r="1.2" fill="currentColor"/><circle cx="13.5" cy="9.5" r="1.2" fill="currentColor"/><circle cx="11.2" cy="12.5" r="1.2" fill="currentColor"/></svg></div>
-            <div><h4>Bowlen bij De Sluis</h4><p>Twee moderne bowlingbanen, ook te combineren met een arrangement.</p><div class="dist">In de buurt ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.wandeleninnederland.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg></div>
-            <div><h4>Wandelen in bos &amp; heide</h4><p>Vanaf de voordeur zo de natuur in.</p><div class="dist">Direct gelegen ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.groene-regio.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg></div>
-            <div><h4>Fietsen in de Groene Regio</h4><p>Mooie routes door het Limburgse landschap.</p><div class="dist">Vanaf de hoeve ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.rederijcascade.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M4 16V9l8-4 8 4v7"/></svg></div>
-            <div><h4>Rederij Cascade — Tour de Thorn</h4><p>Rondvaart over de Maasplassen naar het witte stadje Thorn.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.eindhovenzoo.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-6 4-9 8-9s6 3 8 9"/><circle cx="12" cy="6" r="3"/></svg></div>
-            <div><h4>Eindhoven Zoo (Mierlo)</h4><p>Dierentuin met meer dan 60 diersoorten, dicht bij Eindhoven.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.gaiazoo.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div>
-            <div><h4>GaiaZOO Kerkrade</h4><p>Wereldreis langs meer dan 100 diersoorten, met DinoDome voor de kinderen.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.escaperoom-weert.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-            <div><h4>Escape Room Weert</h4><p>Spannende escape rooms voor groepen vanaf 2 tot 8 personen.</p><div class="dist">In de buurt ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.fun-thrills.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-            <div><h4>Fun Thrills Weert</h4><p>Lasergamen, axe throwing en meer dan 60 activiteiten voor groepen.</p><div class="dist">In de buurt ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.hethobbyschuurtje.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
-            <div><h4>Het Hobbyschuurtje</h4><p>Activiteitenboerderij in Haler: koe knuffelen, boerenvoetgolf en GPS-tochten.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.toverland.com/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div>
-            <div><h4>Toverland</h4><p>Pretpark met attracties voor jong en oud, in Sevenum.</p><div class="dist">Korte rit ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.efteling.com/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div>
-            <div><h4>Efteling</h4><p>Sprookjesbos en pretpark, een klassieker voor een dagje uit.</p><div class="dist">Iets verder rijden ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.roompot.nl/parken/weerterbergen#filter:eyJzIjoiMyJ9" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-            <div><h4>Weerterbergen</h4><p>Glowgolf, bowlen en andere activiteiten op het vakantiepark.</p><div class="dist">Direct gelegen ·</div></div>
-          </a>
-          <a class="act-card link-card" href="https://www.blauwemeertjeweert.nl/" target="_blank" rel="noopener">
-            <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2 1.5 4 1.5S10 16 12 16s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 20c2 0 2 1.5 4 1.5S10 20 12 20s2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="14" cy="8" r="2"/></svg></div>
-            <div><h4>Blauwe Meertje</h4><p>Natuurlijke zwemplas in bos en heide.</p><div class="dist">Direct gelegen ·</div></div>
-          </a>
+    <!-- ============ INFO ============ -->
+    <section class="screen" id="info">
+      <div class="pad stagger">
+        <div>
+          <span class="section-kicker">Belangrijke informatie</span>
+          <h2 class="title">Prijzen &amp; praktische zaken</h2>
+          <p class="lead">Een overzicht van prijzen, aankomst- en vertrektijden en bijkomende kosten, overgenomen van jozefhoeve.nl.</p>
         </div>
 
-        <!-- Kalender -->
-        <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--forest-deep);margin:40px 0 8px">Beschikbaarheid</h3>
-        <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Controleer de beschikbaarheid</p>
-        <div class="kal-tabs">
-          <button class="kal-btn active" data-kal="zwaluwnest">Zwaluwnest (18 pers.)</button>
-          <button class="kal-btn" data-kal="kievitsnest">Kievitsnest (22 pers.)</button>
+        <!-- Prijscalculator -->
+        <span class="section-kicker" style="display:block;margin:22px 0 8px">Bereken je prijsindicatie</span>
+        <div class="calc-box">
+          <div class="field">
+            <label for="calcAcco">Accommodatie</label>
+            <select id="calcAcco">
+              <option value="zwaluwnest">Zwaluwnest</option>
+              <option value="kievitsnest">Kievitsnest</option>
+              <option value="trekkershut">Trekkershut</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="calcPeriode">Verblijfsduur</label>
+            <select id="calcPeriode">
+              <option value="weekend">Weekend</option>
+              <option value="langweekend">Lang weekend</option>
+              <option value="midweek">Midweek</option>
+              <option value="week">Week</option>
+            </select>
+          </div>
+          <div class="field" id="calcSeizoenWrap">
+            <label for="calcSeizoen">Seizoen</label>
+            <select id="calcSeizoen">
+              <option value="laag">Januari, februari, maart</option>
+              <option value="laag2">November, december</option>
+              <option value="hoog">April t/m oktober</option>
+            </select>
+          </div>
+          <div class="two">
+            <div class="field"><label for="calcPersonen">Aantal personen</label><input type="number" id="calcPersonen" min="1" max="18" value="10"></div>
+            <div class="field" id="calcNachtenWrap"><label for="calcNachten">Aantal nachten</label><input type="number" id="calcNachten" min="1" max="14" value="7"></div>
+          </div>
+          <div class="calc-checks">
+            <label class="calc-check"><input type="checkbox" id="calcHond"> Hond meenemen</label>
+            <label class="calc-check"><input type="checkbox" id="calcLakens"> Lakenpakket huren (per persoon)</label>
+            <label class="calc-check"><input type="checkbox" id="calcHanddoeken"> Handdoekpakket huren (per persoon)</label>
+          </div>
+          <button class="btn btn-primary btn-block" id="calcBereken" style="margin-top:14px">Bereken prijsindicatie</button>
+
+          <div class="calc-result" id="calcResult" style="display:none">
+            <div class="calc-total"><span>Totale prijsindicatie</span><b id="calcTotaal">€ 0</b></div>
+            <div class="calc-breakdown" id="calcBreakdown"></div>
+          </div>
+
         </div>
-        <iframe class="kal-frame" id="kalFrame" src="https://dashboard.vakantieadressen.nl/widget/1748/6034dd5d0808f" title="Beschikbaarheidskalender"></iframe>
-      </div>
-    </section>
 
-    <!-- ==== AANVRAAG ==== -->
-    <section class="section" id="sec-aanvraag">
-      <div class="content">
-        <span class="s-kicker">Aanvraag</span>
-        <h2 class="s-title">Vraag jullie verblijf aan</h2>
-        <p class="s-lead">Vul je gegevens en wensen in — we nemen zo snel mogelijk contact op om de mogelijkheden en beschikbaarheid door te nemen.</p>
-
-        <div class="book-layout">
-          <div>
-            <div class="form-card" id="bookFormView">
-              <div class="form-grid">
-                <div class="field field-full">
-                  <label>Accommodatie</label>
-                  <select id="wAcco">
-                    <option value="zwaluwnest" data-nl="Zwaluwnest (18 pers.)">Zwaluwnest (18 pers.)</option>
-                    <option value="kievitsnest" data-nl="Kievitsnest (22 pers.)">Kievitsnest (22 pers.)</option>
-                    <option value="trekkershut" data-nl="Trekkershut">Trekkershut</option>
-                    <option value="" data-nl="Weet ik nog niet">Weet ik nog niet</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label>Aankomst</label>
-                  <input type="date" id="wFrom" placeholder="DD-MM-JJJJ">
-                </div>
-                <div class="field">
-                  <label>Vertrek</label>
-                  <input type="date" id="wTo" placeholder="DD-MM-JJJJ">
-                </div>
-                <div class="field">
-                  <label>Aantal personen</label>
-                  <input type="number" id="wPeople" min="1" max="25" placeholder="bijv. 18">
-                </div>
-                <div class="field">
-                  <label>Naam</label>
-                  <input type="text" id="wName" placeholder="Voor- en achternaam">
-                </div>
-                <div class="field">
-                  <label>E-mail</label>
-                  <input type="email" id="wEmail" placeholder="naam@mail.nl">
-                </div>
-                <div class="field">
-                  <label>Telefoon</label>
-                  <input type="tel" id="wPhone" placeholder="06 ...">
-                </div>
-                <div class="field field-full">
-                  <label>Wensen of vragen</label>
-                  <textarea id="wNotes" placeholder="Bijv. zorgwensen, aankomsttijd of bijzonderheden"></textarea>
-                </div>
-              </div>
-              <button class="btn btn-clay btn-block" id="wSubmit" style="margin-top:20px">Aanvraag versturen</button>
-              <p class="form-note">Dit is een aanvraag, nog geen definitieve boeking. In een latere versie koppelen we hier een echte beschikbaarheidskalender en bevestiging aan.</p>
-            </div>
-
-            <div class="success-card" id="bookSuccess">
-              <div class="success-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-              <h3>Aanvraag verstuurd!</h3>
-              <p>Bedankt voor je aanvraag. We nemen zo snel mogelijk contact met je op.</p>
-              <div class="recap" id="wRecap"></div>
-              <button class="btn btn-green btn-block" id="wReset">Nieuwe aanvraag</button>
-            </div>
-          </div>
-
-          <div class="book-aside">
-            <div class="aside-card">
-              <h4>Of neem direct contact op</h4>
-              <div class="info-rows">
-                <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><div><b>Telefoon</b><span>+31 (0)495 - 51 85 91</span></div></div>
-                <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-mail"/></svg><div><b>E-mail</b><span>info@jozefhoeve.nl</span></div></div>
-                <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg><div><b>Adres</b><span>Laurabosweg 4, 6006 VR Weert</span></div></div>
-              </div>
-            </div>
-          </div>
+        <!-- Zwaluwnest prijzen -->
+        <span class="section-kicker" style="display:block;margin:22px 0 8px">Zwaluwnest — prijzen 2023</span>
+        <div class="price-table">
+          <table>
+            <tr><th>Periode</th><th>Weekend</th><th>Lang weekend</th><th>Midweek</th><th>Week</th></tr>
+            <tr><td>Jan, feb, mrt</td><td>€ 1.100</td><td>€ 1.250</td><td>€ 1.375</td><td>€ 1.700</td></tr>
+            <tr><td>Nov, dec</td><td>€ 1.100</td><td>€ 1.250</td><td>€ 1.475</td><td>€ 1.800</td></tr>
+            <tr><td>Apr t/m okt</td><td>€ 1.100</td><td>€ 1.325</td><td>€ 1.575</td><td>€ 1.975</td></tr>
+          </table>
         </div>
-      </div>
-    </section>
 
-    <!-- ==== INFO ==== -->
-    <section class="section" id="sec-info">
-      <div class="content">
-        <span class="s-kicker">Belangrijke informatie</span>
-        <h2 class="s-title">Prijzen &amp; praktische zaken</h2>
-        <p class="s-lead">Een overzicht van prijzen, aankomst- en vertrektijden en bijkomende kosten, overgenomen van jozefhoeve.nl.</p>
+        <!-- Kievitsnest prijzen -->
+        <span class="section-kicker" style="display:block;margin:22px 0 8px">Kievitsnest — prijzen 2023</span>
+        <div class="price-table">
+          <table>
+            <tr><th>Periode</th><th>Weekend</th><th>Lang weekend</th><th>Midweek</th><th>Week</th></tr>
+            <tr><td>Jan, feb, mrt</td><td>€ 1.225</td><td>€ 1.275</td><td>€ 1.500</td><td>€ 2.250</td></tr>
+            <tr><td>Nov, dec</td><td>€ 1.275</td><td>€ 1.375</td><td>€ 1.500</td><td>€ 2.250</td></tr>
+            <tr><td>Apr t/m okt</td><td>€ 1.375</td><td>€ 1.425</td><td>€ 1.575</td><td>€ 2.375</td></tr>
+          </table>
+        </div>
 
-        <div class="info-layout">
-          <div>
-            <!-- Aankomst / vertrek -->
-            <div class="info-rows" style="margin-bottom:32px">
-              <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Aankomst (ma. &amp; vr.)</b><span>15:00 uur, in overleg eventueel anders</span></div></div>
-              <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Vertrek (ma. &amp; vr.)</b><span>10:00 uur, in overleg eventueel anders</span></div></div>
-              <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Vertrek (zondag)</b><span>16:00 uur, in overleg eventueel anders</span></div></div>
-            </div>
+        <!-- Trekkershut prijzen -->
+        <span class="section-kicker" style="display:block;margin:22px 0 8px">Trekkershut — prijzen 2023</span>
+        <div class="price-table">
+          <table>
+            <tr><th>Periode</th><th>Prijs</th></tr>
+            <tr><td>Vanaf 2 nachten (1 pers.)</td><td>€ 37,50 p.p.p.n.</td></tr>
+            <tr><td>Weekend vr. t/m zo. (2 pers.)</td><td>€ 140</td></tr>
+            <tr><td>Lang weekend vr. t/m ma. (2 pers.)</td><td>€ 210</td></tr>
+            <tr><td>Week (2 pers.)</td><td>€ 390</td></tr>
+          </table>
+        </div>
 
-            <div class="price-section">
-              <h3>Zwaluwnest — prijzen 2023</h3>
-              <table class="ptable">
-                <tr><th>Periode</th><th>Weekend</th><th>Lang weekend</th><th>Midweek</th><th>Week</th></tr>
-                <tr><td>Jan, feb, mrt</td><td>€ 1.100</td><td>€ 1.250</td><td>€ 1.375</td><td>€ 1.700</td></tr>
-                <tr><td>Nov, dec</td><td>€ 1.100</td><td>€ 1.250</td><td>€ 1.475</td><td>€ 1.800</td></tr>
-                <tr><td>Apr t/m okt</td><td>€ 1.100</td><td>€ 1.325</td><td>€ 1.575</td><td>€ 1.975</td></tr>
-              </table>
-            </div>
+        <!-- Bijkomende kosten -->
+        <span class="section-kicker" style="display:block;margin:22px 0 8px">Bijkomende kosten (Zwaluwnest &amp; Kievitsnest)</span>
+        <div class="price-table">
+          <table>
+            <tr><td>Schoonmaakkosten</td><td>€ 145</td></tr>
+            <tr><td>Toeristenbelasting</td><td>€ 2,50 p.p.p.n.</td></tr>
+            <tr><td>Huur lakenpakket (1 pers.)</td><td>€ 7,25</td></tr>
+            <tr><td>Huur handdoekpakket</td><td>€ 4,75</td></tr>
+            <tr><td>Hond</td><td>€ 25</td></tr>
+            <tr><td>Energiekosten weekend</td><td>€ 90</td></tr>
+            <tr><td>Energiekosten midweek</td><td>€ 180</td></tr>
+            <tr><td>Energiekosten week</td><td>€ 315</td></tr>
+          </table>
+        </div>
 
-            <div class="price-section">
-              <h3>Kievitsnest — prijzen 2023</h3>
-              <table class="ptable">
-                <tr><th>Periode</th><th>Weekend</th><th>Lang weekend</th><th>Midweek</th><th>Week</th></tr>
-                <tr><td>Jan, feb, mrt</td><td>€ 1.225</td><td>€ 1.275</td><td>€ 1.500</td><td>€ 2.250</td></tr>
-                <tr><td>Nov, dec</td><td>€ 1.275</td><td>€ 1.375</td><td>€ 1.500</td><td>€ 2.250</td></tr>
-                <tr><td>Apr t/m okt</td><td>€ 1.375</td><td>€ 1.425</td><td>€ 1.575</td><td>€ 2.375</td></tr>
-              </table>
-            </div>
+        <!-- Aankomst & vertrek -->
+        <div class="info-rows" style="margin-top:18px">
+          <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Aankomst (ma. &amp; vr.)</b><span>15:00 uur, in overleg eventueel anders</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Vertrek (ma. &amp; vr.)</b><span>10:00 uur, in overleg eventueel anders</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><div><b>Vertrek (zondag)</b><span>16:00 uur, in overleg eventueel anders</span></div></div>
+        </div>
 
-            <div class="price-section">
-              <h3>Trekkershut — prijzen 2023</h3>
-              <table class="ptable">
-                <tr><th>Periode</th><th>Prijs</th></tr>
-                <tr><td>Vanaf 2 nachten (1 pers.)</td><td>€ 37,50 p.p.p.n.</td></tr>
-                <tr><td>Weekend vr. t/m zo. (2 pers.)</td><td>€ 140</td></tr>
-                <tr><td>Lang weekend vr. t/m ma. (2 pers.)</td><td>€ 210</td></tr>
-                <tr><td>Week (2 pers.)</td><td>€ 390</td></tr>
-              </table>
-            </div>
-
-            <div class="price-section">
-              <h3>Bijkomende kosten (Zwaluwnest &amp; Kievitsnest)</h3>
-              <table class="ptable">
-                <tr><td>Schoonmaakkosten</td><td>€ 145</td></tr>
-                <tr><td>Toeristenbelasting</td><td>€ 2,50 p.p.p.n.</td></tr>
-                <tr><td>Huur lakenpakket (1 pers.)</td><td>€ 7,25</td></tr>
-                <tr><td>Huur handdoekpakket</td><td>€ 4,75</td></tr>
-                <tr><td>Hond</td><td>€ 25</td></tr>
-                <tr><td>Energiekosten weekend</td><td>€ 90</td></tr>
-                <tr><td>Energiekosten midweek</td><td>€ 180</td></tr>
-                <tr><td>Energiekosten week</td><td>€ 315</td></tr>
-              </table>
-            </div>
-
-            <div class="contact-card">
-              <h3>Contact &amp; adres</h3>
-              <div class="contact-row"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg>Laurabosweg 4, 6006 VR Weert</div>
-              <div class="contact-row"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg>+31 (0)495 - 51 85 91</div>
-              <div class="contact-row"><svg viewBox="0 0 24 24"><use href="#ic-mail"/></svg>info@jozefhoeve.nl</div>
-              <div class="contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>KvK: Roermond 13025630</div>
-            </div>
-          </div>
-
-          <!-- Prijscalculator -->
-          <div>
-            <span class="s-kicker">Bereken je prijsindicatie</span>
-            <div class="calc-box">
-              <div class="field">
-                <label>Accommodatie</label>
-                <select id="cAcco">
-                  <option value="zwaluwnest">Zwaluwnest</option>
-                  <option value="kievitsnest">Kievitsnest</option>
-                  <option value="trekkershut">Trekkershut</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>Verblijfsduur</label>
-                <select id="cPeriode">
-                  <option value="weekend">Weekend</option>
-                  <option value="langweekend">Lang weekend</option>
-                  <option value="midweek">Midweek</option>
-                  <option value="week">Week</option>
-                </select>
-              </div>
-              <div class="field" id="cSeizoenWrap">
-                <label>Seizoen</label>
-                <select id="cSeizoen">
-                  <option value="laag">Januari, februari, maart</option>
-                  <option value="laag2">November, december</option>
-                  <option value="hoog">April t/m oktober</option>
-                </select>
-              </div>
-              <div class="calc-two">
-                <div class="field">
-                  <label>Aantal personen</label>
-                  <input type="number" id="cPersonen" min="1" max="18" value="10">
-                </div>
-                <div class="field" id="cNachtenWrap">
-                  <label>Aantal nachten</label>
-                  <input type="number" id="cNachten" min="1" max="14" value="7">
-                </div>
-              </div>
-              <div class="calc-checks">
-                <label class="calc-check"><input type="checkbox" id="cHond"> Hond meenemen</label>
-                <label class="calc-check"><input type="checkbox" id="cLakens"> Lakenpakket huren (per persoon)</label>
-                <label class="calc-check"><input type="checkbox" id="cHanddoeken"> Handdoekpakket huren (per persoon)</label>
-              </div>
-              <button class="btn btn-clay btn-block" id="cBereken">Bereken prijsindicatie</button>
-              <div class="calc-result" id="cResult" style="display:none">
-                <div class="calc-total"><span>Totale prijsindicatie</span><b id="cTotaal">€ 0</b></div>
-                <div class="calc-bd" id="cBreakdown"></div>
-              </div>
-            </div>
-          </div>
+        <!-- Contact & adres -->
+        <span class="section-kicker" style="display:block;margin:22px 0 8px">Contact &amp; adres</span>
+        <div class="info-rows">
+          <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg><div><b>Adres</b><span>Laurabosweg 4, 6006 VR Weert</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><div><b>Telefoon</b><span>+31 (0)495 - 51 85 91</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg><div><b>E-mail</b><span>info@jozefhoeve.nl</span></div></div>
+          <div class="irow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg><div><b>KvK</b><span>Roermond 13025630</span></div></div>
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- Tab bar -->
+  <nav class="tabbar">
+    <button class="tab active" data-go="home">
+      <svg viewBox="0 0 24 24"><use href="#ic-home"/></svg>
+      <span>Home</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="verblijf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V9l8-5 8 5v11M9 20v-5h6v5"/></svg>
+      <span>Verblijf</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="faciliteiten">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M12 6v6h4l2.5 7M12 9h3M9 12a4.5 4.5 0 1 0 4.5 6.5"/></svg>
+      <span>Faciliteiten</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="omgeving">
+      <svg viewBox="0 0 24 24"><use href="#ic-loc"/></svg>
+      <span>Omgeving</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="boeken">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span>Aanvragen</span><span class="dot"></span>
+    </button>
+    <button class="tab" data-go="info">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>
+      <span>Info</span><span class="dot"></span>
+    </button>
+  </nav>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="close" id="lightboxClose" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <img id="lightboxImg" src="" alt="Vergrote weergave">
+  </div>
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lbClose">✕</button>
-  <img id="lbImg" src="" alt="">
-</div>
-
-<script src="website.js"></script>
+<script src="app.js"></script>
 <script src="https://dashboard.vakantieadressen.nl/js/frontend/widget-iframe.js"></script>
 </body>
 </html>
