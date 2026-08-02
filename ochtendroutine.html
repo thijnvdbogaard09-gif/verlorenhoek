@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ochtendroutine</title>
+<style>
+  :root {
+    --navy: #1F2A44;
+    --navy-2: #2A3A5C;
+    --gold: #C08A2E;
+    --gold-light: #E4B25C;
+    --cream: #FBF7EF;
+    --card: #FFFFFF;
+    --mid-gray: #8A8A8A;
+    --line: #ECE6D8;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #E7E2D6;
+    font-family: -apple-system, "SF Pro Text", Calibri, "Segoe UI", Arial, sans-serif;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 28px 12px;
+  }
+
+  .phone {
+    width: 390px;
+    max-width: 100%;
+    background: var(--cream);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(31,42,68,0.28);
+    border: 8px solid #14192B;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 820px;
+  }
+
+  .statusbar {
+    height: 30px;
+    flex: 0 0 auto;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 22px;
+    background: #14192B;
+    border-radius: 0 0 16px 16px;
+    z-index: 5;
+  }
+
+  .app-header {
+    flex: 0 0 auto;
+    background: var(--navy);
+    padding: 6px 22px 20px;
+    color: #fff;
+    border-radius: 0 0 26px 26px;
+  }
+  .greeting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 6px;
+  }
+  .greeting-row .sun { font-size: 26px; color: var(--gold-light); }
+  .greeting h1 {
+    margin: 2px 0 2px;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .greeting p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #B9C0D4;
+  }
+
+  .progress-card {
+    margin-top: 18px;
+    background: var(--navy-2);
+    border-radius: 18px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ring {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    background: conic-gradient(var(--gold) calc(var(--pct,0) * 1%), rgba(255,255,255,0.14) 0);
+  }
+  .ring-inner {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--navy-2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .progress-text { flex: 1; }
+  .progress-text .label { font-size: 12.5px; color: #C7CDE0; margin: 0 0 2px; }
+  .progress-text .count { font-size: 15px; font-weight: 700; margin: 0; }
+
+  .tabs {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 8px;
+    padding: 14px 20px 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 9px 0;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--mid-gray);
+  }
+  .tab-btn.active {
+    background: var(--navy);
+    color: #fff;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 12px 18px 90px;
+  }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .section-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 14px 2px 8px;
+  }
+  .section-label:first-child { margin-top: 4px; }
+
+  /* Timeline */
+  .step-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--line);
+  }
+  .step-time {
+    flex: 0 0 auto;
+    width: 58px;
+  }
+  .step-time input {
+    width: 100%;
+    border: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: center;
+    padding: 6px 0;
+    border-radius: 8px;
+    background: var(--cream);
+  }
+  .step-divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--line);
+  }
+  .step-main { flex: 1; min-width: 0; }
+  .step-main input.act {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--navy);
+    padding: 3px 0;
+    display: block;
+  }
+  .step-main input.dur {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    color: var(--mid-gray);
+    padding: 0;
+    display: block;
+  }
+  input { font-family: inherit; outline: none; }
+  input::placeholder { color: #C4BFAF; }
+  .add-step {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 16px;
+    border: 1.5px dashed #C8BFA0;
+    background: transparent;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 13.5px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  /* Checklist */
+  .day-picker {
+    display: flex;
+    gap: 6px;
+    margin: 4px 0 14px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .day-chip {
+    flex: 0 0 auto;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: var(--card);
+    color: var(--navy);
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .day-chip.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+
+  .item-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 13px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 9px;
+    border: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .item-card.done { background: #F3F8F1; border-color: #DCEBDC; }
+  .checkbox {
+    width: 24px; height: 24px;
+    border-radius: 8px;
+    border: 2px solid #D3CBB4;
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    color: transparent;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .checkbox.checked {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+  .item-label {
+    flex: 1;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .item-card.done .item-label {
+    color: var(--mid-gray);
+    text-decoration: line-through;
+  }
+
+  .bottom-nav {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 74px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid var(--line);
+    display: flex;
+    padding-bottom: 14px;
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mid-gray);
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .nav-item.active { color: var(--navy); }
+  .nav-icon { font-size: 19px; line-height: 1; }
+  .nav-item.active .nav-icon { color: var(--gold); }
+
+  .content::-webkit-scrollbar { width: 0; }
+
+  @media (max-width: 430px) {
+    body { padding: 0; align-items: stretch; }
+    .phone { width: 100%; height: 100vh; border-radius: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="statusbar">
+    <span id="clock">9:41</span>
+    <span>&#128246; &#128246; &#128267;</span>
+  </div>
+
+  <div class="app-header">
+    <div class="greeting-row">
+      <div class="greeting">
+        <h1>Goedemorgen</h1>
+        <p>Klaar voor een sterke start?</p>
+      </div>
+      <div class="sun">&#9728;</div>
+    </div>
+    <div class="progress-card">
+      <div class="ring" id="ring">
+        <div class="ring-inner"><span id="ring-pct">0%</span></div>
+      </div>
+      <div class="progress-text">
+        <p class="label">Vandaag afgerond</p>
+        <p class="count" id="progress-count">0 van 8 stappen</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="timeline">Tijdlijn</button>
+    <button class="tab-btn" data-tab="checklist">Checklist</button>
+  </div>
+
+  <div class="content">
+    <div class="view active" id="view-timeline">
+      <p class="section-label">Mijn ochtend, stap voor stap</p>
+      <div id="steps"></div>
+      <button class="add-step" id="add-step">+ Stap toevoegen</button>
+    </div>
+
+    <div class="view" id="view-checklist">
+      <p class="section-label">Deze week</p>
+      <div class="day-picker" id="day-picker"></div>
+      <div id="items"></div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="nav-item active" data-tab="timeline">
+      <span class="nav-icon">&#9201;</span>
+      <span>Tijdlijn</span>
+    </button>
+    <button class="nav-item" data-tab="checklist">
+      <span class="nav-icon">&#9989;</span>
+      <span>Checklist</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  function updateClock() {
+    const d = new Date();
+    document.getElementById('clock').textContent =
+      d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  const tabButtons = document.querySelectorAll('.tab-btn, .nav-item');
+  function setTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.getElementById('view-timeline').classList.toggle('active', tab === 'timeline');
+    document.getElementById('view-checklist').classList.toggle('active', tab === 'checklist');
+  }
+  tabButtons.forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
+
+  const defaultSteps = [
+    { time: "07:00", act: "Opstaan", dur: "5 min" },
+    { time: "07:05", act: "Water drinken", dur: "2 min" },
+    { time: "07:10", act: "Bed opmaken", dur: "3 min" },
+    { time: "07:15", act: "Bewegen / stretchen", dur: "10 min" },
+    { time: "07:25", act: "Douchen", dur: "15 min" },
+    { time: "07:40", act: "Ontbijten", dur: "15 min" },
+  ];
+  const stepsEl = document.getElementById('steps');
+  function renderStep(step) {
+    const row = document.createElement('div');
+    row.className = 'step-card';
+    row.innerHTML =
+      '<div class="step-time"><input type="text" value="' + step.time + '" placeholder="07:00"></div>' +
+      '<div class="step-divider"></div>' +
+      '<div class="step-main">' +
+        '<input class="act" type="text" value="' + step.act + '" placeholder="Activiteit">' +
+        '<input class="dur" type="text" value="' + step.dur + '" placeholder="Duur">' +
+      '</div>';
+    stepsEl.appendChild(row);
+  }
+  defaultSteps.forEach(renderStep);
+  document.getElementById('add-step').addEventListener('click', () => {
+    renderStep({ time: "", act: "", dur: "" });
+  });
+
+  const days = ["Ma","Di","Wo","Do","Vr","Za","Zo"];
+  const routineItems = [
+    "Op tijd opstaan",
+    "Water drinken",
+    "Bed opmaken",
+    "Bewegen / stretchen",
+    "Douchen",
+    "Ontbijten",
+    "5 min. mediteren of ademhalen",
+    "Dag plannen"
+  ];
+  const jsDayIndex = (new Date().getDay() + 6) % 7;
+  let activeDay = jsDayIndex;
+  const state = {};
+  days.forEach((_, di) => { state[di] = routineItems.map(() => false); });
+
+  const dayPicker = document.getElementById('day-picker');
+  days.forEach((d, i) => {
+    const chip = document.createElement('button');
+    chip.className = 'day-chip' + (i === activeDay ? ' active' : '');
+    chip.textContent = d;
+    chip.dataset.day = i;
+    chip.addEventListener('click', () => {
+      activeDay = i;
+      document.querySelectorAll('.day-chip').forEach(c => c.classList.toggle('active', +c.dataset.day === i));
+      renderItems();
+    });
+    dayPicker.appendChild(chip);
+  });
+
+  const itemsEl = document.getElementById('items');
+  function renderItems() {
+    itemsEl.innerHTML = '';
+    routineItems.forEach((label, idx) => {
+      const checked = state[activeDay][idx];
+      const card = document.createElement('div');
+      card.className = 'item-card' + (checked ? ' done' : '');
+      card.innerHTML =
+        '<div class="checkbox' + (checked ? ' checked' : '') + '">&#10003;</div>' +
+        '<div class="item-label">' + label + '</div>';
+      card.addEventListener('click', () => {
+        state[activeDay][idx] = !state[activeDay][idx];
+        renderItems();
+        updateProgress();
+      });
+      itemsEl.appendChild(card);
+    });
+  }
+  renderItems();
+
+  function updateProgress() {
+    const total = routineItems.length;
+    const done = state[jsDayIndex].filter(Boolean).length;
+    const pct = Math.round((done / total) * 100);
+    document.getElementById('ring').style.setProperty('--pct', pct);
+    document.getElementById('ring-pct').textContent = pct + '%';
+    document.getElementById('progress-count').textContent = done + ' van ' + total + ' stappen';
+  }
+  updateProgress();
+</script>
+</body>
+</html>
