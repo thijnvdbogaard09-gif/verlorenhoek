@@ -1,0 +1,2791 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#343833">
+<title>Persoonlijk Dashboard</title>
+
+<style>
+:root {
+    --white:#fff;
+    --olive:#566344;
+    --olive-dark:#414b34;
+    --anthracite:#343833;
+    --light:#f4f5f2;
+    --border:#dde0da;
+    --muted:#72776f;
+    --danger:#a33a32;
+    --warning:#a87824;
+}
+
+* {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family:Inter,-apple-system,BlinkMacSystemFont,
+        "Segoe UI",Arial,sans-serif;
+    background:var(--light);
+    color:var(--anthracite);
+    min-height:100vh;
+}
+
+button,input,textarea {
+    font:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginPage {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:var(--anthracite);
+}
+
+.login-box {
+    width:100%;
+    max-width:390px;
+    padding:42px;
+    background:var(--white);
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,.22);
+}
+
+.login-mark,
+.brand-mark {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--olive);
+    color:white;
+}
+
+.login-mark {
+    width:48px;
+    height:48px;
+    margin-bottom:28px;
+    border-radius:10px;
+}
+
+.login-mark svg {
+    width:24px;
+    height:24px;
+}
+
+.login-box h1 {
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.login-box p {
+    color:var(--muted);
+    line-height:1.5;
+    margin-bottom:28px;
+}
+
+.input-label {
+    display:block;
+    margin-bottom:8px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.login-input {
+    width:100%;
+    height:50px;
+    padding:0 14px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+    margin-bottom:12px;
+}
+
+.login-input:focus {
+    border-color:var(--olive);
+    box-shadow:0 0 0 3px rgba(86,99,68,.12);
+}
+
+.login-button {
+    width:100%;
+    height:50px;
+    margin-top:4px;
+    border:none;
+    border-radius:8px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+}
+
+.login-button:hover {
+    background:var(--olive-dark);
+}
+
+.login-error {
+    display:none;
+    margin-top:12px;
+    color:var(--danger);
+    font-size:13px;
+    text-align:center;
+}
+
+/* =========================
+   WEBSITE
+========================= */
+
+#website {
+    display:none;
+    min-height:100vh;
+}
+
+.topbar {
+    height:68px;
+    padding:0 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:white;
+    border-bottom:1px solid var(--border);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font-size:16px;
+    font-weight:650;
+}
+
+.brand-mark {
+    width:30px;
+    height:30px;
+    border-radius:7px;
+}
+
+.brand-mark svg {
+    width:17px;
+    height:17px;
+}
+
+.logout-button {
+    height:36px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:white;
+    font-size:13px;
+    font-weight:600;
+}
+
+.logout-button:hover {
+    background:var(--light);
+}
+
+main {
+    width:min(100% - 40px,1080px);
+    margin:auto;
+    padding:42px 0;
+}
+
+.page {
+    display:none;
+}
+
+.page.active {
+    display:block;
+}
+
+.page-header {
+    margin-bottom:28px;
+}
+
+.page-header h1 {
+    font-size:30px;
+    letter-spacing:-.7px;
+    margin-bottom:7px;
+}
+
+.page-header p {
+    color:var(--muted);
+    font-size:15px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:18px;
+}
+
+.dashboard-card {
+    padding:25px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    transition:.2s;
+}
+
+.dashboard-card:hover {
+    transform:translateY(-2px);
+    border-color:rgba(86,99,68,.55);
+    box-shadow:0 8px 25px rgba(52,56,51,.07);
+}
+
+.card-icon {
+    width:43px;
+    height:43px;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:9px;
+    background:#eef0eb;
+    color:var(--olive);
+}
+
+.card-icon svg {
+    width:21px;
+    height:21px;
+}
+
+.dashboard-card h2 {
+    font-size:18px;
+    margin-bottom:7px;
+}
+
+.dashboard-card p {
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:20px;
+}
+
+.card-button,
+.primary-button {
+    border:none;
+    border-radius:7px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+}
+
+.card-button {
+    height:38px;
+    padding:0 13px;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-size:13px;
+}
+
+.card-button:hover,
+.primary-button:hover {
+    background:var(--olive-dark);
+}
+
+.card-button svg {
+    width:15px;
+    height:15px;
+}
+
+/* =========================
+   SHORTCUTS
+========================= */
+
+.shortcuts-panel {
+    margin-top:18px;
+    padding:24px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.shortcuts-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:17px;
+}
+
+.shortcuts-header h2 {
+    font-size:18px;
+}
+
+.add-shortcut-button {
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:7px;
+    background:var(--olive);
+    color:white;
+}
+
+.add-shortcut-button:hover {
+    background:var(--olive-dark);
+}
+
+.add-shortcut-button svg {
+    width:17px;
+    height:17px;
+}
+
+.shortcuts-list {
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+.shortcut-item {
+    display:flex;
+    align-items:center;
+    gap:5px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:white;
+    overflow:hidden;
+}
+
+.shortcut-link {
+    min-height:42px;
+    padding:0 13px;
+    display:flex;
+    align-items:center;
+    color:var(--anthracite);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+}
+
+.shortcut-link:hover {
+    background:var(--light);
+}
+
+.delete-shortcut {
+    width:34px;
+    height:34px;
+    margin-right:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:6px;
+    background:transparent;
+    color:var(--muted);
+}
+
+.delete-shortcut:hover {
+    background:#f1e9e8;
+    color:var(--danger);
+}
+
+.delete-shortcut svg {
+    width:15px;
+    height:15px;
+}
+
+.empty-shortcuts {
+    padding:20px;
+    border:1px dashed var(--border);
+    border-radius:8px;
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+    width:100%;
+}
+
+/* =========================
+   BACK
+========================= */
+
+.back-button {
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:22px;
+    padding:0;
+    border:none;
+    background:transparent;
+    color:var(--olive-dark);
+    font-size:14px;
+    font-weight:600;
+}
+
+.back-button:hover {
+    text-decoration:underline;
+}
+
+.back-button svg {
+    width:16px;
+    height:16px;
+}
+
+/* =========================
+   NOTES
+========================= */
+
+.notes-layout {
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:18px;
+}
+
+.notes-sidebar,
+.note-editor,
+.content-panel {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.notes-sidebar {
+    padding:18px;
+}
+
+.notes-sidebar-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.notes-sidebar-header h2 {
+    font-size:16px;
+}
+
+.new-note-button {
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:7px;
+    background:var(--olive);
+    color:white;
+}
+
+.new-note-button:hover {
+    background:var(--olive-dark);
+}
+
+.new-note-button svg {
+    width:17px;
+    height:17px;
+}
+
+.notes-list {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-height:500px;
+    overflow-y:auto;
+}
+
+.note-list-item {
+    width:100%;
+    padding:12px;
+    border:1px solid transparent;
+    border-radius:8px;
+    background:transparent;
+    text-align:left;
+    color:var(--anthracite);
+}
+
+.note-list-item:hover {
+    background:var(--light);
+}
+
+.note-list-item.active {
+    background:#eef0eb;
+    border-color:#d9ddd4;
+}
+
+.note-list-title {
+    display:block;
+    overflow:hidden;
+    font-size:14px;
+    font-weight:600;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.note-list-date {
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.empty-notes {
+    padding:25px 8px;
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+    line-height:1.5;
+}
+
+.note-editor {
+    padding:24px;
+}
+
+.note-editor-top {
+    display:flex;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.note-title {
+    flex:1;
+    width:100%;
+    height:46px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+    font-size:18px;
+    font-weight:600;
+}
+
+.note-title:focus,
+.note-content:focus,
+.todo-input:focus,
+.deadline-input:focus,
+.shortcut-input:focus {
+    border-color:var(--olive);
+    box-shadow:0 0 0 3px rgba(86,99,68,.10);
+}
+
+.delete-note-button {
+    width:46px;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:white;
+    color:var(--muted);
+}
+
+.delete-note-button:hover {
+    background:#f1e9e8;
+    color:var(--danger);
+}
+
+.delete-note-button svg {
+    width:18px;
+    height:18px;
+}
+
+.note-content {
+    width:100%;
+    min-height:390px;
+    padding:16px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+    resize:vertical;
+    line-height:1.6;
+    font-size:15px;
+}
+
+.note-editor-footer {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:14px;
+}
+
+.primary-button {
+    height:40px;
+    padding:0 16px;
+    font-size:13px;
+}
+
+.saved-message {
+    color:var(--olive-dark);
+    font-size:13px;
+    font-weight:600;
+    opacity:0;
+    transition:opacity .2s;
+}
+
+.saved-message.show {
+    opacity:1;
+}
+
+/* =========================
+   TODO / DEADLINES
+========================= */
+
+.content-panel {
+    padding:26px;
+}
+
+.todo-input-row,
+.deadline-input-row {
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+    margin-bottom:22px;
+}
+
+.todo-input,
+.deadline-input,
+.shortcut-input {
+    width:100%;
+    height:44px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+}
+
+.todo-add,
+.deadline-add {
+    height:44px;
+    padding:0 17px;
+    border:none;
+    border-radius:8px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+}
+
+.todo-add:hover,
+.deadline-add:hover {
+    background:var(--olive-dark);
+}
+
+.todo-list,
+.deadline-list {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.todo-item,
+.deadline-item {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-height:50px;
+    padding:9px 11px;
+    border:1px solid var(--border);
+    border-radius:8px;
+}
+
+.todo-check,
+.deadline-check {
+    width:19px;
+    height:19px;
+    accent-color:var(--olive);
+}
+
+.todo-text {
+    flex:1;
+    font-size:14px;
+    line-height:1.4;
+}
+
+.todo-item.completed .todo-text,
+.deadline-item.completed .deadline-title {
+    color:var(--muted);
+    text-decoration:line-through;
+}
+
+.delete-todo,
+.delete-deadline {
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:6px;
+    background:transparent;
+    color:var(--muted);
+}
+
+.delete-todo:hover,
+.delete-deadline:hover {
+    background:#f1e9e8;
+    color:var(--danger);
+}
+
+.delete-todo svg,
+.delete-deadline svg {
+    width:16px;
+    height:16px;
+}
+
+.empty-todo,
+.empty-deadlines {
+    padding:30px;
+    border:1px dashed var(--border);
+    border-radius:8px;
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+}
+
+.deadline-item {
+    align-items:flex-start;
+}
+
+.deadline-check {
+    margin-top:5px;
+}
+
+.deadline-main {
+    flex:1;
+    min-width:0;
+}
+
+.deadline-title {
+    font-size:14px;
+    font-weight:600;
+    line-height:1.4;
+}
+
+.deadline-description {
+    margin-top:3px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.4;
+}
+
+.deadline-date {
+    display:inline-block;
+    margin-top:6px;
+    padding:4px 7px;
+    border-radius:5px;
+    background:#eef0eb;
+    color:var(--olive-dark);
+    font-size:11px;
+    font-weight:600;
+}
+
+.deadline-item.overdue:not(.completed) {
+    border-color:#d6aaa6;
+    background:#fffafa;
+}
+
+.deadline-item.overdue:not(.completed) .deadline-date {
+    background:#f1e1df;
+    color:var(--danger);
+}
+
+.deadline-item.today:not(.completed) {
+    border-color:#d6c18f;
+}
+
+.deadline-item.today:not(.completed) .deadline-date {
+    background:#f3ead5;
+    color:var(--warning);
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(52,56,51,.55);
+}
+
+.modal.show {
+    display:flex;
+}
+
+.modal-box {
+    width:100%;
+    max-width:440px;
+    padding:26px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+.modal-box h2 {
+    margin-bottom:20px;
+    font-size:20px;
+}
+
+.modal-field {
+    margin-bottom:15px;
+}
+
+.modal-field label {
+    display:block;
+    margin-bottom:7px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.modal-field input {
+    width:100%;
+    height:44px;
+    padding:0 12px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+}
+
+.modal-field input:focus {
+    border-color:var(--olive);
+    box-shadow:0 0 0 3px rgba(86,99,68,.10);
+}
+
+.modal-actions {
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:20px;
+}
+
+.modal-cancel {
+    height:40px;
+    padding:0 14px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:white;
+    font-weight:600;
+}
+
+.modal-save {
+    height:40px;
+    padding:0 14px;
+    border:none;
+    border-radius:7px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+}
+
+.modal-save:hover {
+    background:var(--olive-dark);
+}
+
+/* =========================
+   MOBIEL
+========================= */
+
+@media(max-width:850px) {
+    .dashboard {
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:750px) {
+
+    .topbar {
+        padding:0 17px;
+    }
+
+    main {
+        width:min(100% - 28px,1080px);
+        padding:28px 0;
+    }
+
+    .notes-layout {
+        grid-template-columns:1fr;
+    }
+
+    .notes-sidebar {
+        order:1;
+    }
+
+    .note-editor {
+        order:2;
+    }
+
+    .notes-list {
+        max-height:220px;
+    }
+}
+
+@media(max-width:500px) {
+
+    .login-box {
+        padding:30px 23px;
+    }
+
+    .page-header h1 {
+        font-size:25px;
+    }
+
+    .content-panel,
+    .note-editor,
+    .shortcuts-panel {
+        padding:18px;
+    }
+
+    .note-editor-top {
+        flex-direction:column;
+    }
+
+    .delete-note-button {
+        width:100%;
+    }
+
+    .note-content {
+        min-height:320px;
+    }
+
+    .note-editor-footer {
+        flex-direction:column;
+        gap:12px;
+        align-items:stretch;
+    }
+
+    .primary-button {
+        width:100%;
+    }
+
+    .todo-input-row,
+    .deadline-input-row {
+        grid-template-columns:1fr;
+    }
+
+    .todo-add,
+    .deadline-add {
+        width:100%;
+    }
+
+    .shortcuts-list {
+        flex-direction:column;
+    }
+
+    .shortcut-item {
+        width:100%;
+    }
+
+    .shortcut-link {
+        flex:1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SVG ICONS -->
+
+<svg style="display:none">
+
+<symbol id="grid" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+</symbol>
+
+<symbol id="note" viewBox="0 0 24 24">
+    <path d="M5 3h10l4 4v14H5z"></path>
+    <path d="M14 3v5h5"></path>
+    <path d="M8 12h8"></path>
+    <path d="M8 16h6"></path>
+</symbol>
+
+<symbol id="check" viewBox="0 0 24 24">
+    <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+    <path d="m8 12 2.5 2.5L16 9"></path>
+</symbol>
+
+<symbol id="calendar" viewBox="0 0 24 24">
+    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+    <path d="M16 3v4M8 3v4M3 10h18"></path>
+</symbol>
+
+<symbol id="link" viewBox="0 0 24 24">
+    <path d="M10 13a5 5 0 0 0 7.07.07l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15"></path>
+    <path d="M14 11a5 5 0 0 0-7.07-.07l-2 2A5 5 0 0 0 7 20l1.15-1.15"></path>
+</symbol>
+
+<symbol id="arrow-right" viewBox="0 0 24 24">
+    <path d="M5 12h14"></path>
+    <path d="m13 6 6 6-6 6"></path>
+</symbol>
+
+<symbol id="arrow-left" viewBox="0 0 24 24">
+    <path d="M19 12H5"></path>
+    <path d="m11 18-6-6 6-6"></path>
+</symbol>
+
+<symbol id="plus" viewBox="0 0 24 24">
+    <path d="M12 5v14"></path>
+    <path d="M5 12h14"></path>
+</symbol>
+
+<symbol id="trash" viewBox="0 0 24 24">
+    <path d="M4 7h16"></path>
+    <path d="M9 7V4h6v3"></path>
+    <path d="M7 7l1 13h8l1-13"></path>
+    <path d="M10 11v5"></path>
+    <path d="M14 11v5"></path>
+</symbol>
+
+</svg>
+
+
+<!-- LOGIN -->
+
+<section id="loginPage">
+
+<div class="login-box">
+
+<div class="login-mark">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#grid"></use>
+</svg>
+</div>
+
+<h1>Persoonlijk dashboard</h1>
+
+<p>
+Log in om je persoonlijke gegevens vanaf al je apparaten te openen.
+</p>
+
+<label class="input-label">E-mailadres</label>
+
+<input
+    id="emailInput"
+    class="login-input"
+    type="email"
+    autocomplete="email"
+    placeholder="jouw@email.nl"
+>
+
+<label class="input-label">Wachtwoord</label>
+
+<input
+    id="passwordInput"
+    class="login-input"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Wachtwoord"
+>
+
+<button class="login-button" onclick="login()">
+    Inloggen
+</button>
+
+<div id="loginError" class="login-error">
+    Inloggen mislukt. Controleer je e-mailadres en wachtwoord.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- WEBSITE -->
+
+<section id="website">
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="brand-mark">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#grid"></use>
+</svg>
+</div>
+
+Persoonlijk dashboard
+
+</div>
+
+<button class="logout-button" onclick="logout()">
+Uitloggen
+</button>
+
+</header>
+
+
+<main>
+
+<!-- HOME -->
+
+<section id="homePage" class="page active">
+
+<div class="page-header">
+<h1>Overzicht</h1>
+<p>Kies wat je wilt openen.</p>
+</div>
+
+<div class="dashboard">
+
+<article class="dashboard-card">
+
+<div class="card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#note"></use>
+</svg>
+</div>
+
+<h2>Notities</h2>
+
+<p>
+Maak meerdere losse notities en bewaar ze overzichtelijk.
+</p>
+
+<button class="card-button" onclick="openPage('notesPage')">
+Openen
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-right"></use>
+</svg>
+</button>
+
+</article>
+
+
+<article class="dashboard-card">
+
+<div class="card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#check"></use>
+</svg>
+</div>
+
+<h2>To-do lijst</h2>
+
+<p>
+Voeg taken toe en houd bij wat nog gedaan moet worden.
+</p>
+
+<button class="card-button" onclick="openPage('todoPage')">
+Openen
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-right"></use>
+</svg>
+</button>
+
+</article>
+
+
+<article class="dashboard-card">
+
+<div class="card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#calendar"></use>
+</svg>
+</div>
+
+<h2>Deadlines</h2>
+
+<p>
+Bewaar belangrijke deadlines en koppel er een datum aan.
+</p>
+
+<button class="card-button" onclick="openPage('deadlinesPage')">
+Openen
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-right"></use>
+</svg>
+</button>
+
+</article>
+
+</div>
+
+
+<!-- SNELKOPPELINGEN -->
+
+<div class="shortcuts-panel">
+
+<div class="shortcuts-header">
+
+<h2>Snelkoppelingen</h2>
+
+<button
+    class="add-shortcut-button"
+    onclick="openShortcutModal()"
+    title="Snelkoppeling toevoegen"
+>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#plus"></use>
+</svg>
+</button>
+
+</div>
+
+<div id="shortcutsList" class="shortcuts-list"></div>
+
+</div>
+
+</section>
+
+
+<!-- NOTITIES -->
+
+<section id="notesPage" class="page">
+
+<button class="back-button" onclick="openPage('homePage')">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-left"></use>
+</svg>
+Terug naar overzicht
+</button>
+
+<div class="page-header">
+<h1>Notities</h1>
+<p>Maak en beheer meerdere losse notities.</p>
+</div>
+
+<div class="notes-layout">
+
+<aside class="notes-sidebar">
+
+<div class="notes-sidebar-header">
+
+<h2>Mijn notities</h2>
+
+<button
+    class="new-note-button"
+    onclick="createNote()"
+    title="Nieuwe notitie"
+>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#plus"></use>
+</svg>
+</button>
+
+</div>
+
+<div id="notesList" class="notes-list"></div>
+
+</aside>
+
+
+<div class="note-editor">
+
+<div class="note-editor-top">
+
+<input
+    id="noteTitle"
+    class="note-title"
+    type="text"
+    placeholder="Titel van de notitie"
+    maxlength="100"
+>
+
+<button
+    id="deleteNoteButton"
+    class="delete-note-button"
+    onclick="deleteCurrentNote()"
+    title="Notitie verwijderen"
+>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#trash"></use>
+</svg>
+</button>
+
+</div>
+
+<textarea
+    id="noteContent"
+    class="note-content"
+    placeholder="Begin met typen..."
+></textarea>
+
+<div class="note-editor-footer">
+
+<button class="primary-button" onclick="saveCurrentNote()">
+Notitie opslaan
+</button>
+
+<span id="noteSavedMessage" class="saved-message">
+Opgeslagen
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TODO -->
+
+<section id="todoPage" class="page">
+
+<button class="back-button" onclick="openPage('homePage')">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-left"></use>
+</svg>
+Terug naar overzicht
+</button>
+
+<div class="page-header">
+<h1>To-do lijst</h1>
+<p>Houd je taken overzichtelijk bij.</p>
+</div>
+
+<div class="content-panel">
+
+<div class="todo-input-row">
+
+<input
+    id="todoInput"
+    class="todo-input"
+    type="text"
+    placeholder="Nieuwe taak..."
+    maxlength="200"
+>
+
+<button class="todo-add" onclick="addTodo()">
+Taak toevoegen
+</button>
+
+</div>
+
+<div id="todoList" class="todo-list"></div>
+
+</div>
+
+</section>
+
+
+<!-- DEADLINES -->
+
+<section id="deadlinesPage" class="page">
+
+<button class="back-button" onclick="openPage('homePage')">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-left"></use>
+</svg>
+Terug naar overzicht
+</button>
+
+<div class="page-header">
+<h1>Deadlines</h1>
+<p>Houd belangrijke deadlines en datums bij.</p>
+</div>
+
+<div class="content-panel">
+
+<div class="deadline-input-row">
+
+<input
+    id="deadlineTitleInput"
+    class="deadline-input"
+    type="text"
+    placeholder="Nieuwe deadline..."
+    maxlength="200"
+>
+
+<button class="deadline-add" onclick="addDeadline()">
+Deadline toevoegen
+</button>
+
+</div>
+
+<div
+    id="deadlineList"
+    class="deadline-list"
+></div>
+
+</div>
+
+</section>
+
+</main>
+
+</section>
+
+
+<!-- SNELKOPPELING MODAL -->
+
+<div id="shortcutModal" class="modal">
+
+<div class="modal-box">
+
+<h2>Snelkoppeling toevoegen</h2>
+
+<div class="modal-field">
+
+<label for="shortcutTitle">
+Naam
+</label>
+
+<input
+    id="shortcutTitle"
+    class="shortcut-input"
+    type="text"
+    maxlength="60"
+    placeholder="Bijvoorbeeld GitHub"
+>
+
+</div>
+
+<div class="modal-field">
+
+<label for="shortcutUrl">
+Website
+</label>
+
+<input
+    id="shortcutUrl"
+    class="shortcut-input"
+    type="url"
+    placeholder="https://example.com"
+>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+    class="modal-cancel"
+    onclick="closeShortcutModal()"
+>
+Annuleren
+</button>
+
+<button
+    class="modal-save"
+    onclick="addShortcut()"
+>
+Toevoegen
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =========================================================
+   SUPABASE CONFIGURATIE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://nrhvxcnokhvdampevlen.supabase.co";
+
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yaHZ4Y25va2h2ZGFtcGV2bGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyNDA4NSwiZXhwIjoyMTAyODIwMDg1fQ.YmA7xm2mU4JHWRQWGOxe-KPsHMabaQXfNw3Q02a0w1M";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let notes = [];
+let todos = [];
+let deadlines = [];
+let shortcuts = [];
+
+let currentNoteId = null;
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function login() {
+
+    const email =
+        document.getElementById("emailInput").value.trim();
+
+    const password =
+        document.getElementById("passwordInput").value;
+
+    const error =
+        document.getElementById("loginError");
+
+    error.style.display = "none";
+
+    if (!email || !password) {
+
+        error.textContent =
+            "Vul je e-mailadres en wachtwoord in.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+    const {
+        error: loginError
+    } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (loginError) {
+
+        console.error(loginError);
+
+        error.textContent =
+            "Inloggen mislukt. Controleer je gegevens.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+    await showWebsite();
+}
+
+
+async function showWebsite() {
+
+    document.getElementById("loginPage")
+        .style.display = "none";
+
+    document.getElementById("website")
+        .style.display = "block";
+
+    await loadAllData();
+}
+
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("website")
+        .style.display = "none";
+
+    document.getElementById("loginPage")
+        .style.display = "flex";
+
+    document.getElementById("passwordInput").value = "";
+
+    openPage("homePage");
+}
+
+
+/* =========================================================
+   START / SESSION
+========================================================= */
+
+async function checkSession() {
+
+    const {
+        data
+    } = await supabaseClient.auth.getSession();
+
+    if (data.session) {
+        await showWebsite();
+    }
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+    async (event, session) => {
+
+        if (event === "SIGNED_OUT") {
+
+            document.getElementById("website")
+                .style.display = "none";
+
+            document.getElementById("loginPage")
+                .style.display = "flex";
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PAGINA'S
+========================================================= */
+
+function openPage(pageId) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+            page.classList.remove("active");
+        });
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    if (pageId === "notesPage") {
+        loadNotes();
+    }
+
+    if (pageId === "todoPage") {
+        loadTodos();
+    }
+
+    if (pageId === "deadlinesPage") {
+        loadDeadlines();
+    }
+
+    if (pageId === "homePage") {
+        loadShortcuts();
+    }
+}
+
+
+/* =========================================================
+   USER
+========================================================= */
+
+async function getCurrentUser() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+        return null;
+    }
+
+    return data.user;
+}
+
+
+/* =========================================================
+   ALLES LADEN
+========================================================= */
+
+async function loadAllData() {
+
+    await Promise.all([
+        loadNotes(),
+        loadTodos(),
+        loadDeadlines(),
+        loadShortcuts()
+    ]);
+}
+
+
+/* =========================================================
+   NOTITIES
+========================================================= */
+
+async function loadNotes() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("notes")
+        .select("*")
+        .order("updated_at", {
+            ascending:false
+        });
+
+    if (error) {
+        console.error("Notities laden:", error);
+        return;
+    }
+
+    notes = data || [];
+
+    if (
+        !notes.some(
+            note => note.id === currentNoteId
+        )
+    ) {
+        currentNoteId =
+            notes.length ? notes[0].id : null;
+    }
+
+    renderNotesList();
+    renderCurrentNote();
+}
+
+
+function renderNotesList() {
+
+    const list =
+        document.getElementById("notesList");
+
+    list.innerHTML = "";
+
+    if (!notes.length) {
+
+        list.innerHTML = `
+            <div class="empty-notes">
+                Je hebt nog geen notities.<br>
+                Gebruik + om een nieuwe notitie te maken.
+            </div>
+        `;
+
+        return;
+    }
+
+    notes.forEach(note => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "note-list-item";
+
+        if (note.id === currentNoteId) {
+            button.classList.add("active");
+        }
+
+        const title =
+            document.createElement("span");
+
+        title.className = "note-list-title";
+
+        title.textContent =
+            note.title.trim() || "Zonder titel";
+
+        const date =
+            document.createElement("span");
+
+        date.className = "note-list-date";
+
+        date.textContent =
+            formatDate(note.updated_at);
+
+        button.appendChild(title);
+        button.appendChild(date);
+
+        button.onclick = () => {
+            currentNoteId = note.id;
+            renderNotesList();
+            renderCurrentNote();
+        };
+
+        list.appendChild(button);
+    });
+}
+
+
+async function createNote() {
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) return;
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("notes")
+        .insert({
+            user_id:user.id,
+            title:"Nieuwe notitie",
+            content:""
+        })
+        .select()
+        .single();
+
+    if (error) {
+
+        console.error(error);
+        alert("De notitie kon niet worden aangemaakt.");
+        return;
+    }
+
+    currentNoteId = data.id;
+
+    await loadNotes();
+
+    document
+        .getElementById("noteTitle")
+        .focus();
+}
+
+
+function renderCurrentNote() {
+
+    const title =
+        document.getElementById("noteTitle");
+
+    const content =
+        document.getElementById("noteContent");
+
+    const deleteButton =
+        document.getElementById("deleteNoteButton");
+
+    const note =
+        notes.find(
+            note => note.id === currentNoteId
+        );
+
+    if (!note) {
+
+        title.value = "";
+        content.value = "";
+
+        deleteButton.style.display = "none";
+
+        return;
+    }
+
+    deleteButton.style.display = "flex";
+
+    title.value = note.title || "";
+    content.value = note.content || "";
+}
+
+
+async function saveCurrentNote() {
+
+    if (currentNoteId === null) {
+        return;
+    }
+
+    const title =
+        document.getElementById("noteTitle")
+            .value
+            .trim();
+
+    const content =
+        document.getElementById("noteContent")
+            .value;
+
+    const {
+        error
+    } = await supabaseClient
+        .from("notes")
+        .update({
+            title,
+            content,
+            updated_at:new Date().toISOString()
+        })
+        .eq("id", currentNoteId);
+
+    if (error) {
+
+        console.error(error);
+        alert("De notitie kon niet worden opgeslagen.");
+
+        return;
+    }
+
+    await loadNotes();
+
+    const message =
+        document.getElementById("noteSavedMessage");
+
+    message.classList.add("show");
+
+    setTimeout(() => {
+        message.classList.remove("show");
+    },1800);
+}
+
+
+async function deleteCurrentNote() {
+
+    if (currentNoteId === null) return;
+
+    if (
+        !confirm(
+            "Weet je zeker dat je deze notitie wilt verwijderen?"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } = await supabaseClient
+        .from("notes")
+        .delete()
+        .eq("id", currentNoteId);
+
+    if (error) {
+
+        console.error(error);
+        alert("De notitie kon niet worden verwijderd.");
+
+        return;
+    }
+
+    currentNoteId = null;
+
+    await loadNotes();
+}
+
+
+/* =========================================================
+   TODO
+========================================================= */
+
+async function loadTodos() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("todos")
+        .select("*")
+        .order("created_at", {
+            ascending:true
+        });
+
+    if (error) {
+
+        console.error("Taken laden:", error);
+        return;
+    }
+
+    todos = data || [];
+
+    renderTodos();
+}
+
+
+async function addTodo() {
+
+    const input =
+        document.getElementById("todoInput");
+
+    const text =
+        input.value.trim();
+
+    if (!text) {
+
+        input.focus();
+        return;
+    }
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) return;
+
+    const {
+        error
+    } = await supabaseClient
+        .from("todos")
+        .insert({
+            user_id:user.id,
+            text,
+            completed:false
+        });
+
+    if (error) {
+
+        console.error(error);
+        alert("De taak kon niet worden toegevoegd.");
+
+        return;
+    }
+
+    input.value = "";
+
+    await loadTodos();
+
+    input.focus();
+}
+
+
+function renderTodos() {
+
+    const list =
+        document.getElementById("todoList");
+
+    list.innerHTML = "";
+
+    if (!todos.length) {
+
+        list.innerHTML = `
+            <div class="empty-todo">
+                Je hebt momenteel geen taken.
+            </div>
+        `;
+
+        return;
+    }
+
+    todos.forEach(todo => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "todo-item" +
+            (todo.completed ? " completed" : "");
+
+        const checkbox =
+            document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.className = "todo-check";
+        checkbox.checked = todo.completed;
+
+        checkbox.addEventListener(
+            "change",
+            () => toggleTodo(todo.id, todo.completed)
+        );
+
+        const text =
+            document.createElement("span");
+
+        text.className = "todo-text";
+        text.textContent = todo.text;
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.className = "delete-todo";
+        deleteButton.title = "Taak verwijderen";
+
+        deleteButton.innerHTML = `
+            <svg fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <use href="#trash"></use>
+            </svg>
+        `;
+
+        deleteButton.onclick =
+            () => deleteTodo(todo.id);
+
+        item.appendChild(checkbox);
+        item.appendChild(text);
+        item.appendChild(deleteButton);
+
+        list.appendChild(item);
+    });
+}
+
+
+async function toggleTodo(id, currentValue) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("todos")
+        .update({
+            completed:!currentValue
+        })
+        .eq("id", id);
+
+    if (error) {
+
+        console.error(error);
+        return;
+    }
+
+    await loadTodos();
+}
+
+
+async function deleteTodo(id) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("todos")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+        console.error(error);
+        return;
+    }
+
+    await loadTodos();
+}
+
+
+/* =========================================================
+   DEADLINES
+========================================================= */
+
+async function loadDeadlines() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("deadlines")
+        .select("*")
+        .order("deadline_date", {
+            ascending:true
+        });
+
+    if (error) {
+
+        console.error("Deadlines laden:", error);
+        return;
+    }
+
+    deadlines = data || [];
+
+    renderDeadlines();
+}
+
+
+async function addDeadline() {
+
+    const titleInput =
+        document.getElementById(
+            "deadlineTitleInput"
+        );
+
+    const title =
+        titleInput.value.trim();
+
+    if (!title) {
+
+        titleInput.focus();
+
+        return;
+    }
+
+    /*
+       Na het klikken op "Deadline toevoegen"
+       vragen we om de datum.
+    */
+
+    const date =
+        prompt(
+            "Voer de deadline in als YYYY-MM-DD",
+            getToday()
+        );
+
+    if (!date) return;
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+
+        alert(
+            "Gebruik het formaat YYYY-MM-DD."
+        );
+
+        return;
+    }
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) return;
+
+    const {
+        error
+    } = await supabaseClient
+        .from("deadlines")
+        .insert({
+            user_id:user.id,
+            title,
+            description:"",
+            deadline_date:date,
+            completed:false
+        });
+
+    if (error) {
+
+        console.error(error);
+        alert("De deadline kon niet worden toegevoegd.");
+
+        return;
+    }
+
+    titleInput.value = "";
+
+    await loadDeadlines();
+
+    titleInput.focus();
+}
+
+
+function renderDeadlines() {
+
+    const list =
+        document.getElementById("deadlineList");
+
+    list.innerHTML = "";
+
+    if (!deadlines.length) {
+
+        list.innerHTML = `
+            <div class="empty-deadlines">
+                Je hebt momenteel geen deadlines.
+            </div>
+        `;
+
+        return;
+    }
+
+    deadlines.forEach(deadline => {
+
+        const item =
+            document.createElement("div");
+
+        const status =
+            getDeadlineStatus(
+                deadline.deadline_date
+            );
+
+        item.className =
+            "deadline-item " +
+            status +
+            (deadline.completed ? " completed" : "");
+
+        const checkbox =
+            document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.className = "deadline-check";
+        checkbox.checked = deadline.completed;
+
+        checkbox.addEventListener(
+            "change",
+            () =>
+                toggleDeadline(
+                    deadline.id,
+                    deadline.completed
+                )
+        );
+
+        const main =
+            document.createElement("div");
+
+        main.className = "deadline-main";
+
+        const title =
+            document.createElement("div");
+
+        title.className = "deadline-title";
+        title.textContent = deadline.title;
+
+        const date =
+            document.createElement("span");
+
+        date.className = "deadline-date";
+        date.textContent =
+            formatDeadlineDate(
+                deadline.deadline_date
+            );
+
+        main.appendChild(title);
+        main.appendChild(date);
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.className =
+            "delete-deadline";
+
+        deleteButton.title =
+            "Deadline verwijderen";
+
+        deleteButton.innerHTML = `
+            <svg fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <use href="#trash"></use>
+            </svg>
+        `;
+
+        deleteButton.onclick =
+            () => deleteDeadline(deadline.id);
+
+        item.appendChild(checkbox);
+        item.appendChild(main);
+        item.appendChild(deleteButton);
+
+        list.appendChild(item);
+    });
+}
+
+
+async function toggleDeadline(
+    id,
+    currentValue
+) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("deadlines")
+        .update({
+            completed:!currentValue
+        })
+        .eq("id", id);
+
+    if (error) {
+
+        console.error(error);
+        return;
+    }
+
+    await loadDeadlines();
+}
+
+
+async function deleteDeadline(id) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("deadlines")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+        console.error(error);
+        return;
+    }
+
+    await loadDeadlines();
+}
+
+
+function getDeadlineStatus(dateString) {
+
+    const today =
+        getToday();
+
+    if (dateString < today) {
+        return "overdue";
+    }
+
+    if (dateString === today) {
+        return "today";
+    }
+
+    return "";
+}
+
+
+/* =========================================================
+   SNELKOPPELINGEN
+========================================================= */
+
+async function loadShortcuts() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("shortcuts")
+        .select("*")
+        .order("created_at", {
+            ascending:true
+        });
+
+    if (error) {
+
+        console.error(
+            "Snelkoppelingen laden:",
+            error
+        );
+
+        return;
+    }
+
+    shortcuts = data || [];
+
+    renderShortcuts();
+}
+
+
+function renderShortcuts() {
+
+    const list =
+        document.getElementById(
+            "shortcutsList"
+        );
+
+    list.innerHTML = "";
+
+    if (!shortcuts.length) {
+
+        list.innerHTML = `
+            <div class="empty-shortcuts">
+                Nog geen snelkoppelingen.
+                Gebruik + om een website toe te voegen.
+            </div>
+        `;
+
+        return;
+    }
+
+    shortcuts.forEach(shortcut => {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "shortcut-item";
+
+        const link =
+            document.createElement("a");
+
+        link.className = "shortcut-link";
+
+        link.href = shortcut.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        link.textContent = shortcut.title;
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.className =
+            "delete-shortcut";
+
+        deleteButton.title =
+            "Snelkoppeling verwijderen";
+
+        deleteButton.innerHTML = `
+            <svg fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <use href="#trash"></use>
+            </svg>
+        `;
+
+        deleteButton.onclick =
+            () => deleteShortcut(shortcut.id);
+
+        item.appendChild(link);
+        item.appendChild(deleteButton);
+
+        list.appendChild(item);
+    });
+}
+
+
+function openShortcutModal() {
+
+    document
+        .getElementById("shortcutModal")
+        .classList.add("show");
+
+    document
+        .getElementById("shortcutTitle")
+        .focus();
+}
+
+
+function closeShortcutModal() {
+
+    document
+        .getElementById("shortcutModal")
+        .classList.remove("show");
+
+    document.getElementById(
+        "shortcutTitle"
+    ).value = "";
+
+    document.getElementById(
+        "shortcutUrl"
+    ).value = "";
+}
+
+
+async function addShortcut() {
+
+    const titleInput =
+        document.getElementById(
+            "shortcutTitle"
+        );
+
+    const urlInput =
+        document.getElementById(
+            "shortcutUrl"
+        );
+
+    const title =
+        titleInput.value.trim();
+
+    let url =
+        urlInput.value.trim();
+
+    if (!title || !url) {
+
+        alert(
+            "Vul zowel een naam als een website in."
+        );
+
+        return;
+    }
+
+    if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
+    }
+
+    try {
+        new URL(url);
+    } catch {
+
+        alert(
+            "Vul een geldige website in."
+        );
+
+        return;
+    }
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) return;
+
+    const {
+        error
+    } = await supabaseClient
+        .from("shortcuts")
+        .insert({
+            user_id:user.id,
+            title,
+            url
+        });
+
+    if (error) {
+
+        console.error(error);
+        alert(
+            "De snelkoppeling kon niet worden toegevoegd."
+        );
+
+        return;
+    }
+
+    closeShortcutModal();
+
+    await loadShortcuts();
+}
+
+
+async function deleteShortcut(id) {
+
+    if (
+        !confirm(
+            "Deze snelkoppeling verwijderen?"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } = await supabaseClient
+        .from("shortcuts")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+        console.error(error);
+        return;
+    }
+
+    await loadShortcuts();
+}
+
+
+/* =========================================================
+   DATUMFUNCTIES
+========================================================= */
+
+function getToday() {
+
+    const now =
+        new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+function formatDate(dateString) {
+
+    const date =
+        new Date(dateString);
+
+    return date.toLocaleDateString(
+        "nl-NL",
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric"
+        }
+    );
+}
+
+
+function formatDeadlineDate(dateString) {
+
+    const [
+        year,
+        month,
+        day
+    ] = dateString.split("-");
+
+    const date =
+        new Date(
+            Number(year),
+            Number(month) - 1,
+            Number(day)
+        );
+
+    return date.toLocaleDateString(
+        "nl-NL",
+        {
+            weekday:"short",
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric"
+        }
+    );
+}
+
+
+/* =========================================================
+   ENTER-TOETS
+========================================================= */
+
+document
+    .getElementById("emailInput")
+    .addEventListener(
+        "keydown",
+        event => {
+            if (event.key === "Enter") {
+                login();
+            }
+        }
+    );
+
+
+document
+    .getElementById("passwordInput")
+    .addEventListener(
+        "keydown",
+        event => {
+            if (event.key === "Enter") {
+                login();
+            }
+        }
+    );
+
+
+document
+    .getElementById("todoInput")
+    .addEventListener(
+        "keydown",
+        event => {
+            if (event.key === "Enter") {
+                addTodo();
+            }
+        }
+    );
+
+
+document
+    .getElementById("deadlineTitleInput")
+    .addEventListener(
+        "keydown",
+        event => {
+            if (event.key === "Enter") {
+                addDeadline();
+            }
+        }
+    );
+
+
+document
+    .getElementById("shortcutModal")
+    .addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target.id ===
+                "shortcutModal"
+            ) {
+                closeShortcutModal();
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   START
+========================================================= */
+
+checkSession();
+
+</script>
+
+</body>
+</html>
