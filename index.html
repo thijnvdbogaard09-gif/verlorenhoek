@@ -33,7 +33,9 @@ body {
     min-height:100vh;
 }
 
-button,input,textarea {
+button,
+input,
+textarea {
     font:inherit;
 }
 
@@ -132,10 +134,30 @@ button {
     background:var(--olive-dark);
 }
 
+.login-button:disabled {
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 .login-error {
     display:none;
     margin-top:12px;
+    padding:10px;
+    border-radius:7px;
+    background:#f9ecea;
     color:var(--danger);
+    font-size:13px;
+    line-height:1.45;
+    text-align:center;
+}
+
+.login-success {
+    display:none;
+    margin-top:12px;
+    padding:10px;
+    border-radius:7px;
+    background:#eef0eb;
+    color:var(--olive-dark);
     font-size:13px;
     text-align:center;
 }
@@ -891,6 +913,30 @@ main {
 }
 
 /* =========================
+   STATUS
+========================= */
+
+.connection-status {
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:200;
+    display:none;
+    max-width:350px;
+    padding:11px 14px;
+    border-radius:8px;
+    background:var(--anthracite);
+    color:white;
+    font-size:12px;
+    line-height:1.4;
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+}
+
+.connection-status.show {
+    display:block;
+}
+
+/* =========================
    MOBIEL
 ========================= */
 
@@ -1071,7 +1117,9 @@ stroke-linecap="round" stroke-linejoin="round">
 Log in om je persoonlijke gegevens vanaf al je apparaten te openen.
 </p>
 
-<label class="input-label">E-mailadres</label>
+<label class="input-label" for="emailInput">
+E-mailadres
+</label>
 
 <input
     id="emailInput"
@@ -1081,7 +1129,9 @@ Log in om je persoonlijke gegevens vanaf al je apparaten te openen.
     placeholder="jouw@email.nl"
 >
 
-<label class="input-label">Wachtwoord</label>
+<label class="input-label" for="passwordInput">
+Wachtwoord
+</label>
 
 <input
     id="passwordInput"
@@ -1091,12 +1141,18 @@ Log in om je persoonlijke gegevens vanaf al je apparaten te openen.
     placeholder="Wachtwoord"
 >
 
-<button class="login-button" onclick="login()">
+<button
+    id="loginButton"
+    class="login-button"
+    onclick="login()"
+>
     Inloggen
 </button>
 
-<div id="loginError" class="login-error">
-    Inloggen mislukt. Controleer je e-mailadres en wachtwoord.
+<div id="loginError" class="login-error"></div>
+
+<div id="loginSuccess" class="login-success">
+    Inloggen gelukt.
 </div>
 
 </div>
@@ -1422,10 +1478,7 @@ Deadline toevoegen
 
 </div>
 
-<div
-    id="deadlineList"
-    class="deadline-list"
-></div>
+<div id="deadlineList" class="deadline-list"></div>
 
 </div>
 
@@ -1498,6 +1551,11 @@ Toevoegen
 </div>
 
 
+<!-- STATUS -->
+
+<div id="connectionStatus" class="connection-status"></div>
+
+
 <!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1514,11 +1572,63 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yaHZ4Y25va2h2ZGFtcGV2bGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyNDA4NSwiZXhwIjoyMTAyODIwMDg1fQ.YmA7xm2mU4JHWRQWGOxe-KPsHMabaQXfNw3Q02a0w1M";
 
-const supabaseClient =
-    supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
+
+/* =========================================================
+   SUPABASE INITIALISEREN
+========================================================= */
+
+let supabaseClient = null;
+
+function initializeSupabase() {
+
+    console.log(
+        "Supabase library:",
+        typeof window.supabase
     );
+
+    if (!window.supabase) {
+
+        console.error(
+            "Supabase library kon niet worden geladen."
+        );
+
+        showConnectionStatus(
+            "Supabase kon niet worden geladen. Controleer je internetverbinding.",
+            true
+        );
+
+        return false;
+    }
+
+    try {
+
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+        console.log(
+            "Supabase succesvol geïnitialiseerd."
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Supabase initialisatie mislukt:",
+            error
+        );
+
+        showConnectionStatus(
+            "Supabase kon niet worden geïnitialiseerd.",
+            true
+        );
+
+        return false;
+    }
+}
 
 
 /* =========================================================
@@ -1534,21 +1644,77 @@ let currentNoteId = null;
 
 
 /* =========================================================
+   STATUS
+========================================================= */
+
+function showConnectionStatus(message, isError = false) {
+
+    const element =
+        document.getElementById("connectionStatus");
+
+    if (!element) return;
+
+    element.textContent = message;
+    element.style.background =
+        isError ? "var(--danger)" : "var(--anthracite)";
+
+    element.classList.add("show");
+
+    setTimeout(() => {
+
+        element.classList.remove("show");
+
+    }, 5000);
+}
+
+
+/* =========================================================
    LOGIN
 ========================================================= */
 
 async function login() {
 
+    console.log("Login gestart.");
+
     const email =
-        document.getElementById("emailInput").value.trim();
+        document
+            .getElementById("emailInput")
+            .value
+            .trim();
 
     const password =
-        document.getElementById("passwordInput").value;
+        document
+            .getElementById("passwordInput")
+            .value;
 
     const error =
         document.getElementById("loginError");
 
+    const success =
+        document.getElementById("loginSuccess");
+
+    const button =
+        document.getElementById("loginButton");
+
+
     error.style.display = "none";
+    success.style.display = "none";
+
+
+    if (!supabaseClient) {
+
+        error.textContent =
+            "Supabase is niet geladen. Vernieuw de pagina en probeer opnieuw.";
+
+        error.style.display = "block";
+
+        console.error(
+            "Login afgebroken: supabaseClient bestaat niet."
+        );
+
+        return;
+    }
+
 
     if (!email || !password) {
 
@@ -1560,87 +1726,303 @@ async function login() {
         return;
     }
 
-    const {
-        error: loginError
-    } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
 
-    if (loginError) {
+    button.disabled = true;
+    button.textContent = "Inloggen...";
 
-        console.error(loginError);
+
+    try {
+
+        console.log(
+            "Probeer in te loggen met:",
+            email
+        );
+
+
+        const {
+            data,
+            error: loginError
+        } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email: email,
+
+                password: password
+
+            });
+
+
+        console.log(
+            "Supabase login resultaat:",
+            data
+        );
+
+        console.log(
+            "Supabase login fout:",
+            loginError
+        );
+
+
+        if (loginError) {
+
+            console.error(
+                "Supabase login fout:",
+                loginError
+            );
+
+
+            let message =
+                loginError.message ||
+                "Onbekende fout.";
+
+
+            const lower =
+                message.toLowerCase();
+
+
+            if (
+                lower.includes(
+                    "invalid login credentials"
+                )
+            ) {
+
+                message =
+                    "E-mailadres of wachtwoord is onjuist.";
+
+            } else if (
+                lower.includes(
+                    "email not confirmed"
+                )
+            ) {
+
+                message =
+                    "Je e-mailadres is nog niet bevestigd in Supabase.";
+
+            } else if (
+                lower.includes(
+                    "rate limit"
+                )
+            ) {
+
+                message =
+                    "Te veel inlogpogingen. Wacht even en probeer opnieuw.";
+            }
+
+
+            error.textContent =
+                message;
+
+            error.style.display = "block";
+
+            return;
+        }
+
+
+        success.textContent =
+            "Inloggen gelukt.";
+
+        success.style.display =
+            "block";
+
+
+        await showWebsite();
+
+
+    } catch (err) {
+
+        console.error(
+            "Onverwachte loginfout:",
+            err
+        );
+
 
         error.textContent =
-            "Inloggen mislukt. Controleer je gegevens.";
+            "Er is een fout opgetreden: " +
+            (err.message || err);
 
-        error.style.display = "block";
+
+        error.style.display =
+            "block";
+
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Inloggen";
+
+    }
+}
+
+
+/* =========================================================
+   WEBSITE TONEN
+========================================================= */
+
+async function showWebsite() {
+
+    document
+        .getElementById("loginPage")
+        .style.display = "none";
+
+    document
+        .getElementById("website")
+        .style.display = "block";
+
+
+    try {
+
+        await loadAllData();
+
+    } catch (error) {
+
+        console.error(
+            "Data laden mislukt:",
+            error
+        );
+
+    }
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout() {
+
+    if (!supabaseClient) return;
+
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        console.error(
+            "Uitloggen mislukt:",
+            error
+        );
 
         return;
     }
 
-    await showWebsite();
-}
+
+    notes = [];
+    todos = [];
+    deadlines = [];
+    shortcuts = [];
+    currentNoteId = null;
 
 
-async function showWebsite() {
-
-    document.getElementById("loginPage")
+    document
+        .getElementById("website")
         .style.display = "none";
 
-    document.getElementById("website")
-        .style.display = "block";
-
-    await loadAllData();
-}
-
-
-async function logout() {
-
-    await supabaseClient.auth.signOut();
-
-    document.getElementById("website")
-        .style.display = "none";
-
-    document.getElementById("loginPage")
+    document
+        .getElementById("loginPage")
         .style.display = "flex";
 
-    document.getElementById("passwordInput").value = "";
+    document
+        .getElementById("passwordInput")
+        .value = "";
+
 
     openPage("homePage");
 }
 
 
 /* =========================================================
-   START / SESSION
+   SESSION
 ========================================================= */
 
 async function checkSession() {
 
-    const {
-        data
-    } = await supabaseClient.auth.getSession();
+    if (!supabaseClient) return;
 
-    if (data.session) {
-        await showWebsite();
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session controleren:",
+                error
+            );
+
+            return;
+        }
+
+
+        if (data && data.session) {
+
+            console.log(
+                "Bestaande Supabase-sessie gevonden."
+            );
+
+            await showWebsite();
+
+        } else {
+
+            console.log(
+                "Geen actieve sessie."
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Session check mislukt:",
+            error
+        );
+
     }
 }
 
 
-supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
+/* =========================================================
+   AUTH STATE
+========================================================= */
 
-        if (event === "SIGNED_OUT") {
+function setupAuthListener() {
 
-            document.getElementById("website")
-                .style.display = "none";
+    if (!supabaseClient) return;
 
-            document.getElementById("loginPage")
-                .style.display = "flex";
+
+    supabaseClient.auth.onAuthStateChange(
+        (event, session) => {
+
+            console.log(
+                "Auth event:",
+                event
+            );
+
+
+            if (event === "SIGNED_OUT") {
+
+                document
+                    .getElementById("website")
+                    .style.display = "none";
+
+                document
+                    .getElementById("loginPage")
+                    .style.display = "flex";
+            }
+
         }
-
-    }
-);
+    );
+}
 
 
 /* =========================================================
@@ -1652,17 +2034,27 @@ function openPage(pageId) {
     document
         .querySelectorAll(".page")
         .forEach(page => {
+
             page.classList.remove("active");
+
         });
 
-    document
-        .getElementById(pageId)
-        .classList.add("active");
+
+    const page =
+        document.getElementById(pageId);
+
+
+    if (!page) return;
+
+
+    page.classList.add("active");
+
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
 
     if (pageId === "notesPage") {
         loadNotes();
@@ -1688,16 +2080,53 @@ function openPage(pageId) {
 
 async function getCurrentUser() {
 
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getUser();
-
-    if (error || !data.user) {
+    if (!supabaseClient) {
         return null;
     }
 
-    return data.user;
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (error) {
+
+            console.error(
+                "Gebruiker ophalen:",
+                error
+            );
+
+            return null;
+        }
+
+
+        if (!data || !data.user) {
+
+            console.error(
+                "Geen ingelogde gebruiker."
+            );
+
+            return null;
+        }
+
+
+        return data.user;
+
+
+    } catch (error) {
+
+        console.error(
+            "getCurrentUser fout:",
+            error
+        );
+
+        return null;
+    }
 }
 
 
@@ -1722,31 +2151,56 @@ async function loadAllData() {
 
 async function loadNotes() {
 
+    if (!supabaseClient) return;
+
+
+    const user =
+        await getCurrentUser();
+
+
+    if (!user) return;
+
+
     const {
         data,
         error
-    } = await supabaseClient
-        .from("notes")
-        .select("*")
-        .order("updated_at", {
-            ascending:false
-        });
+    } =
+        await supabaseClient
+            .from("notes")
+            .select("*")
+            .eq("user_id", user.id)
+            .order("updated_at", {
+                ascending:false
+            });
+
 
     if (error) {
-        console.error("Notities laden:", error);
+
+        console.error(
+            "Notities laden:",
+            error
+        );
+
         return;
     }
 
+
     notes = data || [];
+
 
     if (
         !notes.some(
-            note => note.id === currentNoteId
+            note =>
+                note.id === currentNoteId
         )
     ) {
+
         currentNoteId =
-            notes.length ? notes[0].id : null;
+            notes.length
+                ? notes[0].id
+                : null;
     }
+
 
     renderNotesList();
     renderCurrentNote();
@@ -1756,9 +2210,13 @@ async function loadNotes() {
 function renderNotesList() {
 
     const list =
-        document.getElementById("notesList");
+        document.getElementById(
+            "notesList"
+        );
+
 
     list.innerHTML = "";
+
 
     if (!notes.length) {
 
@@ -1772,43 +2230,71 @@ function renderNotesList() {
         return;
     }
 
+
     notes.forEach(note => {
 
         const button =
             document.createElement("button");
 
-        button.className = "note-list-item";
 
-        if (note.id === currentNoteId) {
-            button.classList.add("active");
+        button.className =
+            "note-list-item";
+
+
+        if (
+            note.id === currentNoteId
+        ) {
+
+            button.classList.add(
+                "active"
+            );
         }
+
 
         const title =
             document.createElement("span");
 
-        title.className = "note-list-title";
+
+        title.className =
+            "note-list-title";
+
 
         title.textContent =
-            note.title.trim() || "Zonder titel";
+            note.title?.trim()
+                || "Zonder titel";
+
 
         const date =
             document.createElement("span");
 
-        date.className = "note-list-date";
+
+        date.className =
+            "note-list-date";
+
 
         date.textContent =
-            formatDate(note.updated_at);
+            formatDate(
+                note.updated_at
+            );
+
 
         button.appendChild(title);
         button.appendChild(date);
 
+
         button.onclick = () => {
-            currentNoteId = note.id;
+
+            currentNoteId =
+                note.id;
+
             renderNotesList();
             renderCurrentNote();
+
         };
 
+
         list.appendChild(button);
+
     });
 }
 
@@ -1818,31 +2304,51 @@ async function createNote() {
     const user =
         await getCurrentUser();
 
+
     if (!user) return;
+
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("notes")
-        .insert({
-            user_id:user.id,
-            title:"Nieuwe notitie",
-            content:""
-        })
-        .select()
-        .single();
+    } =
+        await supabaseClient
+            .from("notes")
+            .insert({
+
+                user_id:user.id,
+
+                title:"Nieuwe notitie",
+
+                content:""
+
+            })
+            .select()
+            .single();
+
 
     if (error) {
 
-        console.error(error);
-        alert("De notitie kon niet worden aangemaakt.");
+        console.error(
+            "Notitie aanmaken:",
+            error
+        );
+
+        alert(
+            "De notitie kon niet worden aangemaakt.\n\n" +
+            error.message
+        );
+
         return;
     }
 
-    currentNoteId = data.id;
+
+    currentNoteId =
+        data.id;
+
 
     await loadNotes();
+
 
     document
         .getElementById("noteTitle")
@@ -1853,111 +2359,184 @@ async function createNote() {
 function renderCurrentNote() {
 
     const title =
-        document.getElementById("noteTitle");
+        document.getElementById(
+            "noteTitle"
+        );
+
 
     const content =
-        document.getElementById("noteContent");
+        document.getElementById(
+            "noteContent"
+        );
+
 
     const deleteButton =
-        document.getElementById("deleteNoteButton");
+        document.getElementById(
+            "deleteNoteButton"
+        );
+
 
     const note =
         notes.find(
-            note => note.id === currentNoteId
+            note =>
+                note.id === currentNoteId
         );
+
 
     if (!note) {
 
         title.value = "";
         content.value = "";
 
-        deleteButton.style.display = "none";
+        deleteButton.style.display =
+            "none";
 
         return;
     }
 
-    deleteButton.style.display = "flex";
 
-    title.value = note.title || "";
-    content.value = note.content || "";
+    deleteButton.style.display =
+        "flex";
+
+
+    title.value =
+        note.title || "";
+
+
+    content.value =
+        note.content || "";
 }
 
 
 async function saveCurrentNote() {
 
-    if (currentNoteId === null) {
+    if (
+        currentNoteId === null
+    ) {
+
         return;
     }
 
+
     const title =
-        document.getElementById("noteTitle")
+        document
+            .getElementById("noteTitle")
             .value
             .trim();
 
+
     const content =
-        document.getElementById("noteContent")
+        document
+            .getElementById("noteContent")
             .value;
+
 
     const {
         error
-    } = await supabaseClient
-        .from("notes")
-        .update({
-            title,
-            content,
-            updated_at:new Date().toISOString()
-        })
-        .eq("id", currentNoteId);
+    } =
+        await supabaseClient
+            .from("notes")
+            .update({
+
+                title,
+
+                content,
+
+                updated_at:
+                    new Date().toISOString()
+
+            })
+            .eq(
+                "id",
+                currentNoteId
+            );
+
 
     if (error) {
 
-        console.error(error);
-        alert("De notitie kon niet worden opgeslagen.");
+        console.error(
+            "Notitie opslaan:",
+            error
+        );
+
+        alert(
+            "De notitie kon niet worden opgeslagen.\n\n" +
+            error.message
+        );
 
         return;
     }
 
+
     await loadNotes();
 
+
     const message =
-        document.getElementById("noteSavedMessage");
+        document.getElementById(
+            "noteSavedMessage"
+        );
+
 
     message.classList.add("show");
 
+
     setTimeout(() => {
-        message.classList.remove("show");
+
+        message.classList.remove(
+            "show"
+        );
+
     },1800);
 }
 
 
 async function deleteCurrentNote() {
 
-    if (currentNoteId === null) return;
+    if (
+        currentNoteId === null
+    ) return;
+
 
     if (
         !confirm(
             "Weet je zeker dat je deze notitie wilt verwijderen?"
         )
     ) {
+
         return;
     }
+
 
     const {
         error
-    } = await supabaseClient
-        .from("notes")
-        .delete()
-        .eq("id", currentNoteId);
+    } =
+        await supabaseClient
+            .from("notes")
+            .delete()
+            .eq(
+                "id",
+                currentNoteId
+            );
+
 
     if (error) {
 
-        console.error(error);
-        alert("De notitie kon niet worden verwijderd.");
+        console.error(
+            "Notitie verwijderen:",
+            error
+        );
+
+        alert(
+            "De notitie kon niet worden verwijderd.\n\n" +
+            error.message
+        );
 
         return;
     }
 
+
     currentNoteId = null;
+
 
     await loadNotes();
 }
@@ -1969,23 +2548,42 @@ async function deleteCurrentNote() {
 
 async function loadTodos() {
 
+    if (!supabaseClient) return;
+
+
+    const user =
+        await getCurrentUser();
+
+
+    if (!user) return;
+
+
     const {
         data,
         error
-    } = await supabaseClient
-        .from("todos")
-        .select("*")
-        .order("created_at", {
-            ascending:true
-        });
+    } =
+        await supabaseClient
+            .from("todos")
+            .select("*")
+            .eq("user_id", user.id)
+            .order("created_at", {
+                ascending:true
+            });
+
 
     if (error) {
 
-        console.error("Taken laden:", error);
+        console.error(
+            "Taken laden:",
+            error
+        );
+
         return;
     }
 
+
     todos = data || [];
+
 
     renderTodos();
 }
@@ -1994,43 +2592,67 @@ async function loadTodos() {
 async function addTodo() {
 
     const input =
-        document.getElementById("todoInput");
+        document.getElementById(
+            "todoInput"
+        );
+
 
     const text =
         input.value.trim();
 
+
     if (!text) {
 
         input.focus();
+
         return;
     }
+
 
     const user =
         await getCurrentUser();
 
+
     if (!user) return;
+
 
     const {
         error
-    } = await supabaseClient
-        .from("todos")
-        .insert({
-            user_id:user.id,
-            text,
-            completed:false
-        });
+    } =
+        await supabaseClient
+            .from("todos")
+            .insert({
+
+                user_id:user.id,
+
+                text,
+
+                completed:false
+
+            });
+
 
     if (error) {
 
-        console.error(error);
-        alert("De taak kon niet worden toegevoegd.");
+        console.error(
+            "Taak toevoegen:",
+            error
+        );
+
+        alert(
+            "De taak kon niet worden toegevoegd.\n\n" +
+            error.message
+        );
 
         return;
     }
 
+
     input.value = "";
 
+
     await loadTodos();
+
 
     input.focus();
 }
@@ -2039,9 +2661,13 @@ async function addTodo() {
 function renderTodos() {
 
     const list =
-        document.getElementById("todoList");
+        document.getElementById(
+            "todoList"
+        );
+
 
     list.innerHTML = "";
+
 
     if (!todos.length) {
 
@@ -2054,38 +2680,71 @@ function renderTodos() {
         return;
     }
 
+
     todos.forEach(todo => {
 
         const item =
             document.createElement("div");
 
+
         item.className =
             "todo-item" +
-            (todo.completed ? " completed" : "");
+            (
+                todo.completed
+                    ? " completed"
+                    : ""
+            );
+
 
         const checkbox =
             document.createElement("input");
 
-        checkbox.type = "checkbox";
-        checkbox.className = "todo-check";
-        checkbox.checked = todo.completed;
+
+        checkbox.type =
+            "checkbox";
+
+
+        checkbox.className =
+            "todo-check";
+
+
+        checkbox.checked =
+            todo.completed;
+
 
         checkbox.addEventListener(
             "change",
-            () => toggleTodo(todo.id, todo.completed)
+            () =>
+                toggleTodo(
+                    todo.id,
+                    todo.completed
+                )
         );
+
 
         const text =
             document.createElement("span");
 
-        text.className = "todo-text";
-        text.textContent = todo.text;
+
+        text.className =
+            "todo-text";
+
+
+        text.textContent =
+            todo.text;
+
 
         const deleteButton =
             document.createElement("button");
 
-        deleteButton.className = "delete-todo";
-        deleteButton.title = "Taak verwijderen";
+
+        deleteButton.className =
+            "delete-todo";
+
+
+        deleteButton.title =
+            "Taak verwijderen";
+
 
         deleteButton.innerHTML = `
             <svg fill="none"
@@ -2097,34 +2756,57 @@ function renderTodos() {
             </svg>
         `;
 
+
         deleteButton.onclick =
-            () => deleteTodo(todo.id);
+            () =>
+                deleteTodo(
+                    todo.id
+                );
+
 
         item.appendChild(checkbox);
         item.appendChild(text);
         item.appendChild(deleteButton);
 
+
         list.appendChild(item);
+
     });
 }
 
 
-async function toggleTodo(id, currentValue) {
+async function toggleTodo(
+    id,
+    currentValue
+) {
 
     const {
         error
-    } = await supabaseClient
-        .from("todos")
-        .update({
-            completed:!currentValue
-        })
-        .eq("id", id);
+    } =
+        await supabaseClient
+            .from("todos")
+            .update({
+
+                completed:
+                    !currentValue
+
+            })
+            .eq(
+                "id",
+                id
+            );
+
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Taak wijzigen:",
+            error
+        );
+
         return;
     }
+
 
     await loadTodos();
 }
@@ -2134,16 +2816,26 @@ async function deleteTodo(id) {
 
     const {
         error
-    } = await supabaseClient
-        .from("todos")
-        .delete()
-        .eq("id", id);
+    } =
+        await supabaseClient
+            .from("todos")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Taak verwijderen:",
+            error
+        );
+
         return;
     }
+
 
     await loadTodos();
 }
@@ -2155,23 +2847,43 @@ async function deleteTodo(id) {
 
 async function loadDeadlines() {
 
+    if (!supabaseClient) return;
+
+
+    const user =
+        await getCurrentUser();
+
+
+    if (!user) return;
+
+
     const {
         data,
         error
-    } = await supabaseClient
-        .from("deadlines")
-        .select("*")
-        .order("deadline_date", {
-            ascending:true
-        });
+    } =
+        await supabaseClient
+            .from("deadlines")
+            .select("*")
+            .eq("user_id", user.id)
+            .order("deadline_date", {
+                ascending:true
+            });
+
 
     if (error) {
 
-        console.error("Deadlines laden:", error);
+        console.error(
+            "Deadlines laden:",
+            error
+        );
+
         return;
     }
 
-    deadlines = data || [];
+
+    deadlines =
+        data || [];
+
 
     renderDeadlines();
 }
@@ -2184,8 +2896,10 @@ async function addDeadline() {
             "deadlineTitleInput"
         );
 
+
     const title =
         titleInput.value.trim();
+
 
     if (!title) {
 
@@ -2194,10 +2908,6 @@ async function addDeadline() {
         return;
     }
 
-    /*
-       Na het klikken op "Deadline toevoegen"
-       vragen we om de datum.
-    */
 
     const date =
         prompt(
@@ -2205,9 +2915,15 @@ async function addDeadline() {
             getToday()
         );
 
+
     if (!date) return;
 
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+
+    if (
+        !/^\d{4}-\d{2}-\d{2}$/.test(
+            date
+        )
+    ) {
 
         alert(
             "Gebruik het formaat YYYY-MM-DD."
@@ -2216,34 +2932,55 @@ async function addDeadline() {
         return;
     }
 
+
     const user =
         await getCurrentUser();
 
+
     if (!user) return;
+
 
     const {
         error
-    } = await supabaseClient
-        .from("deadlines")
-        .insert({
-            user_id:user.id,
-            title,
-            description:"",
-            deadline_date:date,
-            completed:false
-        });
+    } =
+        await supabaseClient
+            .from("deadlines")
+            .insert({
+
+                user_id:user.id,
+
+                title,
+
+                description:"",
+
+                deadline_date:date,
+
+                completed:false
+
+            });
+
 
     if (error) {
 
-        console.error(error);
-        alert("De deadline kon niet worden toegevoegd.");
+        console.error(
+            "Deadline toevoegen:",
+            error
+        );
+
+        alert(
+            "De deadline kon niet worden toegevoegd.\n\n" +
+            error.message
+        );
 
         return;
     }
 
+
     titleInput.value = "";
 
+
     await loadDeadlines();
+
 
     titleInput.focus();
 }
@@ -2252,9 +2989,13 @@ async function addDeadline() {
 function renderDeadlines() {
 
     const list =
-        document.getElementById("deadlineList");
+        document.getElementById(
+            "deadlineList"
+        );
+
 
     list.innerHTML = "";
+
 
     if (!deadlines.length) {
 
@@ -2267,88 +3008,153 @@ function renderDeadlines() {
         return;
     }
 
-    deadlines.forEach(deadline => {
 
-        const item =
-            document.createElement("div");
+    deadlines.forEach(
+        deadline => {
 
-        const status =
-            getDeadlineStatus(
-                deadline.deadline_date
-            );
+            const item =
+                document.createElement(
+                    "div"
+                );
 
-        item.className =
-            "deadline-item " +
-            status +
-            (deadline.completed ? " completed" : "");
 
-        const checkbox =
-            document.createElement("input");
+            const status =
+                getDeadlineStatus(
+                    deadline.deadline_date
+                );
 
-        checkbox.type = "checkbox";
-        checkbox.className = "deadline-check";
-        checkbox.checked = deadline.completed;
 
-        checkbox.addEventListener(
-            "change",
-            () =>
-                toggleDeadline(
-                    deadline.id,
+            item.className =
+                "deadline-item " +
+                status +
+                (
                     deadline.completed
-                )
-        );
+                        ? " completed"
+                        : ""
+                );
 
-        const main =
-            document.createElement("div");
 
-        main.className = "deadline-main";
+            const checkbox =
+                document.createElement(
+                    "input"
+                );
 
-        const title =
-            document.createElement("div");
 
-        title.className = "deadline-title";
-        title.textContent = deadline.title;
+            checkbox.type =
+                "checkbox";
 
-        const date =
-            document.createElement("span");
 
-        date.className = "deadline-date";
-        date.textContent =
-            formatDeadlineDate(
-                deadline.deadline_date
+            checkbox.className =
+                "deadline-check";
+
+
+            checkbox.checked =
+                deadline.completed;
+
+
+            checkbox.addEventListener(
+                "change",
+                () =>
+                    toggleDeadline(
+                        deadline.id,
+                        deadline.completed
+                    )
             );
 
-        main.appendChild(title);
-        main.appendChild(date);
 
-        const deleteButton =
-            document.createElement("button");
+            const main =
+                document.createElement(
+                    "div"
+                );
 
-        deleteButton.className =
-            "delete-deadline";
 
-        deleteButton.title =
-            "Deadline verwijderen";
+            main.className =
+                "deadline-main";
 
-        deleteButton.innerHTML = `
-            <svg fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
-                <use href="#trash"></use>
-            </svg>
-        `;
 
-        deleteButton.onclick =
-            () => deleteDeadline(deadline.id);
+            const title =
+                document.createElement(
+                    "div"
+                );
 
-        item.appendChild(checkbox);
-        item.appendChild(main);
-        item.appendChild(deleteButton);
 
-        list.appendChild(item);
-    });
+            title.className =
+                "deadline-title";
+
+
+            title.textContent =
+                deadline.title;
+
+
+            const date =
+                document.createElement(
+                    "span"
+                );
+
+
+            date.className =
+                "deadline-date";
+
+
+            date.textContent =
+                formatDeadlineDate(
+                    deadline.deadline_date
+                );
+
+
+            main.appendChild(title);
+            main.appendChild(date);
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.className =
+                "delete-deadline";
+
+
+            deleteButton.title =
+                "Deadline verwijderen";
+
+
+            deleteButton.innerHTML = `
+                <svg fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <use href="#trash"></use>
+                </svg>
+            `;
+
+
+            deleteButton.onclick =
+                () =>
+                    deleteDeadline(
+                        deadline.id
+                    );
+
+
+            item.appendChild(
+                checkbox
+            );
+
+            item.appendChild(
+                main
+            );
+
+            item.appendChild(
+                deleteButton
+            );
+
+
+            list.appendChild(item);
+
+        }
+    );
 }
 
 
@@ -2359,18 +3165,31 @@ async function toggleDeadline(
 
     const {
         error
-    } = await supabaseClient
-        .from("deadlines")
-        .update({
-            completed:!currentValue
-        })
-        .eq("id", id);
+    } =
+        await supabaseClient
+            .from("deadlines")
+            .update({
+
+                completed:
+                    !currentValue
+
+            })
+            .eq(
+                "id",
+                id
+            );
+
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Deadline wijzigen:",
+            error
+        );
+
         return;
     }
+
 
     await loadDeadlines();
 }
@@ -2380,33 +3199,48 @@ async function deleteDeadline(id) {
 
     const {
         error
-    } = await supabaseClient
-        .from("deadlines")
-        .delete()
-        .eq("id", id);
+    } =
+        await supabaseClient
+            .from("deadlines")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Deadline verwijderen:",
+            error
+        );
+
         return;
     }
+
 
     await loadDeadlines();
 }
 
 
-function getDeadlineStatus(dateString) {
+function getDeadlineStatus(
+    dateString
+) {
 
     const today =
         getToday();
+
 
     if (dateString < today) {
         return "overdue";
     }
 
+
     if (dateString === today) {
         return "today";
     }
+
 
     return "";
 }
@@ -2418,15 +3252,28 @@ function getDeadlineStatus(dateString) {
 
 async function loadShortcuts() {
 
+    if (!supabaseClient) return;
+
+
+    const user =
+        await getCurrentUser();
+
+
+    if (!user) return;
+
+
     const {
         data,
         error
-    } = await supabaseClient
-        .from("shortcuts")
-        .select("*")
-        .order("created_at", {
-            ascending:true
-        });
+    } =
+        await supabaseClient
+            .from("shortcuts")
+            .select("*")
+            .eq("user_id", user.id)
+            .order("created_at", {
+                ascending:true
+            });
+
 
     if (error) {
 
@@ -2438,7 +3285,10 @@ async function loadShortcuts() {
         return;
     }
 
-    shortcuts = data || [];
+
+    shortcuts =
+        data || [];
+
 
     renderShortcuts();
 }
@@ -2451,7 +3301,9 @@ function renderShortcuts() {
             "shortcutsList"
         );
 
+
     list.innerHTML = "";
+
 
     if (!shortcuts.length) {
 
@@ -2465,62 +3317,102 @@ function renderShortcuts() {
         return;
     }
 
-    shortcuts.forEach(shortcut => {
 
-        const item =
-            document.createElement("div");
+    shortcuts.forEach(
+        shortcut => {
 
-        item.className = "shortcut-item";
+            const item =
+                document.createElement(
+                    "div"
+                );
 
-        const link =
-            document.createElement("a");
 
-        link.className = "shortcut-link";
+            item.className =
+                "shortcut-item";
 
-        link.href = shortcut.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
 
-        link.textContent = shortcut.title;
+            const link =
+                document.createElement(
+                    "a"
+                );
 
-        const deleteButton =
-            document.createElement("button");
 
-        deleteButton.className =
-            "delete-shortcut";
+            link.className =
+                "shortcut-link";
 
-        deleteButton.title =
-            "Snelkoppeling verwijderen";
 
-        deleteButton.innerHTML = `
-            <svg fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
-                <use href="#trash"></use>
-            </svg>
-        `;
+            link.href =
+                shortcut.url;
 
-        deleteButton.onclick =
-            () => deleteShortcut(shortcut.id);
 
-        item.appendChild(link);
-        item.appendChild(deleteButton);
+            link.target =
+                "_blank";
 
-        list.appendChild(item);
-    });
+
+            link.rel =
+                "noopener noreferrer";
+
+
+            link.textContent =
+                shortcut.title;
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.className =
+                "delete-shortcut";
+
+
+            deleteButton.title =
+                "Snelkoppeling verwijderen";
+
+
+            deleteButton.innerHTML = `
+                <svg fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <use href="#trash"></use>
+                </svg>
+            `;
+
+
+            deleteButton.onclick =
+                () =>
+                    deleteShortcut(
+                        shortcut.id
+                    );
+
+
+            item.appendChild(link);
+            item.appendChild(deleteButton);
+
+
+            list.appendChild(item);
+
+        }
+    );
 }
 
 
 function openShortcutModal() {
 
     document
-        .getElementById("shortcutModal")
+        .getElementById(
+            "shortcutModal"
+        )
         .classList.add("show");
 
+
     document
-        .getElementById("shortcutTitle")
+        .getElementById(
+            "shortcutTitle"
+        )
         .focus();
 }
 
@@ -2528,12 +3420,16 @@ function openShortcutModal() {
 function closeShortcutModal() {
 
     document
-        .getElementById("shortcutModal")
+        .getElementById(
+            "shortcutModal"
+        )
         .classList.remove("show");
+
 
     document.getElementById(
         "shortcutTitle"
     ).value = "";
+
 
     document.getElementById(
         "shortcutUrl"
@@ -2548,16 +3444,20 @@ async function addShortcut() {
             "shortcutTitle"
         );
 
+
     const urlInput =
         document.getElementById(
             "shortcutUrl"
         );
 
+
     const title =
         titleInput.value.trim();
 
+
     let url =
         urlInput.value.trim();
+
 
     if (!title || !url) {
 
@@ -2568,12 +3468,20 @@ async function addShortcut() {
         return;
     }
 
-    if (!/^https?:\/\//i.test(url)) {
-        url = "https://" + url;
+
+    if (
+        !/^https?:\/\//i.test(url)
+    ) {
+
+        url =
+            "https://" + url;
     }
 
+
     try {
+
         new URL(url);
+
     } catch {
 
         alert(
@@ -2583,32 +3491,48 @@ async function addShortcut() {
         return;
     }
 
+
     const user =
         await getCurrentUser();
 
+
     if (!user) return;
+
 
     const {
         error
-    } = await supabaseClient
-        .from("shortcuts")
-        .insert({
-            user_id:user.id,
-            title,
-            url
-        });
+    } =
+        await supabaseClient
+            .from("shortcuts")
+            .insert({
+
+                user_id:user.id,
+
+                title,
+
+                url
+
+            });
+
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Snelkoppeling toevoegen:",
+            error
+        );
+
         alert(
-            "De snelkoppeling kon niet worden toegevoegd."
+            "De snelkoppeling kon niet worden toegevoegd.\n\n" +
+            error.message
         );
 
         return;
     }
 
+
     closeShortcutModal();
+
 
     await loadShortcuts();
 }
@@ -2621,21 +3545,33 @@ async function deleteShortcut(id) {
             "Deze snelkoppeling verwijderen?"
         )
     ) {
+
         return;
     }
+
 
     const {
         error
-    } = await supabaseClient
-        .from("shortcuts")
-        .delete()
-        .eq("id", id);
+    } =
+        await supabaseClient
+            .from("shortcuts")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Snelkoppeling verwijderen:",
+            error
+        );
+
         return;
     }
+
 
     await loadShortcuts();
 }
@@ -2650,27 +3586,39 @@ function getToday() {
     const now =
         new Date();
 
+
     const year =
         now.getFullYear();
+
 
     const month =
         String(
             now.getMonth() + 1
         ).padStart(2,"0");
 
+
     const day =
         String(
             now.getDate()
         ).padStart(2,"0");
 
+
     return `${year}-${month}-${day}`;
 }
 
 
-function formatDate(dateString) {
+function formatDate(
+    dateString
+) {
+
+    if (!dateString) {
+        return "";
+    }
+
 
     const date =
         new Date(dateString);
+
 
     return date.toLocaleDateString(
         "nl-NL",
@@ -2683,13 +3631,17 @@ function formatDate(dateString) {
 }
 
 
-function formatDeadlineDate(dateString) {
+function formatDeadlineDate(
+    dateString
+) {
 
     const [
         year,
         month,
         day
-    ] = dateString.split("-");
+    ] =
+        dateString.split("-");
+
 
     const date =
         new Date(
@@ -2697,6 +3649,7 @@ function formatDeadlineDate(dateString) {
             Number(month) - 1,
             Number(day)
         );
+
 
     return date.toLocaleDateString(
         "nl-NL",
@@ -2711,7 +3664,7 @@ function formatDeadlineDate(dateString) {
 
 
 /* =========================================================
-   ENTER-TOETS
+   ENTER-TOETSEN
 ========================================================= */
 
 document
@@ -2719,9 +3672,15 @@ document
     .addEventListener(
         "keydown",
         event => {
-            if (event.key === "Enter") {
+
+            if (
+                event.key === "Enter"
+            ) {
+
                 login();
+
             }
+
         }
     );
 
@@ -2731,9 +3690,15 @@ document
     .addEventListener(
         "keydown",
         event => {
-            if (event.key === "Enter") {
+
+            if (
+                event.key === "Enter"
+            ) {
+
                 login();
+
             }
+
         }
     );
 
@@ -2743,9 +3708,15 @@ document
     .addEventListener(
         "keydown",
         event => {
-            if (event.key === "Enter") {
+
+            if (
+                event.key === "Enter"
+            ) {
+
                 addTodo();
+
             }
+
         }
     );
 
@@ -2755,9 +3726,15 @@ document
     .addEventListener(
         "keydown",
         event => {
-            if (event.key === "Enter") {
+
+            if (
+                event.key === "Enter"
+            ) {
+
                 addDeadline();
+
             }
+
         }
     );
 
@@ -2772,7 +3749,27 @@ document
                 event.target.id ===
                 "shortcutModal"
             ) {
+
                 closeShortcutModal();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("shortcutUrl")
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                addShortcut();
+
             }
 
         }
@@ -2783,7 +3780,26 @@ document
    START
 ========================================================= */
 
-checkSession();
+console.log(
+    "Dashboard JavaScript gestart."
+);
+
+
+if (
+    initializeSupabase()
+) {
+
+    setupAuthListener();
+
+    checkSession();
+
+} else {
+
+    console.error(
+        "Dashboard kon niet worden gestart omdat Supabase niet beschikbaar is."
+    );
+
+}
 
 </script>
 
