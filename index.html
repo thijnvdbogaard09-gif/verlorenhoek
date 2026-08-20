@@ -33,9 +33,7 @@ body {
     min-height:100vh;
 }
 
-button,
-input,
-textarea {
+button,input,textarea {
     font:inherit;
 }
 
@@ -43,9 +41,9 @@ button {
     cursor:pointer;
 }
 
-/* =========================================================
+/* =========================
    LOGIN
-========================================================= */
+========================= */
 
 #loginPage {
     min-height:100vh;
@@ -134,26 +132,17 @@ button {
     background:var(--olive-dark);
 }
 
-.login-button:disabled {
-    opacity:.6;
-    cursor:wait;
-}
-
 .login-error {
     display:none;
     margin-top:12px;
-    padding:10px;
-    border-radius:7px;
-    background:#f9e8e6;
     color:var(--danger);
     font-size:13px;
-    line-height:1.45;
     text-align:center;
 }
 
-/* =========================================================
+/* =========================
    WEBSITE
-========================================================= */
+========================= */
 
 #website {
     display:none;
@@ -232,9 +221,9 @@ main {
     font-size:15px;
 }
 
-/* =========================================================
+/* =========================
    DASHBOARD
-========================================================= */
+========================= */
 
 .dashboard {
     display:grid;
@@ -313,9 +302,9 @@ main {
     height:15px;
 }
 
-/* =========================================================
+/* =========================
    SHORTCUTS
-========================================================= */
+========================= */
 
 .shortcuts-panel {
     margin-top:18px;
@@ -378,6 +367,7 @@ main {
     padding:0 13px;
     display:flex;
     align-items:center;
+    gap:9px;
     color:var(--anthracite);
     text-decoration:none;
     font-size:13px;
@@ -386,6 +376,30 @@ main {
 
 .shortcut-link:hover {
     background:var(--light);
+}
+
+.shortcut-icon {
+    width:20px;
+    height:20px;
+    flex:0 0 20px;
+    object-fit:contain;
+    border-radius:4px;
+    display:block;
+}
+
+.shortcut-fallback-icon {
+    width:20px;
+    height:20px;
+    flex:0 0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--olive);
+}
+
+.shortcut-fallback-icon svg {
+    width:18px;
+    height:18px;
 }
 
 .delete-shortcut {
@@ -421,9 +435,9 @@ main {
     width:100%;
 }
 
-/* =========================================================
+/* =========================
    BACK
-========================================================= */
+========================= */
 
 .back-button {
     display:inline-flex;
@@ -447,9 +461,9 @@ main {
     height:16px;
 }
 
-/* =========================================================
+/* =========================
    NOTES
-========================================================= */
+========================= */
 
 .notes-layout {
     display:grid;
@@ -642,9 +656,9 @@ main {
     opacity:1;
 }
 
-/* =========================================================
+/* =========================
    TODO / DEADLINES
-========================================================= */
+========================= */
 
 .content-panel {
     padding:26px;
@@ -813,9 +827,9 @@ main {
     color:var(--warning);
 }
 
-/* =========================================================
+/* =========================
    MODAL
-========================================================= */
+========================= */
 
 .modal {
     position:fixed;
@@ -901,9 +915,9 @@ main {
     background:var(--olive-dark);
 }
 
-/* =========================================================
+/* =========================
    MOBIEL
-========================================================= */
+========================= */
 
 @media(max-width:850px) {
     .dashboard {
@@ -1004,9 +1018,7 @@ main {
 
 <body>
 
-<!-- =========================================================
-     SVG ICONS
-========================================================= -->
+<!-- SVG ICONS -->
 
 <svg style="display:none">
 
@@ -1065,21 +1077,16 @@ main {
 </svg>
 
 
-<!-- =========================================================
-     LOGIN
-========================================================= -->
+<!-- LOGIN -->
 
 <section id="loginPage">
 
 <div class="login-box">
 
 <div class="login-mark">
-<svg fill="none"
-     stroke="currentColor"
-     stroke-width="1.8"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <use href="#grid"></use>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#grid"></use>
 </svg>
 </div>
 
@@ -1089,9 +1096,7 @@ main {
 Log in om je persoonlijke gegevens vanaf al je apparaten te openen.
 </p>
 
-<label class="input-label">
-E-mailadres
-</label>
+<label class="input-label">E-mailadres</label>
 
 <input
     id="emailInput"
@@ -1101,9 +1106,7 @@ E-mailadres
     placeholder="jouw@email.nl"
 >
 
-<label class="input-label">
-Wachtwoord
-</label>
+<label class="input-label">Wachtwoord</label>
 
 <input
     id="passwordInput"
@@ -1113,24 +1116,20 @@ Wachtwoord
     placeholder="Wachtwoord"
 >
 
-<button
-    id="loginButton"
-    class="login-button"
-    onclick="login()"
->
+<button class="login-button" onclick="login()">
     Inloggen
 </button>
 
-<div id="loginError" class="login-error"></div>
+<div id="loginError" class="login-error">
+    Inloggen mislukt. Controleer je e-mailadres en wachtwoord.
+</div>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     WEBSITE
-========================================================= -->
+<!-- WEBSITE -->
 
 <section id="website">
 
@@ -1139,12 +1138,9 @@ Wachtwoord
 <div class="brand">
 
 <div class="brand-mark">
-<svg fill="none"
-     stroke="currentColor"
-     stroke-width="1.8"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <use href="#grid"></use>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#grid"></use>
 </svg>
 </div>
 
@@ -1152,10 +1148,7 @@ Persoonlijk dashboard
 
 </div>
 
-<button
-    class="logout-button"
-    onclick="logout()"
->
+<button class="logout-button" onclick="logout()">
 Uitloggen
 </button>
 
@@ -1164,9 +1157,7 @@ Uitloggen
 
 <main>
 
-<!-- =========================================================
-     HOME
-========================================================= -->
+<!-- HOME -->
 
 <section id="homePage" class="page active">
 
@@ -1180,12 +1171,9 @@ Uitloggen
 <article class="dashboard-card">
 
 <div class="card-icon">
-<svg fill="none"
-     stroke="currentColor"
-     stroke-width="1.8"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <use href="#note"></use>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#note"></use>
 </svg>
 </div>
 
@@ -1195,19 +1183,12 @@ Uitloggen
 Maak meerdere losse notities en bewaar ze overzichtelijk.
 </p>
 
-<button
-    class="card-button"
-    onclick="openPage('notesPage')"
->
-    Openen
-
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#arrow-right"></use>
-    </svg>
+<button class="card-button" onclick="openPage('notesPage')">
+Openen
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-right"></use>
+</svg>
 </button>
 
 </article>
@@ -1216,12 +1197,9 @@ Maak meerdere losse notities en bewaar ze overzichtelijk.
 <article class="dashboard-card">
 
 <div class="card-icon">
-<svg fill="none"
-     stroke="currentColor"
-     stroke-width="1.8"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <use href="#check"></use>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#check"></use>
 </svg>
 </div>
 
@@ -1231,19 +1209,12 @@ Maak meerdere losse notities en bewaar ze overzichtelijk.
 Voeg taken toe en houd bij wat nog gedaan moet worden.
 </p>
 
-<button
-    class="card-button"
-    onclick="openPage('todoPage')"
->
-    Openen
-
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#arrow-right"></use>
-    </svg>
+<button class="card-button" onclick="openPage('todoPage')">
+Openen
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-right"></use>
+</svg>
 </button>
 
 </article>
@@ -1252,12 +1223,9 @@ Voeg taken toe en houd bij wat nog gedaan moet worden.
 <article class="dashboard-card">
 
 <div class="card-icon">
-<svg fill="none"
-     stroke="currentColor"
-     stroke-width="1.8"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <use href="#calendar"></use>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#calendar"></use>
 </svg>
 </div>
 
@@ -1267,19 +1235,12 @@ Voeg taken toe en houd bij wat nog gedaan moet worden.
 Bewaar belangrijke deadlines en koppel er een datum aan.
 </p>
 
-<button
-    class="card-button"
-    onclick="openPage('deadlinesPage')"
->
-    Openen
-
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#arrow-right"></use>
-    </svg>
+<button class="card-button" onclick="openPage('deadlinesPage')">
+Openen
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-right"></use>
+</svg>
 </button>
 
 </article>
@@ -1287,9 +1248,7 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
 </div>
 
 
-<!-- =========================================================
-     SNELKOPPELINGEN
-========================================================= -->
+<!-- SNELKOPPELINGEN -->
 
 <div class="shortcuts-panel">
 
@@ -1302,46 +1261,31 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
     onclick="openShortcutModal()"
     title="Snelkoppeling toevoegen"
 >
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#plus"></use>
-    </svg>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#plus"></use>
+</svg>
 </button>
 
 </div>
 
-<div
-    id="shortcutsList"
-    class="shortcuts-list"
-></div>
+<div id="shortcutsList" class="shortcuts-list"></div>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     NOTITIES
-========================================================= -->
+<!-- NOTITIES -->
 
 <section id="notesPage" class="page">
 
-<button
-    class="back-button"
-    onclick="openPage('homePage')"
->
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#arrow-left"></use>
-    </svg>
-
-    Terug naar overzicht
+<button class="back-button" onclick="openPage('homePage')">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-left"></use>
+</svg>
+Terug naar overzicht
 </button>
 
 <div class="page-header">
@@ -1362,21 +1306,15 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
     onclick="createNote()"
     title="Nieuwe notitie"
 >
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#plus"></use>
-    </svg>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#plus"></use>
+</svg>
 </button>
 
 </div>
 
-<div
-    id="notesList"
-    class="notes-list"
-></div>
+<div id="notesList" class="notes-list"></div>
 
 </aside>
 
@@ -1399,13 +1337,10 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
     onclick="deleteCurrentNote()"
     title="Notitie verwijderen"
 >
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#trash"></use>
-    </svg>
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#trash"></use>
+</svg>
 </button>
 
 </div>
@@ -1418,18 +1353,12 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
 
 <div class="note-editor-footer">
 
-<button
-    class="primary-button"
-    onclick="saveCurrentNote()"
->
-    Notitie opslaan
+<button class="primary-button" onclick="saveCurrentNote()">
+Notitie opslaan
 </button>
 
-<span
-    id="noteSavedMessage"
-    class="saved-message"
->
-    Opgeslagen
+<span id="noteSavedMessage" class="saved-message">
+Opgeslagen
 </span>
 
 </div>
@@ -1441,25 +1370,16 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
 </section>
 
 
-<!-- =========================================================
-     TODO
-========================================================= -->
+<!-- TODO -->
 
 <section id="todoPage" class="page">
 
-<button
-    class="back-button"
-    onclick="openPage('homePage')"
->
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#arrow-left"></use>
-    </svg>
-
-    Terug naar overzicht
+<button class="back-button" onclick="openPage('homePage')">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-left"></use>
+</svg>
+Terug naar overzicht
 </button>
 
 <div class="page-header">
@@ -1479,44 +1399,29 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
     maxlength="200"
 >
 
-<button
-    class="todo-add"
-    onclick="addTodo()"
->
-    Taak toevoegen
+<button class="todo-add" onclick="addTodo()">
+Taak toevoegen
 </button>
 
 </div>
 
-<div
-    id="todoList"
-    class="todo-list"
-></div>
+<div id="todoList" class="todo-list"></div>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     DEADLINES
-========================================================= -->
+<!-- DEADLINES -->
 
 <section id="deadlinesPage" class="page">
 
-<button
-    class="back-button"
-    onclick="openPage('homePage')"
->
-    <svg fill="none"
-         stroke="currentColor"
-         stroke-width="1.8"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <use href="#arrow-left"></use>
-    </svg>
-
-    Terug naar overzicht
+<button class="back-button" onclick="openPage('homePage')">
+<svg fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round">
+<use href="#arrow-left"></use>
+</svg>
+Terug naar overzicht
 </button>
 
 <div class="page-header">
@@ -1536,19 +1441,13 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
     maxlength="200"
 >
 
-<button
-    class="deadline-add"
-    onclick="addDeadline()"
->
-    Deadline toevoegen
+<button class="deadline-add" onclick="addDeadline()">
+Deadline toevoegen
 </button>
 
 </div>
 
-<div
-    id="deadlineList"
-    class="deadline-list"
-></div>
+<div id="deadlineList" class="deadline-list"></div>
 
 </div>
 
@@ -1559,20 +1458,13 @@ Bewaar belangrijke deadlines en koppel er een datum aan.
 </section>
 
 
-<!-- =========================================================
-     SNELKOPPELING MODAL
-========================================================= -->
+<!-- SNELKOPPELING MODAL -->
 
-<div
-    id="shortcutModal"
-    class="modal"
->
+<div id="shortcutModal" class="modal">
 
 <div class="modal-box">
 
-<h2>
-Snelkoppeling toevoegen
-</h2>
+<h2>Snelkoppeling toevoegen</h2>
 
 <div class="modal-field">
 
@@ -1585,7 +1477,7 @@ Naam
     class="shortcut-input"
     type="text"
     maxlength="60"
-    placeholder="Bijvoorbeeld GitHub"
+    placeholder="Bijvoorbeeld iCloud"
 >
 
 </div>
@@ -1600,7 +1492,7 @@ Website
     id="shortcutUrl"
     class="shortcut-input"
     type="url"
-    placeholder="https://example.com"
+    placeholder="https://www.icloud.com"
 >
 
 </div>
@@ -1611,14 +1503,14 @@ Website
     class="modal-cancel"
     onclick="closeShortcutModal()"
 >
-    Annuleren
+Annuleren
 </button>
 
 <button
     class="modal-save"
     onclick="addShortcut()"
 >
-    Toevoegen
+Toevoegen
 </button>
 
 </div>
@@ -1628,17 +1520,11 @@ Website
 </div>
 
 
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
-/* =========================================================
-   SUPABASE CONFIGURATIE
-========================================================= */
 
 const SUPABASE_URL =
     "https://nrhvxcnokhvdampevlen.supabase.co";
@@ -1647,7 +1533,7 @@ const SUPABASE_KEY =
     "sb_publishable_2-C21qtuPZbxawIAu2liyg_kT2ua_Ac";
 
 const supabaseClient =
-    supabase.createClient(
+    window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
     );
@@ -1672,24 +1558,15 @@ let currentNoteId = null;
 async function login() {
 
     const email =
-        document
-            .getElementById("emailInput")
-            .value
-            .trim();
+        document.getElementById("emailInput").value.trim();
 
     const password =
-        document
-            .getElementById("passwordInput")
-            .value;
+        document.getElementById("passwordInput").value;
 
     const error =
         document.getElementById("loginError");
 
-    const button =
-        document.getElementById("loginButton");
-
     error.style.display = "none";
-    error.textContent = "";
 
     if (!email || !password) {
 
@@ -1701,115 +1578,52 @@ async function login() {
         return;
     }
 
-    button.disabled = true;
-    button.textContent = "Inloggen...";
+    const {
+        error: loginError
+    } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
 
-    try {
+    if (loginError) {
 
-        const {
-            data,
-            error: loginError
-        } =
-            await supabaseClient.auth
-                .signInWithPassword({
-                    email:email,
-                    password:password
-                });
-
-        if (loginError) {
-
-            console.error(
-                "Supabase login error:",
-                loginError
-            );
-
-            error.textContent =
-                loginError.message ||
-                "Inloggen mislukt.";
-
-            error.style.display = "block";
-
-            return;
-        }
-
-        console.log(
-            "Succesvol ingelogd:",
-            data.user
-        );
-
-        await showWebsite();
-
-    } catch (err) {
-
-        console.error(
-            "Onverwachte loginfout:",
-            err
-        );
+        console.error(loginError);
 
         error.textContent =
-            "Er is een onverwachte fout opgetreden: " +
-            (err.message || err);
+            "Inloggen mislukt. Controleer je gegevens.";
 
         error.style.display = "block";
 
-    } finally {
-
-        button.disabled = false;
-        button.textContent = "Inloggen";
+        return;
     }
+
+    await showWebsite();
 }
 
 
-/* =========================================================
-   WEBSITE TONEN
-========================================================= */
-
 async function showWebsite() {
 
-    document
-        .getElementById("loginPage")
+    document.getElementById("loginPage")
         .style.display = "none";
 
-    document
-        .getElementById("website")
+    document.getElementById("website")
         .style.display = "block";
 
     await loadAllData();
 }
 
 
-/* =========================================================
-   UITLOGGEN
-========================================================= */
-
 async function logout() {
 
-    const {
-        error
-    } =
-        await supabaseClient.auth.signOut();
+    await supabaseClient.auth.signOut();
 
-    if (error) {
-
-        console.error(
-            "Uitloggen mislukt:",
-            error
-        );
-
-        return;
-    }
-
-    document
-        .getElementById("website")
+    document.getElementById("website")
         .style.display = "none";
 
-    document
-        .getElementById("loginPage")
+    document.getElementById("loginPage")
         .style.display = "flex";
 
-    document
-        .getElementById("passwordInput")
-        .value = "";
+    document.getElementById("passwordInput").value = "";
 
     openPage("homePage");
 }
@@ -1821,65 +1635,25 @@ async function logout() {
 
 async function checkSession() {
 
-    try {
+    const {
+        data
+    } = await supabaseClient.auth.getSession();
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-        if (error) {
-
-            console.error(
-                "Session error:",
-                error
-            );
-
-            return;
-        }
-
-        if (data.session) {
-
-            console.log(
-                "Bestaande sessie gevonden."
-            );
-
-            await showWebsite();
-
-        } else {
-
-            console.log(
-                "Geen actieve sessie."
-            );
-        }
-
-    } catch (err) {
-
-        console.error(
-            "Session controleren mislukt:",
-            err
-        );
+    if (data.session) {
+        await showWebsite();
     }
 }
 
 
 supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
-
-        console.log(
-            "Auth event:",
-            event
-        );
+    async (event) => {
 
         if (event === "SIGNED_OUT") {
 
-            document
-                .getElementById("website")
+            document.getElementById("website")
                 .style.display = "none";
 
-            document
-                .getElementById("loginPage")
+            document.getElementById("loginPage")
                 .style.display = "flex";
         }
 
@@ -1899,12 +1673,9 @@ function openPage(pageId) {
             page.classList.remove("active");
         });
 
-    const page =
-        document.getElementById(pageId);
-
-    if (!page) return;
-
-    page.classList.add("active");
+    document
+        .getElementById(pageId)
+        .classList.add("active");
 
     window.scrollTo({
         top:0,
@@ -1930,7 +1701,7 @@ function openPage(pageId) {
 
 
 /* =========================================================
-   GEBRUIKER
+   USER
 ========================================================= */
 
 async function getCurrentUser() {
@@ -1938,16 +1709,9 @@ async function getCurrentUser() {
     const {
         data,
         error
-    } =
-        await supabaseClient.auth.getUser();
+    } = await supabaseClient.auth.getUser();
 
     if (error || !data.user) {
-
-        console.error(
-            "Gebruiker ophalen:",
-            error
-        );
-
         return null;
     }
 
@@ -1979,36 +1743,23 @@ async function loadNotes() {
     const {
         data,
         error
-    } =
-        await supabaseClient
-            .from("notes")
-            .select("*")
-            .order("updated_at", {
-                ascending:false
-            });
+    } = await supabaseClient
+        .from("notes")
+        .select("*")
+        .order("updated_at", {
+            ascending:false
+        });
 
     if (error) {
-
-        console.error(
-            "Notities laden:",
-            error
-        );
-
+        console.error("Notities laden:", error);
         return;
     }
 
     notes = data || [];
 
-    if (
-        !notes.some(
-            note => note.id === currentNoteId
-        )
-    ) {
-
+    if (!notes.some(note => note.id === currentNoteId)) {
         currentNoteId =
-            notes.length
-                ? notes[0].id
-                : null;
+            notes.length ? notes[0].id : null;
     }
 
     renderNotesList();
@@ -2019,9 +1770,7 @@ async function loadNotes() {
 function renderNotesList() {
 
     const list =
-        document.getElementById(
-            "notesList"
-        );
+        document.getElementById("notesList");
 
     list.innerHTML = "";
 
@@ -2042,8 +1791,7 @@ function renderNotesList() {
         const button =
             document.createElement("button");
 
-        button.className =
-            "note-list-item";
+        button.className = "note-list-item";
 
         if (note.id === currentNoteId) {
             button.classList.add("active");
@@ -2052,19 +1800,15 @@ function renderNotesList() {
         const title =
             document.createElement("span");
 
-        title.className =
-            "note-list-title";
+        title.className = "note-list-title";
 
         title.textContent =
-            note.title?.trim() ||
-            "Zonder titel";
+            (note.title || "").trim() || "Zonder titel";
 
         const date =
             document.createElement("span");
 
-        date.className =
-            "note-list-date";
-
+        date.className = "note-list-date";
         date.textContent =
             formatDate(note.updated_at);
 
@@ -2072,10 +1816,7 @@ function renderNotesList() {
         button.appendChild(date);
 
         button.onclick = () => {
-
-            currentNoteId =
-                note.id;
-
+            currentNoteId = note.id;
             renderNotesList();
             renderCurrentNote();
         };
@@ -2087,145 +1828,97 @@ function renderNotesList() {
 
 async function createNote() {
 
-    const user =
-        await getCurrentUser();
+    const user = await getCurrentUser();
 
-    if (!user) {
-
-        alert(
-            "Je bent niet ingelogd."
-        );
-
-        return;
-    }
+    if (!user) return;
 
     const {
         data,
         error
-    } =
-        await supabaseClient
-            .from("notes")
-            .insert({
-                user_id:user.id,
-                title:"Nieuwe notitie",
-                content:""
-            })
-            .select()
-            .single();
+    } = await supabaseClient
+        .from("notes")
+        .insert({
+            user_id:user.id,
+            title:"Nieuwe notitie",
+            content:""
+        })
+        .select()
+        .single();
 
     if (error) {
 
-        console.error(
-            "Notitie aanmaken:",
-            error
-        );
-
-        alert(
-            "De notitie kon niet worden aangemaakt."
-        );
-
+        console.error(error);
+        alert("De notitie kon niet worden aangemaakt.");
         return;
     }
 
-    currentNoteId =
-        data.id;
+    currentNoteId = data.id;
 
     await loadNotes();
 
-    document
-        .getElementById("noteTitle")
-        .focus();
+    document.getElementById("noteTitle").focus();
 }
 
 
 function renderCurrentNote() {
 
     const title =
-        document.getElementById(
-            "noteTitle"
-        );
+        document.getElementById("noteTitle");
 
     const content =
-        document.getElementById(
-            "noteContent"
-        );
+        document.getElementById("noteContent");
 
     const deleteButton =
-        document.getElementById(
-            "deleteNoteButton"
-        );
+        document.getElementById("deleteNoteButton");
 
     const note =
-        notes.find(
-            note =>
-                note.id === currentNoteId
-        );
+        notes.find(note => note.id === currentNoteId);
 
     if (!note) {
 
         title.value = "";
         content.value = "";
 
-        deleteButton.style.display =
-            "none";
+        deleteButton.style.display = "none";
 
         return;
     }
 
-    deleteButton.style.display =
-        "flex";
+    deleteButton.style.display = "flex";
 
-    title.value =
-        note.title || "";
-
-    content.value =
-        note.content || "";
+    title.value = note.title || "";
+    content.value = note.content || "";
 }
 
 
 async function saveCurrentNote() {
 
-    if (currentNoteId === null) {
-        return;
-    }
+    if (currentNoteId === null) return;
 
     const title =
-        document
-            .getElementById("noteTitle")
+        document.getElementById("noteTitle")
             .value
             .trim();
 
     const content =
-        document
-            .getElementById("noteContent")
+        document.getElementById("noteContent")
             .value;
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("notes")
-            .update({
-                title:title,
-                content:content,
-                updated_at:
-                    new Date().toISOString()
-            })
-            .eq(
-                "id",
-                currentNoteId
-            );
+    } = await supabaseClient
+        .from("notes")
+        .update({
+            title,
+            content,
+            updated_at:new Date().toISOString()
+        })
+        .eq("id", currentNoteId);
 
     if (error) {
 
-        console.error(
-            "Notitie opslaan:",
-            error
-        );
-
-        alert(
-            "De notitie kon niet worden opgeslagen."
-        );
+        console.error(error);
+        alert("De notitie kon niet worden opgeslagen.");
 
         return;
     }
@@ -2233,55 +1926,37 @@ async function saveCurrentNote() {
     await loadNotes();
 
     const message =
-        document.getElementById(
-            "noteSavedMessage"
-        );
+        document.getElementById("noteSavedMessage");
 
     message.classList.add("show");
 
     setTimeout(() => {
-
         message.classList.remove("show");
-
     },1800);
 }
 
 
 async function deleteCurrentNote() {
 
-    if (currentNoteId === null) {
-        return;
-    }
+    if (currentNoteId === null) return;
 
-    if (
-        !confirm(
-            "Weet je zeker dat je deze notitie wilt verwijderen?"
-        )
-    ) {
+    if (!confirm(
+        "Weet je zeker dat je deze notitie wilt verwijderen?"
+    )) {
         return;
     }
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("notes")
-            .delete()
-            .eq(
-                "id",
-                currentNoteId
-            );
+    } = await supabaseClient
+        .from("notes")
+        .delete()
+        .eq("id", currentNoteId);
 
     if (error) {
 
-        console.error(
-            "Notitie verwijderen:",
-            error
-        );
-
-        alert(
-            "De notitie kon niet worden verwijderd."
-        );
+        console.error(error);
+        alert("De notitie kon niet worden verwijderd.");
 
         return;
     }
@@ -2301,21 +1976,16 @@ async function loadTodos() {
     const {
         data,
         error
-    } =
-        await supabaseClient
-            .from("todos")
-            .select("*")
-            .order("created_at", {
-                ascending:true
-            });
+    } = await supabaseClient
+        .from("todos")
+        .select("*")
+        .order("created_at", {
+            ascending:true
+        });
 
     if (error) {
 
-        console.error(
-            "Taken laden:",
-            error
-        );
-
+        console.error("Taken laden:", error);
         return;
     }
 
@@ -2328,9 +1998,7 @@ async function loadTodos() {
 async function addTodo() {
 
     const input =
-        document.getElementById(
-            "todoInput"
-        );
+        document.getElementById("todoInput");
 
     const text =
         input.value.trim();
@@ -2338,43 +2006,28 @@ async function addTodo() {
     if (!text) {
 
         input.focus();
-
         return;
     }
 
     const user =
         await getCurrentUser();
 
-    if (!user) {
-
-        alert(
-            "Je bent niet ingelogd."
-        );
-
-        return;
-    }
+    if (!user) return;
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("todos")
-            .insert({
-                user_id:user.id,
-                text:text,
-                completed:false
-            });
+    } = await supabaseClient
+        .from("todos")
+        .insert({
+            user_id:user.id,
+            text,
+            completed:false
+        });
 
     if (error) {
 
-        console.error(
-            "Taak toevoegen:",
-            error
-        );
-
-        alert(
-            "De taak kon niet worden toegevoegd."
-        );
+        console.error(error);
+        alert("De taak kon niet worden toegevoegd.");
 
         return;
     }
@@ -2390,9 +2043,7 @@ async function addTodo() {
 function renderTodos() {
 
     const list =
-        document.getElementById(
-            "todoList"
-        );
+        document.getElementById("todoList");
 
     list.innerHTML = "";
 
@@ -2414,50 +2065,31 @@ function renderTodos() {
 
         item.className =
             "todo-item" +
-            (
-                todo.completed
-                    ? " completed"
-                    : ""
-            );
+            (todo.completed ? " completed" : "");
 
         const checkbox =
             document.createElement("input");
 
-        checkbox.type =
-            "checkbox";
-
-        checkbox.className =
-            "todo-check";
-
-        checkbox.checked =
-            todo.completed;
+        checkbox.type = "checkbox";
+        checkbox.className = "todo-check";
+        checkbox.checked = todo.completed;
 
         checkbox.addEventListener(
             "change",
-            () =>
-                toggleTodo(
-                    todo.id,
-                    todo.completed
-                )
+            () => toggleTodo(todo.id, todo.completed)
         );
 
         const text =
             document.createElement("span");
 
-        text.className =
-            "todo-text";
-
-        text.textContent =
-            todo.text;
+        text.className = "todo-text";
+        text.textContent = todo.text;
 
         const deleteButton =
             document.createElement("button");
 
-        deleteButton.className =
-            "delete-todo";
-
-        deleteButton.title =
-            "Taak verwijderen";
+        deleteButton.className = "delete-todo";
+        deleteButton.title = "Taak verwijderen";
 
         deleteButton.innerHTML = `
             <svg fill="none"
@@ -2470,56 +2102,31 @@ function renderTodos() {
         `;
 
         deleteButton.onclick =
-            () =>
-                deleteTodo(
-                    todo.id
-                );
+            () => deleteTodo(todo.id);
 
-        item.appendChild(
-            checkbox
-        );
+        item.appendChild(checkbox);
+        item.appendChild(text);
+        item.appendChild(deleteButton);
 
-        item.appendChild(
-            text
-        );
-
-        item.appendChild(
-            deleteButton
-        );
-
-        list.appendChild(
-            item
-        );
+        list.appendChild(item);
     });
 }
 
 
-async function toggleTodo(
-    id,
-    currentValue
-) {
+async function toggleTodo(id, currentValue) {
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("todos")
-            .update({
-                completed:
-                    !currentValue
-            })
-            .eq(
-                "id",
-                id
-            );
+    } = await supabaseClient
+        .from("todos")
+        .update({
+            completed:!currentValue
+        })
+        .eq("id", id);
 
     if (error) {
 
-        console.error(
-            "Taak aanpassen:",
-            error
-        );
-
+        console.error(error);
         return;
     }
 
@@ -2531,22 +2138,14 @@ async function deleteTodo(id) {
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("todos")
-            .delete()
-            .eq(
-                "id",
-                id
-            );
+    } = await supabaseClient
+        .from("todos")
+        .delete()
+        .eq("id", id);
 
     if (error) {
 
-        console.error(
-            "Taak verwijderen:",
-            error
-        );
-
+        console.error(error);
         return;
     }
 
@@ -2563,26 +2162,20 @@ async function loadDeadlines() {
     const {
         data,
         error
-    } =
-        await supabaseClient
-            .from("deadlines")
-            .select("*")
-            .order("deadline_date", {
-                ascending:true
-            });
+    } = await supabaseClient
+        .from("deadlines")
+        .select("*")
+        .order("deadline_date", {
+            ascending:true
+        });
 
     if (error) {
 
-        console.error(
-            "Deadlines laden:",
-            error
-        );
-
+        console.error("Deadlines laden:", error);
         return;
     }
 
-    deadlines =
-        data || [];
+    deadlines = data || [];
 
     renderDeadlines();
 }
@@ -2591,9 +2184,7 @@ async function loadDeadlines() {
 async function addDeadline() {
 
     const titleInput =
-        document.getElementById(
-            "deadlineTitleInput"
-        );
+        document.getElementById("deadlineTitleInput");
 
     const title =
         titleInput.value.trim();
@@ -2601,7 +2192,6 @@ async function addDeadline() {
     if (!title) {
 
         titleInput.focus();
-
         return;
     }
 
@@ -2611,57 +2201,35 @@ async function addDeadline() {
             getToday()
         );
 
-    if (!date) {
-        return;
-    }
+    if (!date) return;
 
-    if (
-        !/^\d{4}-\d{2}-\d{2}$/.test(date)
-    ) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
 
-        alert(
-            "Gebruik het formaat YYYY-MM-DD."
-        );
-
+        alert("Gebruik het formaat YYYY-MM-DD.");
         return;
     }
 
     const user =
         await getCurrentUser();
 
-    if (!user) {
-
-        alert(
-            "Je bent niet ingelogd."
-        );
-
-        return;
-    }
+    if (!user) return;
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("deadlines")
-            .insert({
-                user_id:user.id,
-                title:title,
-                description:"",
-                deadline_date:date,
-                completed:false
-            });
+    } = await supabaseClient
+        .from("deadlines")
+        .insert({
+            user_id:user.id,
+            title,
+            description:"",
+            deadline_date:date,
+            completed:false
+        });
 
     if (error) {
 
-        console.error(
-            "Deadline toevoegen:",
-            error
-        );
-
-        alert(
-            "De deadline kon niet worden toegevoegd."
-        );
-
+        console.error(error);
+        alert("De deadline kon niet worden toegevoegd.");
         return;
     }
 
@@ -2676,9 +2244,7 @@ async function addDeadline() {
 function renderDeadlines() {
 
     const list =
-        document.getElementById(
-            "deadlineList"
-        );
+        document.getElementById("deadlineList");
 
     list.innerHTML = "";
 
@@ -2699,30 +2265,19 @@ function renderDeadlines() {
             document.createElement("div");
 
         const status =
-            getDeadlineStatus(
-                deadline.deadline_date
-            );
+            getDeadlineStatus(deadline.deadline_date);
 
         item.className =
             "deadline-item " +
             status +
-            (
-                deadline.completed
-                    ? " completed"
-                    : ""
-            );
+            (deadline.completed ? " completed" : "");
 
         const checkbox =
             document.createElement("input");
 
-        checkbox.type =
-            "checkbox";
-
-        checkbox.className =
-            "deadline-check";
-
-        checkbox.checked =
-            deadline.completed;
+        checkbox.type = "checkbox";
+        checkbox.className = "deadline-check";
+        checkbox.checked = deadline.completed;
 
         checkbox.addEventListener(
             "change",
@@ -2736,28 +2291,20 @@ function renderDeadlines() {
         const main =
             document.createElement("div");
 
-        main.className =
-            "deadline-main";
+        main.className = "deadline-main";
 
         const title =
             document.createElement("div");
 
-        title.className =
-            "deadline-title";
-
-        title.textContent =
-            deadline.title;
+        title.className = "deadline-title";
+        title.textContent = deadline.title;
 
         const date =
             document.createElement("span");
 
-        date.className =
-            "deadline-date";
-
+        date.className = "deadline-date";
         date.textContent =
-            formatDeadlineDate(
-                deadline.deadline_date
-            );
+            formatDeadlineDate(deadline.deadline_date);
 
         main.appendChild(title);
         main.appendChild(date);
@@ -2765,11 +2312,8 @@ function renderDeadlines() {
         const deleteButton =
             document.createElement("button");
 
-        deleteButton.className =
-            "delete-deadline";
-
-        deleteButton.title =
-            "Deadline verwijderen";
+        deleteButton.className = "delete-deadline";
+        deleteButton.title = "Deadline verwijderen";
 
         deleteButton.innerHTML = `
             <svg fill="none"
@@ -2782,56 +2326,31 @@ function renderDeadlines() {
         `;
 
         deleteButton.onclick =
-            () =>
-                deleteDeadline(
-                    deadline.id
-                );
+            () => deleteDeadline(deadline.id);
 
-        item.appendChild(
-            checkbox
-        );
+        item.appendChild(checkbox);
+        item.appendChild(main);
+        item.appendChild(deleteButton);
 
-        item.appendChild(
-            main
-        );
-
-        item.appendChild(
-            deleteButton
-        );
-
-        list.appendChild(
-            item
-        );
+        list.appendChild(item);
     });
 }
 
 
-async function toggleDeadline(
-    id,
-    currentValue
-) {
+async function toggleDeadline(id, currentValue) {
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("deadlines")
-            .update({
-                completed:
-                    !currentValue
-            })
-            .eq(
-                "id",
-                id
-            );
+    } = await supabaseClient
+        .from("deadlines")
+        .update({
+            completed:!currentValue
+        })
+        .eq("id", id);
 
     if (error) {
 
-        console.error(
-            "Deadline aanpassen:",
-            error
-        );
-
+        console.error(error);
         return;
     }
 
@@ -2843,22 +2362,14 @@ async function deleteDeadline(id) {
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("deadlines")
-            .delete()
-            .eq(
-                "id",
-                id
-            );
+    } = await supabaseClient
+        .from("deadlines")
+        .delete()
+        .eq("id", id);
 
     if (error) {
 
-        console.error(
-            "Deadline verwijderen:",
-            error
-        );
-
+        console.error(error);
         return;
     }
 
@@ -2866,12 +2377,9 @@ async function deleteDeadline(id) {
 }
 
 
-function getDeadlineStatus(
-    dateString
-) {
+function getDeadlineStatus(dateString) {
 
-    const today =
-        getToday();
+    const today = getToday();
 
     if (dateString < today) {
         return "overdue";
@@ -2894,13 +2402,12 @@ async function loadShortcuts() {
     const {
         data,
         error
-    } =
-        await supabaseClient
-            .from("shortcuts")
-            .select("*")
-            .order("created_at", {
-                ascending:true
-            });
+    } = await supabaseClient
+        .from("shortcuts")
+        .select("*")
+        .order("created_at", {
+            ascending:true
+        });
 
     if (error) {
 
@@ -2912,19 +2419,174 @@ async function loadShortcuts() {
         return;
     }
 
-    shortcuts =
-        data || [];
+    shortcuts = data || [];
 
     renderShortcuts();
 }
 
 
+/* =========================================================
+   AUTOMATISCHE FAVICONS
+========================================================= */
+
+/*
+   Deze functie haalt het domein uit de URL.
+   Bijvoorbeeld:
+
+   https://www.icloud.com
+   wordt:
+   icloud.com
+*/
+
+function getDomain(url) {
+
+    try {
+
+        const parsed =
+            new URL(url);
+
+        return parsed.hostname;
+
+    } catch {
+
+        return null;
+    }
+}
+
+
+/*
+   We gebruiken meerdere favicon-bronnen.
+
+   Bron 1:
+   Icon Horse
+
+   Bron 2:
+   Google
+
+   Bron 3:
+   favicon.ico van de website zelf
+
+   Als alle bronnen falen:
+   standaard link-icoon.
+*/
+
+function getFaviconSources(url) {
+
+    const domain = getDomain(url);
+
+    if (!domain) {
+        return [];
+    }
+
+    return [
+
+        `https://icon.horse/icon/${domain}`,
+
+        `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`,
+
+        `https://${domain}/favicon.ico`
+
+    ];
+}
+
+
+/*
+   Maakt het standaard link-icoon.
+*/
+
+function createFallbackIcon() {
+
+    const wrapper =
+        document.createElement("span");
+
+    wrapper.className =
+        "shortcut-fallback-icon";
+
+    wrapper.innerHTML = `
+        <svg
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <use href="#link"></use>
+        </svg>
+    `;
+
+    return wrapper;
+}
+
+
+/*
+   Maakt een favicon-afbeelding die automatisch
+   naar de volgende bron gaat wanneer de vorige
+   niet werkt.
+*/
+
+function createFaviconIcon(url) {
+
+    const sources =
+        getFaviconSources(url);
+
+    if (!sources.length) {
+        return createFallbackIcon();
+    }
+
+    const icon =
+        document.createElement("img");
+
+    icon.className =
+        "shortcut-icon";
+
+    icon.alt = "";
+
+    icon.width = 20;
+    icon.height = 20;
+
+    let currentSource = 0;
+
+    function tryNextSource() {
+
+        if (currentSource >= sources.length) {
+
+            icon.replaceWith(
+                createFallbackIcon()
+            );
+
+            return;
+        }
+
+        const source =
+            sources[currentSource];
+
+        currentSource++;
+
+        icon.src = source;
+    }
+
+    icon.onerror = function() {
+        tryNextSource();
+    };
+
+    /*
+       Begin met de eerste bron.
+    */
+
+    tryNextSource();
+
+    return icon;
+}
+
+
+/*
+   Rendert alle snelkoppelingen.
+*/
+
 function renderShortcuts() {
 
     const list =
-        document.getElementById(
-            "shortcutsList"
-        );
+        document.getElementById("shortcutsList");
 
     list.innerHTML = "";
 
@@ -2948,6 +2610,11 @@ function renderShortcuts() {
         item.className =
             "shortcut-item";
 
+
+        /*
+           Website-link
+        */
+
         const link =
             document.createElement("a");
 
@@ -2963,8 +2630,32 @@ function renderShortcuts() {
         link.rel =
             "noopener noreferrer";
 
-        link.textContent =
+
+        /*
+           AUTOMATISCH WEBSITE-ICOON
+        */
+
+        link.appendChild(
+            createFaviconIcon(shortcut.url)
+        );
+
+
+        /*
+           Naam
+        */
+
+        const title =
+            document.createElement("span");
+
+        title.textContent =
             shortcut.title;
+
+        link.appendChild(title);
+
+
+        /*
+           Verwijderknop
+        */
 
         const deleteButton =
             document.createElement("button");
@@ -2986,10 +2677,8 @@ function renderShortcuts() {
         `;
 
         deleteButton.onclick =
-            () =>
-                deleteShortcut(
-                    shortcut.id
-                );
+            () => deleteShortcut(shortcut.id);
+
 
         item.appendChild(link);
         item.appendChild(deleteButton);
@@ -3002,15 +2691,11 @@ function renderShortcuts() {
 function openShortcutModal() {
 
     document
-        .getElementById(
-            "shortcutModal"
-        )
+        .getElementById("shortcutModal")
         .classList.add("show");
 
     document
-        .getElementById(
-            "shortcutTitle"
-        )
+        .getElementById("shortcutTitle")
         .focus();
 }
 
@@ -3018,9 +2703,7 @@ function openShortcutModal() {
 function closeShortcutModal() {
 
     document
-        .getElementById(
-            "shortcutModal"
-        )
+        .getElementById("shortcutModal")
         .classList.remove("show");
 
     document.getElementById(
@@ -3036,14 +2719,10 @@ function closeShortcutModal() {
 async function addShortcut() {
 
     const titleInput =
-        document.getElementById(
-            "shortcutTitle"
-        );
+        document.getElementById("shortcutTitle");
 
     const urlInput =
-        document.getElementById(
-            "shortcutUrl"
-        );
+        document.getElementById("shortcutUrl");
 
     const title =
         titleInput.value.trim();
@@ -3060,18 +2739,12 @@ async function addShortcut() {
         return;
     }
 
-    if (
-        !/^https?:\/\//i.test(url)
-    ) {
-
-        url =
-            "https://" + url;
+    if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
     }
 
     try {
-
         new URL(url);
-
     } catch {
 
         alert(
@@ -3084,32 +2757,21 @@ async function addShortcut() {
     const user =
         await getCurrentUser();
 
-    if (!user) {
-
-        alert(
-            "Je bent niet ingelogd."
-        );
-
-        return;
-    }
+    if (!user) return;
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("shortcuts")
-            .insert({
-                user_id:user.id,
-                title:title,
-                url:url
-            });
+    } = await supabaseClient
+        .from("shortcuts")
+        .insert({
+            user_id:user.id,
+            title,
+            url
+        });
 
     if (error) {
 
-        console.error(
-            "Snelkoppeling toevoegen:",
-            error
-        );
+        console.error(error);
 
         alert(
             "De snelkoppeling kon niet worden toegevoegd."
@@ -3126,32 +2788,22 @@ async function addShortcut() {
 
 async function deleteShortcut(id) {
 
-    if (
-        !confirm(
-            "Deze snelkoppeling verwijderen?"
-        )
-    ) {
+    if (!confirm(
+        "Deze snelkoppeling verwijderen?"
+    )) {
         return;
     }
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("shortcuts")
-            .delete()
-            .eq(
-                "id",
-                id
-            );
+    } = await supabaseClient
+        .from("shortcuts")
+        .delete()
+        .eq("id", id);
 
     if (error) {
 
-        console.error(
-            "Snelkoppeling verwijderen:",
-            error
-        );
-
+        console.error(error);
         return;
     }
 
@@ -3174,30 +2826,18 @@ function getToday() {
     const month =
         String(
             now.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2,"0");
 
     const day =
         String(
             now.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2,"0");
 
     return `${year}-${month}-${day}`;
 }
 
 
-function formatDate(
-    dateString
-) {
-
-    if (!dateString) {
-        return "";
-    }
+function formatDate(dateString) {
 
     const date =
         new Date(dateString);
@@ -3213,16 +2853,13 @@ function formatDate(
 }
 
 
-function formatDeadlineDate(
-    dateString
-) {
+function formatDeadlineDate(dateString) {
 
     const [
         year,
         month,
         day
-    ] =
-        dateString.split("-");
+    ] = dateString.split("-");
 
     const date =
         new Date(
@@ -3244,7 +2881,7 @@ function formatDeadlineDate(
 
 
 /* =========================================================
-   ENTER-TOETSEN
+   ENTER-TOETS
 ========================================================= */
 
 document
@@ -3252,13 +2889,9 @@ document
     .addEventListener(
         "keydown",
         event => {
-
-            if (
-                event.key === "Enter"
-            ) {
+            if (event.key === "Enter") {
                 login();
             }
-
         }
     );
 
@@ -3268,13 +2901,9 @@ document
     .addEventListener(
         "keydown",
         event => {
-
-            if (
-                event.key === "Enter"
-            ) {
+            if (event.key === "Enter") {
                 login();
             }
-
         }
     );
 
@@ -3284,39 +2913,27 @@ document
     .addEventListener(
         "keydown",
         event => {
-
-            if (
-                event.key === "Enter"
-            ) {
+            if (event.key === "Enter") {
                 addTodo();
             }
-
         }
     );
 
 
 document
-    .getElementById(
-        "deadlineTitleInput"
-    )
+    .getElementById("deadlineTitleInput")
     .addEventListener(
         "keydown",
         event => {
-
-            if (
-                event.key === "Enter"
-            ) {
+            if (event.key === "Enter") {
                 addDeadline();
             }
-
         }
     );
 
 
 document
-    .getElementById(
-        "shortcutModal"
-    )
+    .getElementById("shortcutModal")
     .addEventListener(
         "click",
         event => {
@@ -3325,29 +2942,11 @@ document
                 event.target.id ===
                 "shortcutModal"
             ) {
-
                 closeShortcutModal();
-
             }
 
         }
     );
-
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeShortcutModal();
-
-        }
-
-    }
-);
 
 
 /* =========================================================
