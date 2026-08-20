@@ -40,7 +40,12 @@ button,input,textarea {
 button {
     cursor:pointer;
 }
-
+.live-clock {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
 /* =========================
    LOGIN
 ========================= */
@@ -1162,8 +1167,7 @@ Uitloggen
 <section id="homePage" class="page active">
 
 <div class="page-header">
-<div id="liveClock" class="live-clock">00:00:00</div>
-<h1>Overzicht</h1>
+<h1>Overzicht</h1><div id="liveClock" class="live-clock">00:00:00</div>
 <p>Kies wat je wilt openen.</p>
 </div>
 
@@ -2948,7 +2952,26 @@ document
 
         }
     );
+function updateClock() {
+    const clock = document.getElementById("liveClock");
 
+    if (!clock) return;
+
+    const now = new Date();
+
+    clock.textContent = now.toLocaleTimeString("nl-NL", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+    });
+}
+
+// Meteen tonen
+updateClock();
+
+// Elke seconde automatisch bijwerken
+setInterval(updateClock, 1000);
 
 /* =========================================================
    START
