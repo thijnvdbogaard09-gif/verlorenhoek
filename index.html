@@ -1169,7 +1169,7 @@ Uitloggen
 <div class="page-header">
 <div class="header">
     <h1>Overzicht</h1>
-    <div id="liveClock" class="live-clock">00:00</div>
+    <div id="liveClock" class="header">00:00:00</div>
 </div>
 <p>Kies wat je wilt openen.</p>
 </div>
@@ -2965,7 +2965,7 @@ function updateClock() {
     clock.textContent = now.toLocaleTimeString("nl-NL", {
         hour: "2-digit",
         minute: "2-digit",
-        second: "0-digit",
+        second: "2-digit",
         hour12: false
     });
 }
