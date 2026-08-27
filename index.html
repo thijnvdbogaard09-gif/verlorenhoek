@@ -314,6 +314,85 @@ main {
 }
 
 /* =========================================================
+   SNELLE STATISTIEKEN
+========================================================= */
+
+.stats-strip {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:14px;
+    margin-bottom:22px;
+}
+
+.stat-card {
+    padding:19px 20px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.stat-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.stat-icon {
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    background:#eef0eb;
+    color:var(--olive);
+}
+
+.stat-icon svg {
+    width:16px;
+    height:16px;
+}
+
+.stat-icon.stat-icon-warning {
+    background:#f3ead5;
+    color:var(--warning);
+}
+
+.stat-value {
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-.5px;
+    margin-bottom:3px;
+}
+
+.stat-label {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.4;
+}
+
+.stat-progress-track {
+    width:100%;
+    height:6px;
+    margin-top:12px;
+    border-radius:4px;
+    background:var(--light);
+    overflow:hidden;
+}
+
+.stat-progress-fill {
+    height:100%;
+    border-radius:4px;
+    background:var(--danger);
+    transition:width .3s;
+}
+
+.stat-progress-fill.reached {
+    background:#3f7d4a;
+}
+
+/* =========================================================
    SHORTCUTS
 ========================================================= */
 
@@ -1423,6 +1502,10 @@ main {
     .dashboard {
         grid-template-columns:1fr;
     }
+
+    .stats-strip {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
 }
 
 @media(max-width:750px) {
@@ -1461,6 +1544,10 @@ main {
 
     .page-header h1 {
         font-size:25px;
+    }
+
+    .stats-strip {
+        grid-template-columns:1fr;
     }
 
     .content-panel,
@@ -1719,7 +1806,113 @@ Uitloggen
 <p>Kies wat je wilt openen.</p>
 </div>
 
+
+<!-- =========================================================
+     SNELLE STATISTIEKEN
+========================================================= -->
+
+<div
+    id="statsStrip"
+    class="stats-strip"
+>
+
+<div class="stat-card">
+<div class="stat-top">
+<div class="stat-icon">
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#book"></use>
+</svg>
+</div>
+</div>
+<div
+    id="statHuiswerkValue"
+    class="stat-value"
+>0</div>
+<div class="stat-label">Openstaand huiswerk</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-top">
+<div
+    id="statDeadlineIcon"
+    class="stat-icon"
+>
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#calendar"></use>
+</svg>
+</div>
+</div>
+<div
+    id="statDeadlineValue"
+    class="stat-value"
+>-</div>
+<div
+    id="statDeadlineLabel"
+    class="stat-label"
+>Geen openstaande deadlines</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-top">
+<div class="stat-icon">
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#chart"></use>
+</svg>
+</div>
+</div>
+<div
+    id="statGradeValue"
+    class="stat-value"
+>-</div>
+<div
+    id="statGradeLabel"
+    class="stat-label"
+>Nog geen cijfers</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-top">
+<div class="stat-icon">
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#clock"></use>
+</svg>
+</div>
+</div>
+<div
+    id="statStudyValue"
+    class="stat-value"
+>0u 00m</div>
+<div class="stat-label">Geleerd deze week (doel 10u)</div>
+<div class="stat-progress-track">
+<div
+    id="statStudyFill"
+    class="stat-progress-fill"
+    style="width:0%"
+></div>
+</div>
+</div>
+
+</div>
+
+
 <div class="dashboard">
+
 
 <article class="dashboard-card">
 
@@ -2999,6 +3192,7 @@ function openPage(pageId) {
 
     if (pageId === "homePage") {
         loadShortcuts();
+        renderQuickStats();
     }
 }
 
@@ -3044,6 +3238,259 @@ async function loadAllData() {
         loadCijfers(),
         loadShortcuts()
     ]);
+
+    renderQuickStats();
+}
+
+
+/* =========================================================
+   SNELLE STATISTIEKEN
+========================================================= */
+
+function renderQuickStats() {
+
+    /* Huiswerk */
+
+    const openHuiswerk =
+        huiswerk.filter(
+            item => !item.completed
+        ).length;
+
+    document.getElementById(
+        "statHuiswerkValue"
+    ).textContent =
+        openHuiswerk;
+
+
+    /* Eerstvolgende deadline */
+
+    const openDeadlines =
+        deadlines.filter(
+            deadline => !deadline.completed
+        );
+
+    const deadlineValueEl =
+        document.getElementById(
+            "statDeadlineValue"
+        );
+
+    const deadlineLabelEl =
+        document.getElementById(
+            "statDeadlineLabel"
+        );
+
+    const deadlineIconEl =
+        document.getElementById(
+            "statDeadlineIcon"
+        );
+
+    if (!openDeadlines.length) {
+
+        deadlineValueEl.textContent =
+            "-";
+
+        deadlineLabelEl.textContent =
+            "Geen openstaande deadlines";
+
+        deadlineIconEl.classList.remove(
+            "stat-icon-warning"
+        );
+
+    } else {
+
+        const sortedDeadlines =
+            [...openDeadlines].sort(
+                (a, b) =>
+                    a.deadline_date.localeCompare(
+                        b.deadline_date
+                    )
+            );
+
+        const nextDeadline =
+            sortedDeadlines[0];
+
+        const daysUntil =
+            getDaysUntil(
+                nextDeadline.deadline_date
+            );
+
+        if (daysUntil < 0) {
+
+            deadlineValueEl.textContent =
+                "Te laat";
+
+            deadlineIconEl.classList.add(
+                "stat-icon-warning"
+            );
+
+        } else if (daysUntil === 0) {
+
+            deadlineValueEl.textContent =
+                "Vandaag";
+
+            deadlineIconEl.classList.add(
+                "stat-icon-warning"
+            );
+
+        } else if (daysUntil === 1) {
+
+            deadlineValueEl.textContent =
+                "Morgen";
+
+            deadlineIconEl.classList.remove(
+                "stat-icon-warning"
+            );
+
+        } else {
+
+            deadlineValueEl.textContent =
+                "Over " +
+                daysUntil +
+                " dagen";
+
+            deadlineIconEl.classList.remove(
+                "stat-icon-warning"
+            );
+
+        }
+
+        deadlineLabelEl.textContent =
+            nextDeadline.title;
+
+    }
+
+
+    /* Gemiddeld cijfer */
+
+    const gradeValueEl =
+        document.getElementById(
+            "statGradeValue"
+        );
+
+    const gradeLabelEl =
+        document.getElementById(
+            "statGradeLabel"
+        );
+
+    if (!grades.length) {
+
+        gradeValueEl.textContent =
+            "-";
+
+        gradeLabelEl.textContent =
+            "Nog geen cijfers";
+
+    } else {
+
+        gradeValueEl.textContent =
+            getAverage(
+                grades
+            ).toFixed(1);
+
+        gradeLabelEl.textContent =
+            "Gemiddeld cijfer";
+
+    }
+
+
+    /* Studietijd deze week */
+
+    const currentWeekStart =
+        getWeekStart(
+            getToday()
+        );
+
+    const secondsThisWeek =
+        studySessions
+            .filter(
+                session =>
+                    getWeekStart(
+                        session.session_date
+                    ) ===
+                    currentWeekStart
+            )
+            .reduce(
+                (total, session) =>
+                    total +
+                    session.duration_seconds,
+                0
+            );
+
+    document.getElementById(
+        "statStudyValue"
+    ).textContent =
+        formatDuration(
+            secondsThisWeek,
+            true
+        );
+
+    const studyHours =
+        secondsThisWeek / 3600;
+
+    const studyPercentage =
+        Math.min(
+            (studyHours / 10) * 100,
+            100
+        );
+
+    const studyFillEl =
+        document.getElementById(
+            "statStudyFill"
+        );
+
+    studyFillEl.style.width =
+        studyPercentage + "%";
+
+    studyFillEl.classList.toggle(
+        "reached",
+        studyHours >= 10
+    );
+}
+
+
+function getDaysUntil(
+    dateString
+) {
+
+    const [
+        year,
+        month,
+        day
+    ] =
+        dateString.split("-").map(
+            Number
+        );
+
+    const target =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+    const [
+        todayYear,
+        todayMonth,
+        todayDay
+    ] =
+        getToday().split("-").map(
+            Number
+        );
+
+    const today =
+        new Date(
+            todayYear,
+            todayMonth - 1,
+            todayDay
+        );
+
+    const diffMs =
+        target.getTime() -
+        today.getTime();
+
+    return Math.round(
+        diffMs / (1000 * 60 * 60 * 24)
+    );
 }
 
 
