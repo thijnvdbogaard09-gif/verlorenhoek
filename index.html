@@ -1084,6 +1084,241 @@ main {
 }
 
 /* =========================================================
+   CIJFERS
+========================================================= */
+
+.subject-input-row {
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+    margin-bottom:22px;
+}
+
+.subject-input {
+    width:100%;
+    height:44px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+}
+
+.subject-add {
+    height:44px;
+    padding:0 17px;
+    border:none;
+    border-radius:8px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+}
+
+.subject-add:hover {
+    background:var(--olive-dark);
+}
+
+.subject-list {
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:26px;
+}
+
+.subject-card {
+    padding:18px;
+    border:1px solid var(--border);
+    border-radius:10px;
+}
+
+.subject-header {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.subject-name {
+    font-size:16px;
+    font-weight:700;
+}
+
+.subject-average {
+    margin-top:3px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.delete-subject {
+    width:32px;
+    height:32px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:6px;
+    background:transparent;
+    color:var(--muted);
+}
+
+.delete-subject:hover {
+    background:#f1e9e8;
+    color:var(--danger);
+}
+
+.delete-subject svg {
+    width:16px;
+    height:16px;
+}
+
+.grade-list {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:14px 0;
+}
+
+.grade-chip {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 4px 4px 12px;
+    border-radius:20px;
+    background:#eef0eb;
+    color:var(--olive-dark);
+    font-size:13px;
+    font-weight:700;
+}
+
+.delete-grade {
+    width:20px;
+    height:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:50%;
+    background:transparent;
+    color:var(--muted);
+}
+
+.delete-grade:hover {
+    background:#f1e9e8;
+    color:var(--danger);
+}
+
+.delete-grade svg {
+    width:11px;
+    height:11px;
+}
+
+.empty-grades {
+    color:var(--muted);
+    font-size:13px;
+}
+
+.grade-add-row {
+    display:flex;
+    gap:8px;
+}
+
+.grade-input {
+    width:100px;
+    height:38px;
+    padding:0 10px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    outline:none;
+}
+
+.grade-add {
+    height:38px;
+    padding:0 14px;
+    border:none;
+    border-radius:7px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+    font-size:13px;
+}
+
+.grade-add:hover {
+    background:var(--olive-dark);
+}
+
+.empty-subjects {
+    padding:30px;
+    border:1px dashed var(--border);
+    border-radius:8px;
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+    margin-bottom:26px;
+}
+
+.calculator-panel {
+    padding:22px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--light);
+}
+
+.calculator-panel h2 {
+    font-size:16px;
+    margin-bottom:6px;
+}
+
+.calculator-panel > p {
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:16px;
+}
+
+.calculator-row {
+    display:grid;
+    grid-template-columns:1fr 140px auto;
+    gap:10px;
+}
+
+.calculator-select,
+.calculator-row input {
+    height:44px;
+    padding:0 12px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:white;
+    outline:none;
+}
+
+.calculator-button {
+    height:44px;
+    padding:0 18px;
+    border:none;
+    border-radius:8px;
+    background:var(--olive);
+    color:white;
+    font-weight:600;
+}
+
+.calculator-button:hover {
+    background:var(--olive-dark);
+}
+
+.calculator-result {
+    margin-top:14px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.calculator-result.bad {
+    color:var(--danger);
+}
+
+.calculator-result.good {
+    color:var(--olive-dark);
+}
+
+/* =========================================================
    MODAL
 ========================================================= */
 
@@ -1257,6 +1492,18 @@ main {
         width:100%;
     }
 
+    .subject-input-row {
+        grid-template-columns:1fr;
+    }
+
+    .subject-add {
+        width:100%;
+    }
+
+    .calculator-row {
+        grid-template-columns:1fr;
+    }
+
     .shortcuts-list {
         flex-direction:column;
     }
@@ -1341,6 +1588,13 @@ main {
 <symbol id="clock" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="9"></circle>
     <path d="M12 7v5l3.5 2"></path>
+</symbol>
+
+<symbol id="chart" viewBox="0 0 24 24">
+    <path d="M4 20V10"></path>
+    <path d="M12 20V4"></path>
+    <path d="M20 20v-7"></path>
+    <path d="M2 20h20"></path>
 </symbol>
 
 </svg>
@@ -1623,6 +1877,42 @@ Tim hoelang je leert en houd je voortgang per week bij.
 <button
     class="card-button"
     onclick="openPage('studyPage')"
+>
+    Openen
+
+    <svg fill="none"
+         stroke="currentColor"
+         stroke-width="1.8"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+        <use href="#arrow-right"></use>
+    </svg>
+</button>
+
+</article>
+
+
+<article class="dashboard-card">
+
+<div class="card-icon">
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#chart"></use>
+</svg>
+</div>
+
+<h2>Cijfers</h2>
+
+<p>
+Houd je cijfers per vak bij en bereken wat je nog nodig hebt.
+</p>
+
+<button
+    class="card-button"
+    onclick="openPage('cijfersPage')"
 >
     Openen
 
@@ -2038,6 +2328,103 @@ Tim hoelang je leert en houd je voortgang per week bij.
 
 </section>
 
+
+<!-- =========================================================
+     CIJFERS
+========================================================= -->
+
+<section id="cijfersPage" class="page">
+
+<button
+    class="back-button"
+    onclick="openPage('homePage')"
+>
+    <svg fill="none"
+         stroke="currentColor"
+         stroke-width="1.8"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+        <use href="#arrow-left"></use>
+    </svg>
+
+    Terug naar overzicht
+</button>
+
+<div class="page-header">
+<h1>Cijfers</h1>
+<p>Houd je cijfers per vak bij en bereken wat je nog nodig hebt.</p>
+</div>
+
+<div class="content-panel">
+
+<div class="subject-input-row">
+
+<input
+    id="subjectNameInput"
+    class="subject-input"
+    type="text"
+    placeholder="Nieuw vak..."
+    maxlength="60"
+>
+
+<button
+    class="subject-add"
+    onclick="addSubject()"
+>
+    Vak toevoegen
+</button>
+
+</div>
+
+<div
+    id="subjectList"
+    class="subject-list"
+></div>
+
+<div class="calculator-panel">
+
+<h2>Uitrekenmachine</h2>
+
+<p>
+Kies een vak en het gemiddelde dat je wilt halen. Dan wordt berekend welk cijfer je minimaal nodig hebt voor je volgende toets.
+</p>
+
+<div class="calculator-row">
+
+<select
+    id="calcSubjectSelect"
+    class="calculator-select"
+></select>
+
+<input
+    id="calcTargetInput"
+    type="number"
+    step="0.1"
+    min="1"
+    max="10"
+    placeholder="Gewenst gemiddelde"
+>
+
+<button
+    class="calculator-button"
+    onclick="calculateRequiredGrade()"
+>
+    Bereken
+</button>
+
+</div>
+
+<div
+    id="calculatorResult"
+    class="calculator-result"
+></div>
+
+</div>
+
+</div>
+
+</section>
+
 </main>
 
 </section>
@@ -2312,6 +2699,8 @@ let todos = [];
 let deadlines = [];
 let huiswerk = [];
 let studySessions = [];
+let subjects = [];
+let grades = [];
 let shortcuts = [];
 
 let currentNoteId = null;
@@ -2586,6 +2975,10 @@ function openPage(pageId) {
         loadStudySessions();
     }
 
+    if (pageId === "cijfersPage") {
+        loadCijfers();
+    }
+
     if (pageId === "homePage") {
         loadShortcuts();
     }
@@ -2630,6 +3023,7 @@ async function loadAllData() {
         loadDeadlines(),
         loadHuiswerk(),
         loadStudySessions(),
+        loadCijfers(),
         loadShortcuts()
     ]);
 }
@@ -4468,6 +4862,725 @@ function formatDuration(
 
 
 /* =========================================================
+   CIJFERS
+========================================================= */
+
+async function loadCijfers() {
+
+    await Promise.all([
+        loadSubjects(),
+        loadGrades()
+    ]);
+
+    renderSubjects();
+
+    renderCalculatorOptions();
+}
+
+
+async function loadSubjects() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("subjects")
+            .select("*")
+            .order("created_at", {
+                ascending:true
+            });
+
+    if (error) {
+
+        console.error(
+            "Vakken laden:",
+            error
+        );
+
+        return;
+    }
+
+    subjects =
+        data || [];
+}
+
+
+async function loadGrades() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("grades")
+            .select("*")
+            .order("created_at", {
+                ascending:true
+            });
+
+    if (error) {
+
+        console.error(
+            "Cijfers laden:",
+            error
+        );
+
+        return;
+    }
+
+    grades =
+        data || [];
+}
+
+
+async function addSubject() {
+
+    const input =
+        document.getElementById(
+            "subjectNameInput"
+        );
+
+    const name =
+        input.value.trim();
+
+    if (!name) {
+
+        input.focus();
+
+        return;
+    }
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) {
+
+        alert(
+            "Je bent niet ingelogd."
+        );
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("subjects")
+            .insert({
+                user_id:user.id,
+                name:name
+            });
+
+    if (error) {
+
+        console.error(
+            "Vak toevoegen:",
+            error
+        );
+
+        alert(
+            "Het vak kon niet worden toegevoegd."
+        );
+
+        return;
+    }
+
+    input.value = "";
+
+    await loadCijfers();
+
+    input.focus();
+}
+
+
+async function deleteSubject(id) {
+
+    if (
+        !confirm(
+            "Dit vak en alle bijbehorende cijfers verwijderen?"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("subjects")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        console.error(
+            "Vak verwijderen:",
+            error
+        );
+
+        return;
+    }
+
+    await loadCijfers();
+}
+
+
+async function addGrade(
+    subjectId,
+    inputElement
+) {
+
+    const value =
+        parseFloat(
+            inputElement.value.replace(
+                ",",
+                "."
+            )
+        );
+
+    if (
+        isNaN(value) ||
+        value < 1 ||
+        value > 10
+    ) {
+
+        alert(
+            "Vul een cijfer tussen 1 en 10 in, bijvoorbeeld 5.5."
+        );
+
+        return;
+    }
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) {
+
+        alert(
+            "Je bent niet ingelogd."
+        );
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("grades")
+            .insert({
+                user_id:user.id,
+                subject_id:subjectId,
+                grade:value
+            });
+
+    if (error) {
+
+        console.error(
+            "Cijfer toevoegen:",
+            error
+        );
+
+        alert(
+            "Het cijfer kon niet worden toegevoegd."
+        );
+
+        return;
+    }
+
+    await loadCijfers();
+}
+
+
+async function deleteGrade(id) {
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("grades")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        console.error(
+            "Cijfer verwijderen:",
+            error
+        );
+
+        return;
+    }
+
+    await loadCijfers();
+}
+
+
+function renderSubjects() {
+
+    const list =
+        document.getElementById(
+            "subjectList"
+        );
+
+    list.innerHTML = "";
+
+    if (!subjects.length) {
+
+        list.innerHTML = `
+            <div class="empty-subjects">
+                Je hebt nog geen vakken toegevoegd.
+            </div>
+        `;
+
+        return;
+    }
+
+    subjects.forEach(subject => {
+
+        const subjectGrades =
+            grades.filter(
+                grade =>
+                    grade.subject_id ===
+                    subject.id
+            );
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "subject-card";
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "subject-header";
+
+        const info =
+            document.createElement("div");
+
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "subject-name";
+
+        name.textContent =
+            subject.name;
+
+        const average =
+            document.createElement("div");
+
+        average.className =
+            "subject-average";
+
+        average.textContent =
+            subjectGrades.length
+                ? "Gemiddelde: " +
+                  getAverage(
+                      subjectGrades
+                  ).toFixed(1)
+                : "Nog geen cijfers";
+
+        info.appendChild(name);
+        info.appendChild(average);
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.className =
+            "delete-subject";
+
+        deleteButton.title =
+            "Vak verwijderen";
+
+        deleteButton.innerHTML = `
+            <svg fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <use href="#trash"></use>
+            </svg>
+        `;
+
+        deleteButton.onclick =
+            () =>
+                deleteSubject(
+                    subject.id
+                );
+
+        header.appendChild(info);
+        header.appendChild(deleteButton);
+
+        const gradeList =
+            document.createElement("div");
+
+        gradeList.className =
+            "grade-list";
+
+        if (!subjectGrades.length) {
+
+            const empty =
+                document.createElement("span");
+
+            empty.className =
+                "empty-grades";
+
+            empty.textContent =
+                "Nog geen cijfers ingevoerd.";
+
+            gradeList.appendChild(
+                empty
+            );
+
+        } else {
+
+            subjectGrades.forEach(
+                grade => {
+
+                    const chip =
+                        document.createElement("span");
+
+                    chip.className =
+                        "grade-chip";
+
+                    const value =
+                        document.createElement("span");
+
+                    value.textContent =
+                        Number(
+                            grade.grade
+                        ).toFixed(1);
+
+                    const removeButton =
+                        document.createElement("button");
+
+                    removeButton.className =
+                        "delete-grade";
+
+                    removeButton.title =
+                        "Cijfer verwijderen";
+
+                    removeButton.innerHTML = `
+                        <svg fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <use href="#trash"></use>
+                        </svg>
+                    `;
+
+                    removeButton.onclick =
+                        () =>
+                            deleteGrade(
+                                grade.id
+                            );
+
+                    chip.appendChild(
+                        value
+                    );
+
+                    chip.appendChild(
+                        removeButton
+                    );
+
+                    gradeList.appendChild(
+                        chip
+                    );
+
+                }
+            );
+
+        }
+
+        const addRow =
+            document.createElement("div");
+
+        addRow.className =
+            "grade-add-row";
+
+        const gradeInput =
+            document.createElement("input");
+
+        gradeInput.className =
+            "grade-input";
+
+        gradeInput.type =
+            "number";
+
+        gradeInput.step =
+            "0.1";
+
+        gradeInput.min =
+            "1";
+
+        gradeInput.max =
+            "10";
+
+        gradeInput.placeholder =
+            "Bijv. 5.5";
+
+        gradeInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    addGrade(
+                        subject.id,
+                        gradeInput
+                    );
+
+                    gradeInput.value = "";
+
+                }
+
+            }
+        );
+
+        const addButton =
+            document.createElement("button");
+
+        addButton.className =
+            "grade-add";
+
+        addButton.textContent =
+            "Toevoegen";
+
+        addButton.onclick =
+            () => {
+
+                addGrade(
+                    subject.id,
+                    gradeInput
+                );
+
+                gradeInput.value = "";
+
+            };
+
+        addRow.appendChild(
+            gradeInput
+        );
+
+        addRow.appendChild(
+            addButton
+        );
+
+        card.appendChild(header);
+        card.appendChild(gradeList);
+        card.appendChild(addRow);
+
+        list.appendChild(card);
+
+    });
+}
+
+
+function renderCalculatorOptions() {
+
+    const select =
+        document.getElementById(
+            "calcSubjectSelect"
+        );
+
+    const previousValue =
+        select.value;
+
+    select.innerHTML = "";
+
+    if (!subjects.length) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = "";
+
+        option.textContent =
+            "Voeg eerst een vak toe";
+
+        select.appendChild(
+            option
+        );
+
+        return;
+    }
+
+    subjects.forEach(subject => {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            subject.id;
+
+        option.textContent =
+            subject.name;
+
+        select.appendChild(
+            option
+        );
+
+    });
+
+    if (
+        subjects.some(
+            subject =>
+                subject.id ===
+                previousValue
+        )
+    ) {
+
+        select.value =
+            previousValue;
+
+    }
+}
+
+
+function calculateRequiredGrade() {
+
+    const select =
+        document.getElementById(
+            "calcSubjectSelect"
+        );
+
+    const subjectId =
+        select.value;
+
+    const targetInput =
+        document.getElementById(
+            "calcTargetInput"
+        );
+
+    const target =
+        parseFloat(
+            targetInput.value.replace(
+                ",",
+                "."
+            )
+        );
+
+    const resultBox =
+        document.getElementById(
+            "calculatorResult"
+        );
+
+    if (!subjectId) {
+
+        resultBox.textContent =
+            "Voeg eerst een vak toe.";
+
+        resultBox.className =
+            "calculator-result bad";
+
+        return;
+    }
+
+    if (
+        isNaN(target) ||
+        target < 1 ||
+        target > 10
+    ) {
+
+        resultBox.textContent =
+            "Vul een geldig gewenst gemiddelde in tussen 1 en 10.";
+
+        resultBox.className =
+            "calculator-result bad";
+
+        return;
+    }
+
+    const subjectGrades =
+        grades.filter(
+            grade =>
+                grade.subject_id ===
+                subjectId
+        );
+
+    const n =
+        subjectGrades.length;
+
+    const sum =
+        subjectGrades.reduce(
+            (total, grade) =>
+                total +
+                Number(grade.grade),
+            0
+        );
+
+    const requiredRaw =
+        (target * (n + 1)) -
+        sum;
+
+    const required =
+        Math.ceil(
+            requiredRaw * 10
+        ) / 10;
+
+    if (required > 10) {
+
+        resultBox.textContent =
+            "Niet meer haalbaar met één cijfer: je zou minstens een " +
+            required.toFixed(1) +
+            " moeten halen, en het maximum is een 10.";
+
+        resultBox.className =
+            "calculator-result bad";
+
+        return;
+    }
+
+    if (required <= 1) {
+
+        resultBox.textContent =
+            "Je haalt dit gemiddelde sowieso, zelfs met een 1 als volgend cijfer.";
+
+        resultBox.className =
+            "calculator-result good";
+
+        return;
+    }
+
+    resultBox.textContent =
+        "Je hebt minimaal een " +
+        required.toFixed(1) +
+        " nodig voor je volgende cijfer.";
+
+    resultBox.className =
+        "calculator-result good";
+}
+
+
+function getAverage(gradeArray) {
+
+    const sum =
+        gradeArray.reduce(
+            (total, grade) =>
+                total +
+                Number(grade.grade),
+            0
+        );
+
+    return sum / gradeArray.length;
+}
+
+
+/* =========================================================
    SNELKOPPELINGEN
 ========================================================= */
 
@@ -4889,6 +6002,42 @@ document
                 event.key === "Enter"
             ) {
                 addDeadline();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "subjectNameInput"
+    )
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+                addSubject();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "calcTargetInput"
+    )
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+                calculateRequiredGrade();
             }
 
         }
