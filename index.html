@@ -16,7 +16,51 @@
     --border:#dde0da;
     --muted:#72776f;
     --danger:#a33a32;
+    --danger-dark:#832e27;
     --warning:#a87824;
+    --badge-bg:#eef0eb;
+    --badge-border:#d9ddd4;
+    --danger-hover-bg:#f1e9e8;
+    --warning-bg:#f3ead5;
+    --success:#3f7d4a;
+    --success-bg:#eaf1e9;
+    --error-bg:#f9e8e6;
+    --overdue-bg:#fffafa;
+    --overdue-badge-bg:#f1e1df;
+    --overdue-border:#d6aaa6;
+    --today-border:#d6c18f;
+    --login-backdrop:#343833;
+    --accent-text:#414b34;
+
+    color-scheme:light;
+}
+
+[data-theme="dark"] {
+    --white:#242822;
+    --olive:#7c9166;
+    --olive-dark:#93a97e;
+    --anthracite:#ecefe8;
+    --light:#191c17;
+    --border:#3a3f37;
+    --muted:#9aa093;
+    --danger:#c9645a;
+    --danger-dark:#b2564c;
+    --warning:#d9a94c;
+    --badge-bg:#333a2f;
+    --badge-border:#3a3f37;
+    --danger-hover-bg:#402f2c;
+    --warning-bg:#3c3222;
+    --success:#7fbf8a;
+    --success-bg:#243328;
+    --error-bg:#3a2723;
+    --overdue-bg:#241f1e;
+    --overdue-badge-bg:#3e2c29;
+    --overdue-border:#6b433e;
+    --today-border:#6b5636;
+    --login-backdrop:#14150f;
+    --accent-text:#b9c9a7;
+
+    color-scheme:dark;
 }
 
 * {
@@ -26,11 +70,45 @@
 }
 
 body {
+    transition:background-color .2s, color .2s;
     font-family:Inter,-apple-system,BlinkMacSystemFont,
         "Segoe UI",Arial,sans-serif;
     background:var(--light);
     color:var(--anthracite);
     min-height:100vh;
+}
+
+input,
+select,
+textarea {
+    background:var(--white);
+    color:var(--anthracite);
+    font-family:inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color:var(--muted);
+    opacity:1;
+}
+
+body,
+.topbar,
+.dashboard-card,
+.stat-card,
+.shortcuts-panel,
+.shortcut-item,
+.notes-sidebar,
+.note-editor,
+.content-panel,
+.login-box,
+.modal-box,
+.timer-panel,
+input,
+select,
+textarea,
+button {
+    transition:background-color .2s, color .2s, border-color .2s;
 }
 
 button,
@@ -53,7 +131,14 @@ button {
     justify-content:center;
     align-items:center;
     padding:20px;
-    background:var(--anthracite);
+    background:var(--login-backdrop);
+    position:relative;
+}
+
+.login-theme-toggle {
+    position:absolute;
+    top:20px;
+    right:20px;
 }
 
 .login-box {
@@ -144,7 +229,7 @@ button {
     margin-top:12px;
     padding:10px;
     border-radius:7px;
-    background:#f9e8e6;
+    background:var(--error-bg);
     color:var(--danger);
     font-size:13px;
     line-height:1.45;
@@ -156,8 +241,8 @@ button {
     margin-top:12px;
     padding:10px;
     border-radius:7px;
-    background:#eaf1e9;
-    color:#3f7d4a;
+    background:var(--success-bg);
+    color:var(--success);
     font-size:13px;
     line-height:1.45;
     text-align:center;
@@ -174,7 +259,7 @@ button {
     border:none;
     background:transparent;
     padding:0;
-    color:var(--olive-dark);
+    color:var(--accent-text);
     font-weight:600;
     font-size:13px;
 }
@@ -198,7 +283,7 @@ button {
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:white;
+    background:var(--white);
     border-bottom:1px solid var(--border);
 }
 
@@ -226,13 +311,41 @@ button {
     padding:0 13px;
     border:1px solid var(--border);
     border-radius:7px;
-    background:white;
+    background:var(--white);
     font-size:13px;
     font-weight:600;
 }
 
 .logout-button:hover {
     background:var(--light);
+}
+
+.topbar-actions {
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.theme-toggle-button {
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:var(--white);
+    color:var(--muted);
+}
+
+.theme-toggle-button:hover {
+    background:var(--light);
+    color:var(--anthracite);
+}
+
+.theme-toggle-button svg {
+    width:17px;
+    height:17px;
 }
 
 main {
@@ -276,7 +389,7 @@ main {
 
 .dashboard-card {
     padding:25px;
-    background:white;
+    background:var(--white);
     border:1px solid var(--border);
     border-radius:12px;
     transition:.2s;
@@ -296,7 +409,7 @@ main {
     align-items:center;
     justify-content:center;
     border-radius:9px;
-    background:#eef0eb;
+    background:var(--badge-bg);
     color:var(--olive);
 }
 
@@ -358,7 +471,7 @@ main {
 
 .stat-card {
     padding:19px 20px;
-    background:white;
+    background:var(--white);
     border:1px solid var(--border);
     border-radius:12px;
 }
@@ -377,7 +490,7 @@ main {
     align-items:center;
     justify-content:center;
     border-radius:8px;
-    background:#eef0eb;
+    background:var(--badge-bg);
     color:var(--olive);
 }
 
@@ -387,7 +500,7 @@ main {
 }
 
 .stat-icon.stat-icon-warning {
-    background:#f3ead5;
+    background:var(--warning-bg);
     color:var(--warning);
 }
 
@@ -421,7 +534,7 @@ main {
 }
 
 .stat-progress-fill.reached {
-    background:#3f7d4a;
+    background:var(--success);
 }
 
 /* =========================================================
@@ -431,7 +544,7 @@ main {
 .shortcuts-panel {
     margin-top:18px;
     padding:24px;
-    background:white;
+    background:var(--white);
     border:1px solid var(--border);
     border-radius:12px;
 }
@@ -480,7 +593,7 @@ main {
     gap:5px;
     border:1px solid var(--border);
     border-radius:8px;
-    background:white;
+    background:var(--white);
     overflow:hidden;
 }
 
@@ -521,7 +634,7 @@ main {
 }
 
 .delete-shortcut:hover {
-    background:#f1e9e8;
+    background:var(--danger-hover-bg);
     color:var(--danger);
 }
 
@@ -552,7 +665,7 @@ main {
     padding:0;
     border:none;
     background:transparent;
-    color:var(--olive-dark);
+    color:var(--accent-text);
     font-size:14px;
     font-weight:600;
 }
@@ -579,7 +692,7 @@ main {
 .notes-sidebar,
 .note-editor,
 .content-panel {
-    background:white;
+    background:var(--white);
     border:1px solid var(--border);
     border-radius:12px;
 }
@@ -643,8 +756,8 @@ main {
 }
 
 .note-list-item.active {
-    background:#eef0eb;
-    border-color:#d9ddd4;
+    background:var(--badge-bg);
+    border-color:var(--badge-border);
 }
 
 .note-list-title {
@@ -710,12 +823,12 @@ main {
     justify-content:center;
     border:1px solid var(--border);
     border-radius:8px;
-    background:white;
+    background:var(--white);
     color:var(--muted);
 }
 
 .delete-note-button:hover {
-    background:#f1e9e8;
+    background:var(--danger-hover-bg);
     color:var(--danger);
 }
 
@@ -750,7 +863,7 @@ main {
 }
 
 .saved-message {
-    color:var(--olive-dark);
+    color:var(--accent-text);
     font-size:13px;
     font-weight:600;
     opacity:0;
@@ -856,7 +969,7 @@ main {
 
 .delete-todo:hover,
 .delete-deadline:hover {
-    background:#f1e9e8;
+    background:var(--danger-hover-bg);
     color:var(--danger);
 }
 
@@ -907,28 +1020,28 @@ main {
     margin-top:6px;
     padding:4px 7px;
     border-radius:5px;
-    background:#eef0eb;
-    color:var(--olive-dark);
+    background:var(--badge-bg);
+    color:var(--accent-text);
     font-size:11px;
     font-weight:600;
 }
 
 .deadline-item.overdue:not(.completed) {
-    border-color:#d6aaa6;
-    background:#fffafa;
+    border-color:var(--overdue-border);
+    background:var(--overdue-bg);
 }
 
 .deadline-item.overdue:not(.completed) .deadline-date {
-    background:#f1e1df;
+    background:var(--overdue-badge-bg);
     color:var(--danger);
 }
 
 .deadline-item.today:not(.completed) {
-    border-color:#d6c18f;
+    border-color:var(--today-border);
 }
 
 .deadline-item.today:not(.completed) .deadline-date {
-    background:#f3ead5;
+    background:var(--warning-bg);
     color:var(--warning);
 }
 
@@ -972,8 +1085,8 @@ main {
     padding:2px 8px;
     margin-bottom:5px;
     border-radius:5px;
-    background:#eef0eb;
-    color:var(--olive-dark);
+    background:var(--badge-bg);
+    color:var(--accent-text);
     font-size:11px;
     font-weight:700;
     text-transform:uppercase;
@@ -996,28 +1109,28 @@ main {
     margin-top:6px;
     padding:4px 7px;
     border-radius:5px;
-    background:#eef0eb;
-    color:var(--olive-dark);
+    background:var(--badge-bg);
+    color:var(--accent-text);
     font-size:11px;
     font-weight:600;
 }
 
 .huiswerk-item.overdue:not(.completed) {
-    border-color:#d6aaa6;
-    background:#fffafa;
+    border-color:var(--overdue-border);
+    background:var(--overdue-bg);
 }
 
 .huiswerk-item.overdue:not(.completed) .huiswerk-date {
-    background:#f1e1df;
+    background:var(--overdue-badge-bg);
     color:var(--danger);
 }
 
 .huiswerk-item.today:not(.completed) {
-    border-color:#d6c18f;
+    border-color:var(--today-border);
 }
 
 .huiswerk-item.today:not(.completed) .huiswerk-date {
-    background:#f3ead5;
+    background:var(--warning-bg);
     color:var(--warning);
 }
 
@@ -1034,7 +1147,7 @@ main {
 }
 
 .delete-huiswerk:hover {
-    background:#f1e9e8;
+    background:var(--danger-hover-bg);
     color:var(--danger);
 }
 
@@ -1062,7 +1175,7 @@ main {
     align-items:center;
     padding:34px 26px;
     margin-bottom:22px;
-    background:white;
+    background:var(--white);
     border:1px solid var(--border);
     border-radius:12px;
     text-align:center;
@@ -1077,7 +1190,7 @@ main {
 }
 
 .timer-display.running {
-    color:var(--olive-dark);
+    color:var(--accent-text);
 }
 
 .timer-buttons {
@@ -1112,7 +1225,7 @@ main {
 }
 
 .timer-stop:hover {
-    background:#832e27;
+    background:var(--danger-dark);
 }
 
 .timer-manual {
@@ -1120,7 +1233,7 @@ main {
     padding:0 20px;
     border:1px solid var(--border);
     border-radius:8px;
-    background:white;
+    background:var(--white);
     font-weight:600;
     font-size:14px;
 }
@@ -1190,7 +1303,7 @@ main {
 }
 
 .study-progress-fill.reached {
-    background:#3f7d4a;
+    background:var(--success);
 }
 
 .empty-study-weeks {
@@ -1281,7 +1394,7 @@ main {
 }
 
 .delete-subject:hover {
-    background:#f1e9e8;
+    background:var(--danger-hover-bg);
     color:var(--danger);
 }
 
@@ -1303,8 +1416,8 @@ main {
     gap:6px;
     padding:4px 4px 4px 12px;
     border-radius:20px;
-    background:#eef0eb;
-    color:var(--olive-dark);
+    background:var(--badge-bg);
+    color:var(--accent-text);
     font-size:13px;
     font-weight:700;
 }
@@ -1322,7 +1435,7 @@ main {
 }
 
 .delete-grade:hover {
-    background:#f1e9e8;
+    background:var(--danger-hover-bg);
     color:var(--danger);
 }
 
@@ -1414,7 +1527,7 @@ main {
     padding:0 12px;
     border:1px solid var(--border);
     border-radius:8px;
-    background:white;
+    background:var(--white);
     outline:none;
 }
 
@@ -1443,7 +1556,7 @@ main {
 }
 
 .calculator-result.good {
-    color:var(--olive-dark);
+    color:var(--accent-text);
 }
 
 /* =========================================================
@@ -1469,7 +1582,7 @@ main {
     width:100%;
     max-width:440px;
     padding:26px;
-    background:white;
+    background:var(--white);
     border-radius:12px;
     box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
@@ -1516,7 +1629,7 @@ main {
     padding:0 14px;
     border:1px solid var(--border);
     border-radius:7px;
-    background:white;
+    background:var(--white);
     font-weight:600;
 }
 
@@ -1739,6 +1852,22 @@ main {
     <path d="M2 20h20"></path>
 </symbol>
 
+<symbol id="sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4.2"></circle>
+    <path d="M12 3v2.2"></path>
+    <path d="M12 18.8V21"></path>
+    <path d="M4.9 4.9l1.55 1.55"></path>
+    <path d="M17.55 17.55 19.1 19.1"></path>
+    <path d="M3 12h2.2"></path>
+    <path d="M18.8 12H21"></path>
+    <path d="M4.9 19.1l1.55-1.55"></path>
+    <path d="M17.55 6.45 19.1 4.9"></path>
+</symbol>
+
+<symbol id="moon" viewBox="0 0 24 24">
+    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"></path>
+</symbol>
+
 </svg>
 
 
@@ -1747,6 +1876,24 @@ main {
 ========================================================= -->
 
 <section id="loginPage">
+
+<button
+    id="loginThemeToggleButton"
+    class="theme-toggle-button login-theme-toggle"
+    onclick="toggleTheme()"
+    title="Donkere modus wisselen"
+>
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use
+        id="loginThemeToggleIcon"
+        href="#moon"
+    ></use>
+</svg>
+</button>
 
 <div id="loginBox" class="login-box">
 
@@ -1922,12 +2069,34 @@ Persoonlijk dashboard
 
 </div>
 
+<div class="topbar-actions">
+
+<button
+    id="themeToggleButton"
+    class="theme-toggle-button"
+    onclick="toggleTheme()"
+    title="Donkere modus wisselen"
+>
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use
+        id="themeToggleIcon"
+        href="#moon"
+    ></use>
+</svg>
+</button>
+
 <button
     class="logout-button"
     onclick="logout()"
 >
 Uitloggen
 </button>
+
+</div>
 
 </header>
 
@@ -3022,6 +3191,117 @@ Minuten
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =========================================================
+   DONKERE MODUS
+========================================================= */
+
+function applyTheme(theme) {
+
+    document.documentElement.setAttribute(
+        "data-theme",
+        theme
+    );
+
+    const iconHref =
+        theme === "dark"
+            ? "#sun"
+            : "#moon";
+
+    const icon =
+        document.getElementById(
+            "themeToggleIcon"
+        );
+
+    if (icon) {
+
+        icon.setAttribute(
+            "href",
+            iconHref
+        );
+
+    }
+
+    const loginIcon =
+        document.getElementById(
+            "loginThemeToggleIcon"
+        );
+
+    if (loginIcon) {
+
+        loginIcon.setAttribute(
+            "href",
+            iconHref
+        );
+
+    }
+
+    const themeColorMeta =
+        document.querySelector(
+            'meta[name="theme-color"]'
+        );
+
+    if (themeColorMeta) {
+
+        themeColorMeta.setAttribute(
+            "content",
+            theme === "dark"
+                ? "#14150f"
+                : "#343833"
+        );
+
+    }
+}
+
+
+function toggleTheme() {
+
+    const current =
+        document.documentElement.getAttribute(
+            "data-theme"
+        );
+
+    const next =
+        current === "dark"
+            ? "light"
+            : "dark";
+
+    localStorage.setItem(
+        "theme",
+        next
+    );
+
+    applyTheme(next);
+}
+
+
+(function initTheme() {
+
+    const savedTheme =
+        localStorage.getItem(
+            "theme"
+        );
+
+    if (savedTheme) {
+
+        applyTheme(savedTheme);
+
+        return;
+    }
+
+    const prefersDark =
+        window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        ).matches;
+
+    applyTheme(
+        prefersDark
+            ? "dark"
+            : "light"
+    );
+
+})();
+
 
 /* =========================================================
    SUPABASE CONFIGURATIE
