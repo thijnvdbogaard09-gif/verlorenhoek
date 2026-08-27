@@ -934,6 +934,156 @@ main {
 }
 
 /* =========================================================
+   STUDIETIMER
+========================================================= */
+
+.timer-panel {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:34px 26px;
+    margin-bottom:22px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    text-align:center;
+}
+
+.timer-display {
+    font-size:52px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-.5px;
+    margin-bottom:22px;
+}
+
+.timer-display.running {
+    color:var(--olive-dark);
+}
+
+.timer-buttons {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.timer-start,
+.timer-stop {
+    height:46px;
+    padding:0 24px;
+    border:none;
+    border-radius:8px;
+    font-weight:600;
+    font-size:14px;
+}
+
+.timer-start {
+    background:var(--olive);
+    color:white;
+}
+
+.timer-start:hover {
+    background:var(--olive-dark);
+}
+
+.timer-stop {
+    background:var(--danger);
+    color:white;
+}
+
+.timer-stop:hover {
+    background:#832e27;
+}
+
+.timer-manual {
+    height:46px;
+    padding:0 20px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:white;
+    font-weight:600;
+    font-size:14px;
+}
+
+.timer-manual:hover {
+    background:var(--light);
+}
+
+.study-weeks-header {
+    margin-bottom:14px;
+}
+
+.study-weeks-header h2 {
+    font-size:18px;
+    margin-bottom:4px;
+}
+
+.study-weeks-header p {
+    color:var(--muted);
+    font-size:13px;
+}
+
+.study-week-list {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.study-week-card {
+    padding:16px 18px;
+    border:1px solid var(--border);
+    border-radius:10px;
+}
+
+.study-week-top {
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:10px;
+    gap:10px;
+}
+
+.study-week-label {
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+}
+
+.study-week-total {
+    font-size:15px;
+    font-weight:700;
+}
+
+.study-progress-track {
+    width:100%;
+    height:10px;
+    border-radius:5px;
+    background:var(--light);
+    overflow:hidden;
+}
+
+.study-progress-fill {
+    height:100%;
+    border-radius:5px;
+    background:var(--danger);
+    transition:width .3s;
+}
+
+.study-progress-fill.reached {
+    background:#3f7d4a;
+}
+
+.empty-study-weeks {
+    padding:30px;
+    border:1px dashed var(--border);
+    border-radius:8px;
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+}
+
+/* =========================================================
    MODAL
 ========================================================= */
 
@@ -1188,6 +1338,11 @@ main {
     <path d="M20 19H6.5A2.5 2.5 0 0 0 4 21.5"></path>
 </symbol>
 
+<symbol id="clock" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M12 7v5l3.5 2"></path>
+</symbol>
+
 </svg>
 
 
@@ -1432,6 +1587,42 @@ Houd per vak bij welk huiswerk je moet maken en wanneer het af moet.
 <button
     class="card-button"
     onclick="openPage('huiswerkPage')"
+>
+    Openen
+
+    <svg fill="none"
+         stroke="currentColor"
+         stroke-width="1.8"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+        <use href="#arrow-right"></use>
+    </svg>
+</button>
+
+</article>
+
+
+<article class="dashboard-card">
+
+<div class="card-icon">
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#clock"></use>
+</svg>
+</div>
+
+<h2>Studietimer</h2>
+
+<p>
+Tim hoelang je leert en houd je voortgang per week bij.
+</p>
+
+<button
+    class="card-button"
+    onclick="openPage('studyPage')"
 >
     Openen
 
@@ -1765,6 +1956,88 @@ Houd per vak bij welk huiswerk je moet maken en wanneer het af moet.
 
 </section>
 
+
+<!-- =========================================================
+     STUDIETIMER
+========================================================= -->
+
+<section id="studyPage" class="page">
+
+<button
+    class="back-button"
+    onclick="openPage('homePage')"
+>
+    <svg fill="none"
+         stroke="currentColor"
+         stroke-width="1.8"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+        <use href="#arrow-left"></use>
+    </svg>
+
+    Terug naar overzicht
+</button>
+
+<div class="page-header">
+<h1>Studietimer</h1>
+<p>Tim hoelang je leert en houd je voortgang per week bij.</p>
+</div>
+
+<div class="timer-panel">
+
+<div
+    id="timerDisplay"
+    class="timer-display"
+>
+    00:00:00
+</div>
+
+<div class="timer-buttons">
+
+<button
+    id="timerStartButton"
+    class="timer-start"
+    onclick="startTimer()"
+>
+    Start
+</button>
+
+<button
+    id="timerStopButton"
+    class="timer-stop"
+    onclick="stopTimer()"
+    style="display:none"
+>
+    Stop en opslaan
+</button>
+
+<button
+    class="timer-manual"
+    onclick="openStudyModal()"
+>
+    Tijd handmatig toevoegen
+</button>
+
+</div>
+
+</div>
+
+<div class="content-panel">
+
+<div class="study-weeks-header">
+<h2>Voortgang per week</h2>
+<p>Streefdoel: 10 uur per week. De balk wordt groen zodra je dat haalt.</p>
+</div>
+
+<div
+    id="studyWeekList"
+    class="study-week-list"
+></div>
+
+</div>
+
+</section>
+
 </main>
 
 </section>
@@ -1921,6 +2194,91 @@ Deadline
 
 
 <!-- =========================================================
+     STUDIETIJD MODAL
+========================================================= -->
+
+<div
+    id="studyModal"
+    class="modal"
+>
+
+<div class="modal-box">
+
+<h2>
+Tijd toevoegen
+</h2>
+
+<div class="modal-field">
+
+<label for="studyDate">
+Datum
+</label>
+
+<input
+    id="studyDate"
+    type="date"
+>
+
+</div>
+
+<div class="modal-field">
+
+<label for="studyHours">
+Uren
+</label>
+
+<input
+    id="studyHours"
+    type="number"
+    min="0"
+    max="24"
+    step="1"
+    value="0"
+>
+
+</div>
+
+<div class="modal-field">
+
+<label for="studyMinutes">
+Minuten
+</label>
+
+<input
+    id="studyMinutes"
+    type="number"
+    min="0"
+    max="59"
+    step="1"
+    value="0"
+>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+    class="modal-cancel"
+    onclick="closeStudyModal()"
+>
+    Annuleren
+</button>
+
+<button
+    class="modal-save"
+    onclick="addManualStudyTime()"
+>
+    Opslaan
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
      SUPABASE
 ========================================================= -->
 
@@ -1953,9 +2311,13 @@ let notes = [];
 let todos = [];
 let deadlines = [];
 let huiswerk = [];
+let studySessions = [];
 let shortcuts = [];
 
 let currentNoteId = null;
+
+let timerInterval = null;
+let timerStartTimestamp = null;
 
 
 /* =========================================================
@@ -2220,6 +2582,10 @@ function openPage(pageId) {
         loadHuiswerk();
     }
 
+    if (pageId === "studyPage") {
+        loadStudySessions();
+    }
+
     if (pageId === "homePage") {
         loadShortcuts();
     }
@@ -2263,6 +2629,7 @@ async function loadAllData() {
         loadTodos(),
         loadDeadlines(),
         loadHuiswerk(),
+        loadStudySessions(),
         loadShortcuts()
     ]);
 }
@@ -3547,6 +3914,560 @@ async function deleteHuiswerk(id) {
 
 
 /* =========================================================
+   STUDIETIMER
+========================================================= */
+
+async function loadStudySessions() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("study_sessions")
+            .select("*")
+            .order("session_date", {
+                ascending:false
+            });
+
+    if (error) {
+
+        console.error(
+            "Studiesessies laden:",
+            error
+        );
+
+        return;
+    }
+
+    studySessions =
+        data || [];
+
+    renderStudyWeeks();
+}
+
+
+function startTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+    timerStartTimestamp =
+        Date.now();
+
+    document.getElementById(
+        "timerStartButton"
+    ).style.display = "none";
+
+    document.getElementById(
+        "timerStopButton"
+    ).style.display = "";
+
+    const display =
+        document.getElementById(
+            "timerDisplay"
+        );
+
+    display.classList.add(
+        "running"
+    );
+
+    timerInterval =
+        setInterval(
+            () => {
+
+                const elapsed =
+                    Math.floor(
+                        (
+                            Date.now() -
+                            timerStartTimestamp
+                        ) / 1000
+                    );
+
+                display.textContent =
+                    formatDuration(
+                        elapsed
+                    );
+
+            },
+            1000
+        );
+}
+
+
+async function stopTimer() {
+
+    if (!timerInterval) {
+        return;
+    }
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerInterval = null;
+
+    const elapsedSeconds =
+        Math.floor(
+            (
+                Date.now() -
+                timerStartTimestamp
+            ) / 1000
+        );
+
+    timerStartTimestamp = null;
+
+    document.getElementById(
+        "timerStartButton"
+    ).style.display = "";
+
+    document.getElementById(
+        "timerStopButton"
+    ).style.display = "none";
+
+    const display =
+        document.getElementById(
+            "timerDisplay"
+        );
+
+    display.classList.remove(
+        "running"
+    );
+
+    display.textContent =
+        "00:00:00";
+
+    if (elapsedSeconds < 5) {
+        return;
+    }
+
+    await saveStudySession(
+        getToday(),
+        elapsedSeconds
+    );
+}
+
+
+function openStudyModal() {
+
+    document.getElementById(
+        "studyDate"
+    ).value = getToday();
+
+    document.getElementById(
+        "studyHours"
+    ).value = "0";
+
+    document.getElementById(
+        "studyMinutes"
+    ).value = "0";
+
+    document
+        .getElementById(
+            "studyModal"
+        )
+        .classList.add("show");
+}
+
+
+function closeStudyModal() {
+
+    document
+        .getElementById(
+            "studyModal"
+        )
+        .classList.remove("show");
+}
+
+
+async function addManualStudyTime() {
+
+    const date =
+        document.getElementById(
+            "studyDate"
+        ).value;
+
+    const hours =
+        parseInt(
+            document.getElementById(
+                "studyHours"
+            ).value,
+            10
+        ) || 0;
+
+    const minutes =
+        parseInt(
+            document.getElementById(
+                "studyMinutes"
+            ).value,
+            10
+        ) || 0;
+
+    if (!date) {
+
+        alert(
+            "Kies een datum."
+        );
+
+        return;
+    }
+
+    const totalSeconds =
+        (hours * 3600) +
+        (minutes * 60);
+
+    if (totalSeconds <= 0) {
+
+        alert(
+            "Vul een tijdsduur groter dan 0 in."
+        );
+
+        return;
+    }
+
+    await saveStudySession(
+        date,
+        totalSeconds
+    );
+
+    closeStudyModal();
+}
+
+
+async function saveStudySession(
+    date,
+    durationSeconds
+) {
+
+    const user =
+        await getCurrentUser();
+
+    if (!user) {
+
+        alert(
+            "Je bent niet ingelogd."
+        );
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("study_sessions")
+            .insert({
+                user_id:user.id,
+                session_date:date,
+                duration_seconds:durationSeconds
+            });
+
+    if (error) {
+
+        console.error(
+            "Studietijd opslaan:",
+            error
+        );
+
+        alert(
+            "De studietijd kon niet worden opgeslagen."
+        );
+
+        return;
+    }
+
+    await loadStudySessions();
+}
+
+
+function renderStudyWeeks() {
+
+    const list =
+        document.getElementById(
+            "studyWeekList"
+        );
+
+    list.innerHTML = "";
+
+    if (!studySessions.length) {
+
+        list.innerHTML = `
+            <div class="empty-study-weeks">
+                Je hebt nog geen studietijd geregistreerd.
+            </div>
+        `;
+
+        return;
+    }
+
+    const weekTotals = {};
+
+    studySessions.forEach(
+        session => {
+
+            const weekStart =
+                getWeekStart(
+                    session.session_date
+                );
+
+            weekTotals[weekStart] =
+                (
+                    weekTotals[weekStart] ||
+                    0
+                ) +
+                session.duration_seconds;
+
+        }
+    );
+
+    const weekStarts =
+        Object.keys(
+            weekTotals
+        ).sort(
+            (a, b) =>
+                b.localeCompare(a)
+        );
+
+    weekStarts.forEach(
+        weekStart => {
+
+            const totalSeconds =
+                weekTotals[weekStart];
+
+            const totalHours =
+                totalSeconds / 3600;
+
+            const percentage =
+                Math.min(
+                    (
+                        totalHours / 10
+                    ) * 100,
+                    100
+                );
+
+            const reached =
+                totalHours >= 10;
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "study-week-card";
+
+            const top =
+                document.createElement("div");
+
+            top.className =
+                "study-week-top";
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "study-week-label";
+
+            label.textContent =
+                formatWeekLabel(
+                    weekStart
+                );
+
+            const total =
+                document.createElement("span");
+
+            total.className =
+                "study-week-total";
+
+            total.textContent =
+                formatDuration(
+                    totalSeconds,
+                    true
+                );
+
+            top.appendChild(
+                label
+            );
+
+            top.appendChild(
+                total
+            );
+
+            const track =
+                document.createElement("div");
+
+            track.className =
+                "study-progress-track";
+
+            const fill =
+                document.createElement("div");
+
+            fill.className =
+                "study-progress-fill" +
+                (
+                    reached
+                        ? " reached"
+                        : ""
+                );
+
+            fill.style.width =
+                percentage + "%";
+
+            track.appendChild(
+                fill
+            );
+
+            card.appendChild(
+                top
+            );
+
+            card.appendChild(
+                track
+            );
+
+            list.appendChild(
+                card
+            );
+
+        }
+    );
+}
+
+
+function getWeekStart(
+    dateString
+) {
+
+    const [
+        year,
+        month,
+        day
+    ] =
+        dateString.split("-").map(
+            Number
+        );
+
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+    const dayOfWeek =
+        date.getDay();
+
+    const diffToMonday =
+        dayOfWeek === 0
+            ? -6
+            : 1 - dayOfWeek;
+
+    date.setDate(
+        date.getDate() +
+        diffToMonday
+    );
+
+    const y =
+        date.getFullYear();
+
+    const m =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const d =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return `${y}-${m}-${d}`;
+}
+
+
+function formatWeekLabel(
+    weekStartString
+) {
+
+    const [
+        year,
+        month,
+        day
+    ] =
+        weekStartString.split("-").map(
+            Number
+        );
+
+    const start =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+    const end =
+        new Date(
+            start
+        );
+
+    end.setDate(
+        start.getDate() + 6
+    );
+
+    const startLabel =
+        start.toLocaleDateString(
+            "nl-NL",
+            {
+                day:"2-digit",
+                month:"2-digit"
+            }
+        );
+
+    const endLabel =
+        end.toLocaleDateString(
+            "nl-NL",
+            {
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+
+    return `Week van ${startLabel} t/m ${endLabel}`;
+}
+
+
+function formatDuration(
+    totalSeconds,
+    short
+) {
+
+    const hours =
+        Math.floor(
+            totalSeconds / 3600
+        );
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+    if (short) {
+        return `${hours}u ${String(minutes).padStart(2, "0")}m`;
+    }
+
+    return (
+        String(hours).padStart(2, "0") +
+        ":" +
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0")
+    );
+}
+
+
+/* =========================================================
    SNELKOPPELINGEN
 ========================================================= */
 
@@ -4018,6 +4939,27 @@ document
 
 document
     .getElementById(
+        "studyModal"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target.id ===
+                "studyModal"
+            ) {
+
+                closeStudyModal();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
         "huiswerkTask"
     )
     .addEventListener(
@@ -4034,6 +4976,24 @@ document
     );
 
 
+document
+    .getElementById(
+        "studyMinutes"
+    )
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+                addManualStudyTime();
+            }
+
+        }
+    );
+
+
 document.addEventListener(
     "keydown",
     event => {
@@ -4044,6 +5004,7 @@ document.addEventListener(
 
             closeShortcutModal();
             closeHuiswerkModal();
+            closeStudyModal();
 
         }
 
