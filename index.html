@@ -1231,6 +1231,15 @@ main {
     outline:none;
 }
 
+.weight-input {
+    width:75px;
+    height:38px;
+    padding:0 10px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    outline:none;
+}
+
 .grade-add {
     height:38px;
     padding:0 14px;
@@ -1276,7 +1285,7 @@ main {
 
 .calculator-row {
     display:grid;
-    grid-template-columns:1fr 140px auto;
+    grid-template-columns:1fr 140px 110px auto;
     gap:10px;
 }
 
@@ -2403,6 +2412,15 @@ Kies een vak en het gemiddelde dat je wilt halen. Dan wordt berekend welk cijfer
     min="1"
     max="10"
     placeholder="Gewenst gemiddelde"
+>
+
+<input
+    id="calcWeightInput"
+    type="number"
+    step="1"
+    min="1"
+    value="1"
+    placeholder="Weging"
 >
 
 <button
@@ -5032,7 +5050,8 @@ async function deleteSubject(id) {
 
 async function addGrade(
     subjectId,
-    inputElement
+    inputElement,
+    weightElement
 ) {
 
     const value =
@@ -5056,6 +5075,20 @@ async function addGrade(
         return;
     }
 
+    let weight =
+        parseInt(
+            weightElement.value,
+            10
+        );
+
+    if (
+        isNaN(weight) ||
+        weight < 1
+    ) {
+
+        weight = 1;
+    }
+
     const user =
         await getCurrentUser();
 
@@ -5076,7 +5109,8 @@ async function addGrade(
             .insert({
                 user_id:user.id,
                 subject_id:subjectId,
-                grade:value
+                grade:value,
+                weight:weight
             });
 
     if (error) {
@@ -5260,7 +5294,14 @@ function renderSubjects() {
                     value.textContent =
                         Number(
                             grade.grade
-                        ).toFixed(1);
+                        ).toFixed(1) +
+                        (
+                            grade.weight &&
+                            grade.weight !== 1
+                                ? " ×" +
+                                  grade.weight
+                                : ""
+                        );
 
                     const removeButton =
                         document.createElement("button");
@@ -5331,6 +5372,30 @@ function renderSubjects() {
         gradeInput.placeholder =
             "Bijv. 5.5";
 
+        const weightInput =
+            document.createElement("input");
+
+        weightInput.className =
+            "weight-input";
+
+        weightInput.type =
+            "number";
+
+        weightInput.step =
+            "1";
+
+        weightInput.min =
+            "1";
+
+        weightInput.value =
+            "1";
+
+        weightInput.title =
+            "Hoe vaak telt dit cijfer mee?";
+
+        weightInput.placeholder =
+            "Weging";
+
         gradeInput.addEventListener(
             "keydown",
             event => {
@@ -5341,10 +5406,13 @@ function renderSubjects() {
 
                     addGrade(
                         subject.id,
-                        gradeInput
+                        gradeInput,
+                        weightInput
                     );
 
                     gradeInput.value = "";
+
+                    weightInput.value = "1";
 
                 }
 
@@ -5365,15 +5433,22 @@ function renderSubjects() {
 
                 addGrade(
                     subject.id,
-                    gradeInput
+                    gradeInput,
+                    weightInput
                 );
 
                 gradeInput.value = "";
+
+                weightInput.value = "1";
 
             };
 
         addRow.appendChild(
             gradeInput
+        );
+
+        addRow.appendChild(
+            weightInput
         );
 
         addRow.appendChild(
@@ -5505,6 +5580,25 @@ function calculateRequiredGrade() {
         return;
     }
 
+    const weightInput =
+        document.getElementById(
+            "calcWeightInput"
+        );
+
+    let newWeight =
+        parseInt(
+            weightInput.value,
+            10
+        );
+
+    if (
+        isNaN(newWeight) ||
+        newWeight < 1
+    ) {
+
+        newWeight = 1;
+    }
+
     const subjectGrades =
         grades.filter(
             grade =>
@@ -5512,20 +5606,38 @@ function calculateRequiredGrade() {
                 subjectId
         );
 
-    const n =
-        subjectGrades.length;
-
-    const sum =
+    const totalWeight =
         subjectGrades.reduce(
             (total, grade) =>
                 total +
-                Number(grade.grade),
+                (
+                    Number(
+                        grade.weight
+                    ) || 1
+                ),
+            0
+        );
+
+    const weightedSum =
+        subjectGrades.reduce(
+            (total, grade) =>
+                total +
+                (
+                    Number(grade.grade) *
+                    (
+                        Number(
+                            grade.weight
+                        ) || 1
+                    )
+                ),
             0
         );
 
     const requiredRaw =
-        (target * (n + 1)) -
-        sum;
+        (
+            (target * (totalWeight + newWeight)) -
+            weightedSum
+        ) / newWeight;
 
     const required =
         Math.ceil(
@@ -5559,7 +5671,15 @@ function calculateRequiredGrade() {
     resultBox.textContent =
         "Je hebt minimaal een " +
         required.toFixed(1) +
-        " nodig voor je volgende cijfer.";
+        " nodig voor je volgende cijfer" +
+        (
+            newWeight !== 1
+                ? " (bij een weging van " +
+                  newWeight +
+                  ")"
+                : ""
+        ) +
+        ".";
 
     resultBox.className =
         "calculator-result good";
@@ -5568,15 +5688,34 @@ function calculateRequiredGrade() {
 
 function getAverage(gradeArray) {
 
-    const sum =
+    const totalWeight =
         gradeArray.reduce(
             (total, grade) =>
                 total +
-                Number(grade.grade),
+                (
+                    Number(
+                        grade.weight
+                    ) || 1
+                ),
             0
         );
 
-    return sum / gradeArray.length;
+    const weightedSum =
+        gradeArray.reduce(
+            (total, grade) =>
+                total +
+                (
+                    Number(grade.grade) *
+                    (
+                        Number(
+                            grade.weight
+                        ) || 1
+                    )
+                ),
+            0
+        );
+
+    return weightedSum / totalWeight;
 }
 
 
