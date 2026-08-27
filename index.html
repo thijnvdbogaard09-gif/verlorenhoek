@@ -151,6 +151,38 @@ button {
     text-align:center;
 }
 
+.login-success {
+    display:none;
+    margin-top:12px;
+    padding:10px;
+    border-radius:7px;
+    background:#eaf1e9;
+    color:#3f7d4a;
+    font-size:13px;
+    line-height:1.45;
+    text-align:center;
+}
+
+.login-switch {
+    margin-top:20px;
+    text-align:center;
+    font-size:13px;
+    color:var(--muted);
+}
+
+.login-switch-button {
+    border:none;
+    background:transparent;
+    padding:0;
+    color:var(--olive-dark);
+    font-weight:600;
+    font-size:13px;
+}
+
+.login-switch-button:hover {
+    text-decoration:underline;
+}
+
 /* =========================================================
    WEBSITE
 ========================================================= */
@@ -1702,7 +1734,7 @@ main {
 
 <section id="loginPage">
 
-<div class="login-box">
+<div id="loginBox" class="login-box">
 
 <div class="login-mark">
 <svg fill="none"
@@ -1753,6 +1785,99 @@ Wachtwoord
 </button>
 
 <div id="loginError" class="login-error"></div>
+
+<div class="login-switch">
+Nog geen account?
+<button
+    class="login-switch-button"
+    onclick="showSignupForm()"
+>
+    Registreren
+</button>
+</div>
+
+</div>
+
+
+<div
+    id="signupBox"
+    class="login-box"
+    style="display:none"
+>
+
+<div class="login-mark">
+<svg fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <use href="#grid"></use>
+</svg>
+</div>
+
+<h1>Account aanmaken</h1>
+
+<p>
+Maak een account om je eigen persoonlijke dashboard te krijgen.
+</p>
+
+<label class="input-label">
+E-mailadres
+</label>
+
+<input
+    id="signupEmailInput"
+    class="login-input"
+    type="email"
+    autocomplete="email"
+    placeholder="jouw@email.nl"
+>
+
+<label class="input-label">
+Wachtwoord
+</label>
+
+<input
+    id="signupPasswordInput"
+    class="login-input"
+    type="password"
+    autocomplete="new-password"
+    placeholder="Minimaal 6 tekens"
+>
+
+<label class="input-label">
+Wachtwoord herhalen
+</label>
+
+<input
+    id="signupConfirmInput"
+    class="login-input"
+    type="password"
+    autocomplete="new-password"
+    placeholder="Wachtwoord herhalen"
+>
+
+<button
+    id="signupButton"
+    class="login-button"
+    onclick="signUp()"
+>
+    Account aanmaken
+</button>
+
+<div id="signupError" class="login-error"></div>
+
+<div id="signupSuccess" class="login-success"></div>
+
+<div class="login-switch">
+Heb je al een account?
+<button
+    class="login-switch-button"
+    onclick="showLoginForm()"
+>
+    Inloggen
+</button>
+</div>
 
 </div>
 
@@ -3016,6 +3141,204 @@ async function login() {
 
 
 /* =========================================================
+   REGISTREREN
+========================================================= */
+
+async function signUp() {
+
+    const email =
+        document
+            .getElementById("signupEmailInput")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("signupPasswordInput")
+            .value;
+
+    const confirmPassword =
+        document
+            .getElementById("signupConfirmInput")
+            .value;
+
+    const error =
+        document.getElementById(
+            "signupError"
+        );
+
+    const success =
+        document.getElementById(
+            "signupSuccess"
+        );
+
+    const button =
+        document.getElementById(
+            "signupButton"
+        );
+
+    error.style.display = "none";
+    error.textContent = "";
+
+    success.style.display = "none";
+    success.textContent = "";
+
+    if (!email || !password || !confirmPassword) {
+
+        error.textContent =
+            "Vul je e-mailadres en beide wachtwoordvelden in.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+    if (password.length < 6) {
+
+        error.textContent =
+            "Je wachtwoord moet minimaal 6 tekens lang zijn.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+    if (password !== confirmPassword) {
+
+        error.textContent =
+            "De wachtwoorden komen niet overeen.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Account aanmaken...";
+
+    try {
+
+        const {
+            data,
+            error: signUpError
+        } =
+            await supabaseClient.auth
+                .signUp({
+                    email:email,
+                    password:password
+                });
+
+        if (signUpError) {
+
+            console.error(
+                "Supabase registratie error:",
+                signUpError
+            );
+
+            error.textContent =
+                signUpError.message ||
+                "Registreren mislukt.";
+
+            error.style.display = "block";
+
+            return;
+        }
+
+        if (data.session) {
+
+            console.log(
+                "Account aangemaakt en direct ingelogd:",
+                data.user
+            );
+
+            await showWebsite();
+
+            return;
+        }
+
+        success.textContent =
+            "Je account is aangemaakt. Check je e-mail om je account te bevestigen, en log daarna in.";
+
+        success.style.display = "block";
+
+        document.getElementById(
+            "signupEmailInput"
+        ).value = "";
+
+        document.getElementById(
+            "signupPasswordInput"
+        ).value = "";
+
+        document.getElementById(
+            "signupConfirmInput"
+        ).value = "";
+
+    } catch (err) {
+
+        console.error(
+            "Onverwachte registratiefout:",
+            err
+        );
+
+        error.textContent =
+            "Er is een onverwachte fout opgetreden: " +
+            (err.message || err);
+
+        error.style.display = "block";
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Account aanmaken";
+    }
+}
+
+
+function showSignupForm() {
+
+    document.getElementById(
+        "loginError"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginBox"
+    ).style.display = "none";
+
+    document.getElementById(
+        "signupBox"
+    ).style.display = "block";
+
+    document.getElementById(
+        "signupEmailInput"
+    ).focus();
+}
+
+
+function showLoginForm() {
+
+    document.getElementById(
+        "signupError"
+    ).style.display = "none";
+
+    document.getElementById(
+        "signupSuccess"
+    ).style.display = "none";
+
+    document.getElementById(
+        "signupBox"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginBox"
+    ).style.display = "block";
+
+    document.getElementById(
+        "emailInput"
+    ).focus();
+}
+
+
+/* =========================================================
    WEBSITE TONEN
 ========================================================= */
 
@@ -3065,6 +3388,8 @@ async function logout() {
     document
         .getElementById("passwordInput")
         .value = "";
+
+    showLoginForm();
 
     openPage("homePage");
 }
@@ -6554,6 +6879,60 @@ document
                 event.key === "Enter"
             ) {
                 login();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "signupEmailInput"
+    )
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+                signUp();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "signupPasswordInput"
+    )
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+                signUp();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "signupConfirmInput"
+    )
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+                signUp();
             }
 
         }
